@@ -1,0 +1,34 @@
+{
+  "type": "petrochem:distilling",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:mod_loaded",
+        "modid": "petrochem_expert"
+      }
+    }
+  ],
+  "ingredients": [
+    {
+      "amount": 1200,
+      "fluid": "petrochem:desalted_oil",
+      "nbt": {}
+    }
+  ],
+  "mode": "distil_flash",
+  "results": [
+    {
+      "amount": 200,
+      "fluid": "petrochem:lpg"
+    },
+    {
+      "amount": 200,
+      "fluid": "petrochem:light_naphta"
+    },
+    {
+      "amount": 1000,
+      "fluid": "petrochem:oil"
+    }
+  ]
+}

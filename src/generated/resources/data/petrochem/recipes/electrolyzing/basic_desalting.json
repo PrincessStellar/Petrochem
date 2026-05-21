@@ -1,0 +1,26 @@
+{
+  "type": "petrochem:electrolyzing",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:mod_loaded",
+        "modid": "petrochem_expert"
+      }
+    }
+  ],
+  "energy": 100,
+  "ingredients": [
+    {
+      "amount": 500,
+      "fluid": "petrochem:petroleum",
+      "nbt": {}
+    }
+  ],
+  "results": [
+    {
+      "amount": 500,
+      "fluid": "petrochem:desalted_oil"
+    }
+  ]
+}

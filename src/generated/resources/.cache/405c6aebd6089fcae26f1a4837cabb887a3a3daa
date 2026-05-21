@@ -1,4 +1,11 @@
-// 1.20.1	2026-04-27T21:45:02.111665592	Petrochem's Processing Recipes
+// 1.20.1	2026-05-20T20:23:55.412269273	Petrochem's Processing Recipes
+28e860bd4f69a12d381f51070fcf667f72814709 data/petrochem/recipes/diesel_engine_fuel/diesel.json
+1d7b8d4f33b3a2a03b025cad3472adebdc4bf727 data/petrochem/recipes/diesel_engine_fuel/fuel_oil.json
+c0629aecbba81a2a477d0dedaeb4a0a684eb5284 data/petrochem/recipes/diesel_engine_fuel/raw_petroleum.json
+5a1bdb521f6317e0cd3795c0d90c61b88dce678d data/petrochem/recipes/distilling/basic_atmospheric.json
+751b5d7de0c587496b9554d3ee7e26a9c6a2a109 data/petrochem/recipes/distilling/basic_flash.json
+7bfd78056a7f150abab650cc7b824082280eedc1 data/petrochem/recipes/distilling/basic_vacuum.json
+1ca1c505421cb023d054698949b023b227afec2e data/petrochem/recipes/electrolyzing/basic_desalting.json
 c4d236bea04217a3cac77303b887e396e09e6254 data/petrochem/recipes/gasoline_engine_fuel/gasoline.json
 d51603734cb8ec59c641f35f06add52c5487ebf0 data/petrochem/recipes/gasoline_engine_fuel/kerosene.json
 2c51373e4b3201a36e975208a9af525be3d6e654 data/petrochem/recipes/mixing/sulfuric_acid.json

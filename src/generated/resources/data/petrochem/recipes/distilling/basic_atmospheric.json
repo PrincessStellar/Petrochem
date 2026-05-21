@@ -1,0 +1,38 @@
+{
+  "type": "petrochem:distilling",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:mod_loaded",
+        "modid": "petrochem_expert"
+      }
+    }
+  ],
+  "ingredients": [
+    {
+      "amount": 1000,
+      "fluid": "petrochem:oil",
+      "nbt": {}
+    }
+  ],
+  "mode": "distil_atmospheric",
+  "results": [
+    {
+      "amount": 300,
+      "fluid": "petrochem:heavy_naphta"
+    },
+    {
+      "amount": 150,
+      "fluid": "petrochem:kerosene"
+    },
+    {
+      "amount": 200,
+      "fluid": "petrochem:diesel"
+    },
+    {
+      "amount": 200,
+      "fluid": "petrochem:oil_residue"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "type": "petrochem:distilling",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:mod_loaded",
+        "modid": "petrochem_expert"
+      }
+    }
+  ],
+  "ingredients": [
+    {
+      "amount": 600,
+      "fluid": "petrochem:oil_residue",
+      "nbt": {}
+    }
+  ],
+  "mode": "distil_vacuum",
+  "results": [
+    {
+      "amount": 300,
+      "fluid": "petrochem:fuel_oil"
+    },
+    {
+      "amount": 150,
+      "fluid": "petrochem:heavy_gas_oil"
+    },
+    {
+      "amount": 200,
+      "fluid": "petrochem:heavy_oil_residue"
+    }
+  ]
+}

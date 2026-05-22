@@ -1,0 +1,19 @@
+{
+  "type": "create:compacting",
+  "ingredients": [
+    {
+      "amount": 600,
+      "fluid": "petrochem:heavy_oil_residue",
+      "nbt": {}
+    }
+  ],
+  "results": [
+    {
+      "item": "petrochem:petroleum_coke"
+    },
+    {
+      "amount": 400,
+      "fluid": "petrochem:fuel_oil"
+    }
+  ]
+}

@@ -15,8 +15,8 @@ public class PetrochemTags {
     public static TagKey<Fluid> EXPERT_ONLY_FLUID = TagKey.create(Registries.FLUID, new ResourceLocation(Petrochem.MODID, "expert_fluid"));
     public static TagKey<Block> EXPERT_ONLY_BLOCK = TagKey.create(Registries.BLOCK, new ResourceLocation(Petrochem.MODID, "expert_fluid"));
 
-    public static TagKey<Item> NON_EXPERT_ONLY_ITEM = TagKey.create(Registries.ITEM, new ResourceLocation(Petrochem.MODID, "non_expert_item"));
-    public static TagKey<Fluid> NON_EXPERT_ONLY_FLUID = TagKey.create(Registries.FLUID, new ResourceLocation(Petrochem.MODID, "non_expert_fluid"));
-    public static TagKey<Block> NON_EXPERT_ONLY_BLOCK = TagKey.create(Registries.BLOCK, new ResourceLocation(Petrochem.MODID, "non_expert_fluid"));
+    public static TagKey<Item> BASE_ITEM = TagKey.create(Registries.ITEM, new ResourceLocation(Petrochem.MODID, "base_item"));
+    public static TagKey<Fluid> BASE_FLUID = TagKey.create(Registries.FLUID, new ResourceLocation(Petrochem.MODID, "base_fluid"));
+    public static TagKey<Block> BASE_BLOCK = TagKey.create(Registries.BLOCK, new ResourceLocation(Petrochem.MODID, "base_fluid"));
 
 }

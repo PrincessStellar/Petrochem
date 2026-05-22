@@ -1,5 +1,5 @@
 {
-  "type": "petrochem:electrolyzing",
+  "type": "create:mixing",
   "conditions": [
     {
       "type": "forge:not",
@@ -9,22 +9,23 @@
       }
     }
   ],
-  "energy": 100,
+  "heatRequirement": "heated",
   "ingredients": [
     {
+      "amount": 300,
+      "fluid": "petrochem:heavy_gas_oil",
+      "nbt": {}
+    },
+    {
       "amount": 500,
-      "fluid": "petrochem:petroleum",
+      "fluid": "petrochem:heavy_naphta",
       "nbt": {}
     }
   ],
   "results": [
     {
-      "chance": 0.5,
-      "item": "petrochem:salt_dust"
-    },
-    {
-      "amount": 500,
-      "fluid": "petrochem:desalted_oil"
+      "amount": 800,
+      "fluid": "petrochem:gasoline"
     }
   ]
 }

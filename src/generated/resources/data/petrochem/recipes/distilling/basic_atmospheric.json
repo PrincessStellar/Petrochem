@@ -11,7 +11,7 @@
   ],
   "ingredients": [
     {
-      "amount": 1000,
+      "amount": 2000,
       "fluid": "petrochem:oil",
       "nbt": {}
     }
@@ -19,20 +19,20 @@
   "mode": "distil_atmospheric",
   "results": [
     {
-      "amount": 300,
-      "fluid": "petrochem:heavy_naphta"
+      "amount": 800,
+      "fluid": "petrochem:oil_residue"
     },
     {
-      "amount": 150,
-      "fluid": "petrochem:kerosene"
-    },
-    {
-      "amount": 200,
+      "amount": 400,
       "fluid": "petrochem:diesel"
     },
     {
-      "amount": 200,
-      "fluid": "petrochem:oil_residue"
+      "amount": 300,
+      "fluid": "petrochem:kerosene"
+    },
+    {
+      "amount": 500,
+      "fluid": "petrochem:heavy_naphta"
     }
   ]
 }

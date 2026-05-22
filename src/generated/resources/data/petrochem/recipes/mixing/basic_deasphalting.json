@@ -1,0 +1,35 @@
+{
+  "type": "create:mixing",
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "forge:mod_loaded",
+        "modid": "petrochem_expert"
+      }
+    }
+  ],
+  "heatRequirement": "heated",
+  "ingredients": [
+    {
+      "amount": 300,
+      "fluid": "petrochem:fuel_oil",
+      "nbt": {}
+    },
+    {
+      "amount": 50,
+      "fluid": "petrochem:lpg",
+      "nbt": {}
+    }
+  ],
+  "results": [
+    {
+      "count": 2,
+      "item": "petrochem:asphalt"
+    },
+    {
+      "amount": 100,
+      "fluid": "petrochem:lubricant"
+    }
+  ]
+}

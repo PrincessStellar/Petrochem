@@ -80,10 +80,10 @@ public class PetrochemFluids {
 
     public static final FluidEntry<ForgeFlowingFluid.Flowing> NITROGEN = gas("Nitrogen", true);
     public static final FluidEntry<ForgeFlowingFluid.Flowing> OXYGEN = gas("Oxygen", true);
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> HYDROGEN = gas("Hydrogen", true);
+    public static final FluidEntry<ForgeFlowingFluid.Flowing> HYDROGEN = gas("Hydrogen", false);
 
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> STEAM = gas("Steam", true);
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> CHLORINE = gas("Chlorine", true);
+    public static final FluidEntry<ForgeFlowingFluid.Flowing> STEAM = gas("Steam", false);
+    public static final FluidEntry<ForgeFlowingFluid.Flowing> CHLORINE = gas("Chlorine", false);
     public static final FluidEntry<ForgeFlowingFluid.Flowing> HYDROGEN_SULFIDE = gas("hydrogen_sulfide", true);
     public static final FluidEntry<ForgeFlowingFluid.Flowing> VOLATILE_GAS = gas("volatile_gas", true);
     public static final FluidEntry<ForgeFlowingFluid.Flowing> BUTANE = gas("Butane", true);
@@ -101,14 +101,14 @@ public class PetrochemFluids {
         DESULFURIZED_HEAVY_NAPHTA = oillike("desulfurized_heavy_naphta", "Desulfurized Heavy Naphta", 0xcfc254, true),
         PLASTIC = oillike("plastic", "Liquid Polyethylene", 0xd8d8d5, false),
         HYDROCRACKED_GASOLINE = oillike("hydrocracked_gasoline", "Raw Gasoline", 0xa68d3f, true),
-        UNTREATED_GASOLINE = oillike("untreated_gasoline", "Untreated Gasoline", 0xc49b21, false),
+        UNTREATED_GASOLINE = oillike("untreated_gasoline", "Untreated Gasoline", 0xc49b21, true),
         GASOLINE = oillike("gasoline", "Refined Gasoline", 0xcfc254, false),
         KEROSENE = oillike("kerosene", "Kerosene", 0x26a69a, false),
         DESULFURIZED_KEROSENE = oillike("desulfurized_kerosene", "Desulfurized Kerosene", 0x26a69a,true),
         LIGHT_DIESEL = oillike("light_diesel", "Light Diesel", 0xb58c4f, true),
         HEAVY_DIESEL = oillike("heavy_diesel", "Heavy Diesel", 0x856638, true),
         REFINED_DIESEL = oillike("diesel", "Refined Diesel", 0xe57373, false),
-        LIGHT_GAS_OIL = oillike("light_gas_oil", "Light Gas Oil", 0x5e7a88, false),
+        LIGHT_GAS_OIL = oillike("light_gas_oil", "Light Gas Oil", 0x5e7a88, true),
         HEAVY_GAS_OIL = oillike("heavy_gas_oil", "Heavy Gas Oil", 0x2c393f, false),
         HYDROTREATED_GAS_OIL = oillike("hydrotreated_gas_oil", "Hydrotreated Gas Oil", 0x3c394f, true),
         DESULFURIZED_HEAVY_DIESEL = oillike("desulfurized_heavy_diesel", "Desulfurized Heavy Diesel", 0xb54f4f, true),
@@ -120,6 +120,11 @@ public class PetrochemFluids {
     ;
 
     public static FluidEntry<ForgeFlowingFluid.Flowing> gas(String name, boolean expert){
+        if(expert) {
+            PetrochemCreativeTabs.expert_fluid_ids.add(name.toLowerCase());
+            PetrochemCreativeTabs.expert_item_ids.add(name.toLowerCase() + "_bucket");
+        }
+
         return REGISTRATE
             .fluid(name.toLowerCase(), Petrochem.asResource("fluid/" + name.toLowerCase() + "_still"), Petrochem.asResource("fluid/" + name.toLowerCase() + "_flow"), TransparentFluidType::new)
             .properties(p -> p.viscosity(0).density(-100))
@@ -128,14 +133,20 @@ public class PetrochemFluids {
                     .slopeFindDistance(3)
                     .explosionResistance(100f))
             .source(ForgeFlowingFluid.Source::new)
+            .tag(expert? PetrochemTags.EXPERT_ONLY_FLUID : PetrochemTags.BASE_FLUID)
             .bucket()
-            .tag(expert? PetrochemTags.EXPERT_ONLY_ITEM : PetrochemTags.NON_EXPERT_ONLY_ITEM)
+            .tag(expert? PetrochemTags.EXPERT_ONLY_ITEM : PetrochemTags.BASE_ITEM)
             .build()
             .register();
     }
 
 
     public static FluidEntry<ForgeFlowingFluid.Flowing> oillike(String name, String lang, int fogColor, boolean expert){
+
+        if(expert) {
+            PetrochemCreativeTabs.expert_fluid_ids.add(name.toLowerCase());
+            PetrochemCreativeTabs.expert_item_ids.add(name.toLowerCase() + "_bucket");
+        }
         return REGISTRATE.standardFluid(name,
                             SolidRenderedPlaceableFluidType.create(fogColor,
                                     () -> 1f / 32f ))
@@ -147,10 +158,12 @@ public class PetrochemFluids {
                             .slopeFindDistance(3)
                             .explosionResistance(100f))
                     .source(ForgeFlowingFluid.Source::new)
+                    .tag(expert? PetrochemTags.EXPERT_ONLY_FLUID : PetrochemTags.BASE_FLUID)
                     .block()
                     .properties(p -> p.mapColor(MapColor.TERRACOTTA_YELLOW))
                     .build()
                     .bucket()
+                    .tag(expert? PetrochemTags.EXPERT_ONLY_ITEM : PetrochemTags.BASE_ITEM)
 //                    .onRegister(AllFluids::registerFluidDispenseBehavior)
                     .build()
                     .register();

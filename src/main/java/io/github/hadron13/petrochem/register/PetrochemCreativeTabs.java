@@ -16,6 +16,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -45,6 +46,9 @@ public class PetrochemCreativeTabs {
         TAB_REGISTER.register(modEventBus);
     }
 
+    public static HashSet<String> expert_item_ids = new HashSet<>();
+    public static HashSet<String> expert_fluid_ids = new HashSet<>();
+
     public static class RegistrateDisplayItemsGenerator implements CreativeModeTab.DisplayItemsGenerator {
 
 
@@ -65,7 +69,6 @@ public class PetrochemCreativeTabs {
                 if (item == Items.AIR)
                     continue;
 
-
                 items.add(item);
             }
             items = new ReferenceArrayList<>(new ReferenceLinkedOpenHashSet<>(items));
@@ -82,8 +85,11 @@ public class PetrochemCreativeTabs {
                 Item item = entry.get();
                 if (item instanceof BlockItem)
                     continue;
+                if(!Petrochem.expertEnabled && expert_item_ids.contains(entry.getId().getPath()))
+                    continue;
                 if (!exclusionPredicate.test(item))
                     items.add(item);
+
             }
             return items;
         }

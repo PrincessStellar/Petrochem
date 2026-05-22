@@ -40,6 +40,8 @@ public class PetrochemRecipeProvider extends RecipeProvider {
         GENERATORS.add(new PetrochemMixingRecipeGen(output));
         GENERATORS.add(new PetrochemDistillingRecipeGen(output));
 
+        GENERATORS.add(new PetrochemCompactingRecipeGen(output));
+
         gen.addProvider(true, new DataProvider() {
 
             @Override

@@ -1,0 +1,21 @@
+{
+  "type": "petrochem:electrolyzing",
+  "energy": 150,
+  "ingredients": [
+    {
+      "amount": 300,
+      "fluid": "minecraft:water",
+      "nbt": {}
+    }
+  ],
+  "results": [
+    {
+      "amount": 200,
+      "fluid": "petrochem:hydrogen"
+    },
+    {
+      "amount": 100,
+      "fluid": "petrochem:oxygen"
+    }
+  ]
+}

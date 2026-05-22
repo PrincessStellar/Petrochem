@@ -262,6 +262,7 @@ public class PetrochemBlocks {
             .initialProperties(SharedProperties::softMetal)
             .properties(p -> p.sound(SoundType.METAL).mapColor(MapColor.METAL).noOcclusion())
             .transform(pickaxeOnly())
+            .lang("Gasoline Engine")
             .blockstate(BlockStateGen.horizontalBlockProvider(true))
             .transform(PetrochemStress.setCapacity(256.0))
             .onRegister(BlockStressValues.setGeneratorSpeed(256, true))
@@ -271,14 +272,15 @@ public class PetrochemBlocks {
 
 
     public static final BlockEntry<MediumEngineBlock> MEDIUM_ENGINE = REGISTRATE.block("medium_engine", MediumEngineBlock::new)
-                    .initialProperties(SharedProperties::softMetal)
-                    .transform(pickaxeOnly())
-                    .blockstate((c, p) -> p.horizontalFaceBlock(c.get(), AssetLookup.partialBaseModel(c, p)))
-                    .transform(PetrochemStress.setCapacity(131072.0))
-                    .onRegister(BlockStressValues.setGeneratorSpeed(1, true))
-                    .item()
-                    .transform(customItemModel())
-                    .register();
+            .initialProperties(SharedProperties::softMetal)
+            .transform(pickaxeOnly())
+            .lang("Diesel Engine")
+            .blockstate((c, p) -> p.horizontalFaceBlock(c.get(), AssetLookup.partialBaseModel(c, p)))
+            .transform(PetrochemStress.setCapacity(131072.0))
+            .onRegister(BlockStressValues.setGeneratorSpeed(1, true))
+            .item()
+            .transform(customItemModel())
+            .register();
 
 
 }

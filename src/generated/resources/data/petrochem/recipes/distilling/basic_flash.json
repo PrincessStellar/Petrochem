@@ -19,16 +19,16 @@
   "mode": "distil_flash",
   "results": [
     {
-      "amount": 200,
-      "fluid": "petrochem:lpg"
+      "amount": 1000,
+      "fluid": "petrochem:oil"
     },
     {
       "amount": 200,
       "fluid": "petrochem:light_naphta"
     },
     {
-      "amount": 1000,
-      "fluid": "petrochem:oil"
+      "amount": 200,
+      "fluid": "petrochem:lpg"
     }
   ]
 }

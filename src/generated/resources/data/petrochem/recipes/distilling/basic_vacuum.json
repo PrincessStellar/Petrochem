@@ -11,7 +11,7 @@
   ],
   "ingredients": [
     {
-      "amount": 600,
+      "amount": 800,
       "fluid": "petrochem:oil_residue",
       "nbt": {}
     }
@@ -19,16 +19,16 @@
   "mode": "distil_vacuum",
   "results": [
     {
-      "amount": 300,
-      "fluid": "petrochem:fuel_oil"
+      "amount": 200,
+      "fluid": "petrochem:heavy_oil_residue"
     },
     {
-      "amount": 150,
+      "amount": 300,
       "fluid": "petrochem:heavy_gas_oil"
     },
     {
-      "amount": 200,
-      "fluid": "petrochem:heavy_oil_residue"
+      "amount": 300,
+      "fluid": "petrochem:fuel_oil"
     }
   ]
 }

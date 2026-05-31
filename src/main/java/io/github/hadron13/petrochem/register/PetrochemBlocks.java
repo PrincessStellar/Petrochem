@@ -91,15 +91,16 @@ public class PetrochemBlocks {
             .register();
 
 
-    public static final BlockEntry<CentrifugeBlock> CENTRIFUGE = REGISTRATE.block("centrifuge", CentrifugeBlock::new)
-            .initialProperties(SharedProperties::stone)
-            .properties(p -> p.sound(SoundType.METAL).mapColor(MapColor.METAL))
-            .transform(pickaxeOnly())
-            .blockstate(new PartialAxisBlockStateGen()::generate)
-            .transform(PetrochemStress.setImpact(8.0))
-            .item()
-            .transform(customItemModel())
-            .register();
+    public static final BlockEntry<CentrifugeBlock> CENTRIFUGE = null;
+//    REGISTRATE.block("centrifuge", CentrifugeBlock::new)
+//            .initialProperties(SharedProperties::stone)
+//            .properties(p -> p.sound(SoundType.METAL).mapColor(MapColor.METAL))
+//            .transform(pickaxeOnly())
+//            .blockstate(new PartialAxisBlockStateGen()::generate)
+//            .transform(PetrochemStress.setImpact(8.0))
+//            .item()
+//            .transform(customItemModel())
+//            .register();
 
 
     public static final BlockEntry<PumpjackArmBlock> PUMPJACK_ARM = REGISTRATE.block("pumpjack_arm", PumpjackArmBlock::new)

@@ -142,22 +142,24 @@ dependencies {
     modCompileOnly("mezz.jei:jei-${minecraft_version}-common-api:${jei_version}") { transitive = false }
     modCompileOnly("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}") { transitive = false }
     modCompileOnly("mezz.jei:jei-${minecraft_version}-forge:${jei_version}") { transitive = false }
-    modRuntimeOnly("curse.maven:createaddition-439890:6306951") { transitive = false }
     modRuntimeOnly("curse.maven:spark-361579:4738952")
+
 
     modRuntimeOnly("curse.maven:embeddium-908741:5681725") { transitive = false }
     modRuntimeOnly("curse.maven:oculus-581495:6020952") { transitive = false }
 
     modRuntimeOnly("mezz.jei:jei-${minecraft_version}-forge:${jei_version}") { transitive = false }
 
-
+    //KubeJS compat
     modImplementation("dev.latvian.mods:kubejs-forge:${kubejs_version}")
     modImplementation("dev.latvian.mods:rhino-forge:${rhino_version}")
     modImplementation("dev.architectury:architectury-forge:${architectury_version}")
     modRuntimeOnly("dev.latvian.mods:kubejs-create-forge:${kubejs_create_version}")
 
-    //compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_minecraft_version}-${curios_version}:api")
-    //runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_minecraft_version}-${curios_version}")
+    //Create Addon dependencies
+    modImplementation("curse.maven:createaddition-439890:6306951")
+    modImplementation("curse.maven:create-alloyed-564792:7602388")
+
 
     if (System.getProperty('idea.sync.active') != 'true') {
         annotationProcessor "org.spongepowered:mixin:${mixin_version}:processor"

@@ -3,9 +3,12 @@ package io.github.hadron13.petrochem.data;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.simibubi.create.AllSoundEvents;
+import com.simibubi.create.foundation.data.recipe.CreateStandardRecipeGen;
 import com.simibubi.create.foundation.utility.FilesHelper;
 import com.tterrag.registrate.providers.ProviderType;
 import io.github.hadron13.petrochem.Petrochem;
+import io.github.hadron13.petrochem.data.recipe.PetrochemMechanicalCraftingRecipeGen;
+import io.github.hadron13.petrochem.data.recipe.PetrochemStandardRecipeGen;
 import io.github.hadron13.petrochem.ponder.PetrochemPonderPlugin;
 import io.github.hadron13.petrochem.register.PetrochemSoundEvents;
 import net.createmod.ponder.foundation.PonderIndex;
@@ -32,6 +35,8 @@ public class PetrochemDatagen {
         PetrochemGeneratedEntriesProvider generatedEntriesProvider = new PetrochemGeneratedEntriesProvider(output, lookupProvider);
         generator.addProvider(event.includeServer(), generatedEntriesProvider);
 
+        generator.addProvider(event.includeServer(), new PetrochemStandardRecipeGen(output));
+        generator.addProvider(event.includeServer(), new PetrochemMechanicalCraftingRecipeGen(output));
 
         if (event.includeServer()) {
             PetrochemRecipeProvider.registerAllProcessing(generator, output);

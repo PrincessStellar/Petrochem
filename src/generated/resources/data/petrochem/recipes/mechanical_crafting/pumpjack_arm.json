@@ -1,0 +1,28 @@
+{
+  "type": "create:mechanical_crafting",
+  "acceptMirrored": true,
+  "key": {
+    "A": {
+      "item": "create:shaft"
+    },
+    "B": {
+      "item": "alloyed:steel_block"
+    },
+    "C": {
+      "item": "minecraft:chain"
+    },
+    "I": {
+      "item": "alloyed:steel_ingot"
+    },
+    "S": {
+      "item": "alloyed:steel_sheet"
+    }
+  },
+  "pattern": [
+    "SSSSSSB",
+    "C IAI  "
+  ],
+  "result": {
+    "item": "petrochem:pumpjack_arm"
+  }
+}

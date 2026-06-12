@@ -29,3 +29,15 @@ The definitive petrol experience
     versionRange="[0.6.4,)"
     ordering="NONE"
     side="BOTH"
+[[dependencies.petrochem]]
+    modId="alloyed"
+    mandatory=true
+    versionRange="[2.0.0,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.petrochem]]
+    modId="createaddition"
+    mandatory=true
+    versionRange="[1.0.0,)"
+    ordering="NONE"
+    side="BOTH"

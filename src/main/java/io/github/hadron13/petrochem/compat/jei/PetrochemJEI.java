@@ -73,14 +73,14 @@ public class PetrochemJEI implements IModPlugin {
                 .emptyBackground(177, 103)
                 .build("electrolyzing", ElectrolyzingCategory::new);
 
-
-        CreateRecipeCategory<?>
-                centrifuging = builder(CentrifugingRecipe.class)
-                .addTypedRecipes(PetrochemRecipeTypes.CENTRIFUGING)
-                .catalyst(PetrochemBlocks.CENTRIFUGE::get)
-                .itemIcon(PetrochemBlocks.CENTRIFUGE.get())
-                .emptyBackground(177, 93)
-                .build("centrifuging", CentrifugingCategory::new);
+//
+//        CreateRecipeCategory<?>
+//                centrifuging = builder(CentrifugingRecipe.class)
+//                .addTypedRecipes(PetrochemRecipeTypes.CENTRIFUGING)
+//                .catalyst(PetrochemBlocks.CENTRIFUGE::get)
+//                .itemIcon(PetrochemBlocks.CENTRIFUGE.get())
+//                .emptyBackground(177, 93)
+//                .build("centrifuging", CentrifugingCategory::new);
 
         CreateRecipeCategory<?>
                 pumpjack = builder(PumpjackRecipe.class)

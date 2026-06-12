@@ -68,6 +68,11 @@ public class PetrochemFluids {
                     .build()
                     .register();
 
+    static{
+        PetrochemCreativeTabs.expert_fluid_ids.add("sulfuric_acid");
+        PetrochemCreativeTabs.expert_fluid_ids.add("sulfuric_acid_bucket");
+    }
+
 
     public static final FluidEntry<VirtualFluid> AIR = REGISTRATE
             .virtualFluid("air")
@@ -80,7 +85,7 @@ public class PetrochemFluids {
 
     public static final FluidEntry<ForgeFlowingFluid.Flowing> NITROGEN = gas("Nitrogen", true);
     public static final FluidEntry<ForgeFlowingFluid.Flowing> OXYGEN = gas("Oxygen", true);
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> HYDROGEN = gas("Hydrogen", false);
+    public static final FluidEntry<ForgeFlowingFluid.Flowing> HYDROGEN = gas("Hydrogen", true);
 
     public static final FluidEntry<ForgeFlowingFluid.Flowing> STEAM = gas("Steam", false);
     public static final FluidEntry<ForgeFlowingFluid.Flowing> CHLORINE = gas("Chlorine", false);

@@ -64,13 +64,14 @@ public class PetrochemBlockEntities {
             .register();
 
 
-    public static final BlockEntityEntry<CentrifugeBlockEntity> CENTRIFUGE = REGISTRATE
-            .blockEntity("centrifuge", CentrifugeBlockEntity::new)
-            .visual(() -> CentrifugeVisual::new)
-            .validBlocks(PetrochemBlocks.CENTRIFUGE)
-            .renderer(() -> CentrifugeRenderer::new)
-            .register();
-
+    public static final BlockEntityEntry<CentrifugeBlockEntity> CENTRIFUGE = null;
+//            REGISTRATE
+//            .blockEntity("centrifuge", CentrifugeBlockEntity::new)
+//            .visual(() -> CentrifugeVisual::new)
+//            .validBlocks(PetrochemBlocks.CENTRIFUGE)
+//            .renderer(() -> CentrifugeRenderer::new)
+//            .register();
+//
 
 
     public static final BlockEntityEntry<PumpjackArmBlockEntity> PUMPJACK_ARM = REGISTRATE

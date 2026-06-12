@@ -21,6 +21,7 @@ public class PetrochemElectrolyzingRecipeGen extends ElectrolyzingRecipeGen {
             .require(Fluids.WATER, 300)
             .output(PetrochemFluids.HYDROGEN.get(), 200)
             .output(PetrochemFluids.OXYGEN.get(), 100)
+            .whenModLoaded(Petrochem.REALISTIC_MODID)
     ),
     CHLOR_ALKALI = createElectrolyzing("chlor_alkali", b -> (ElectrolyzingRecipeBuilder) b
             .energy(150)

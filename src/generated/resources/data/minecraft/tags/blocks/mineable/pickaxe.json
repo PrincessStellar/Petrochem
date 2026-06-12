@@ -2,7 +2,6 @@
   "values": [
     "petrochem:kiln",
     "petrochem:electrolyzer",
-    "petrochem:centrifuge",
     "petrochem:pumpjack_arm",
     "petrochem:pumpjack_crank",
     "petrochem:pumpjack_well",

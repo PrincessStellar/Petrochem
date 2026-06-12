@@ -1,4 +1,4 @@
-// 1.20.1	2026-05-21T19:37:10.457809433	Petrochem's Processing Recipes
+// 1.20.1	2026-06-12T19:35:24.798980186	Petrochem's Processing Recipes
 d5afb1538dbf3af6b0023f97f2f62fe659d6a21b data/petrochem/recipes/compacting/coking.json
 28e860bd4f69a12d381f51070fcf667f72814709 data/petrochem/recipes/diesel_engine_fuel/diesel.json
 1d7b8d4f33b3a2a03b025cad3472adebdc4bf727 data/petrochem/recipes/diesel_engine_fuel/fuel_oil.json
@@ -8,12 +8,14 @@ cf785ecd81495bd8f6e0513ea1c1ac13b797b4d7 data/petrochem/recipes/distilling/basic
 19ce4afede6707f3f1f0baa9a2a2b06cc7404ec1 data/petrochem/recipes/distilling/basic_vacuum.json
 5dcfaa330184aca505834626d991607fe12b51bc data/petrochem/recipes/electrolyzing/basic_desalting.json
 4176248ef5dfd0a1bf0845d511f408cb63ac32d1 data/petrochem/recipes/electrolyzing/chlor_alkali.json
-8ceaf0e7313eb95c1a7be3e53c1fc8f2ed6e0c9a data/petrochem/recipes/electrolyzing/water_electrolysis.json
+f83212e0a78068764319a7e10fada90df72ff3db data/petrochem/recipes/electrolyzing/water_electrolysis.json
 c4d236bea04217a3cac77303b887e396e09e6254 data/petrochem/recipes/gasoline_engine_fuel/gasoline.json
 d51603734cb8ec59c641f35f06add52c5487ebf0 data/petrochem/recipes/gasoline_engine_fuel/kerosene.json
 0107b68c0fa5cebc9a851c62e3740436111ecc0b data/petrochem/recipes/mixing/basic_deasphalting.json
 17caea5d7804b738e754f0465732cffa61e2b82c data/petrochem/recipes/mixing/basic_gasoline.json
-2c51373e4b3201a36e975208a9af525be3d6e654 data/petrochem/recipes/mixing/sulfuric_acid.json
+7b5e8887b7c694c1ea4fe05a75ff49e296ff57f2 data/petrochem/recipes/mixing/basic_plastic.json
+ffc54582490acb5af2f71e01423e84b3660d0fe7 data/petrochem/recipes/mixing/naoh_paper.json
+379d28fba8ebd4540c45846fb041e40769341eba data/petrochem/recipes/mixing/sulfuric_acid.json
 1ec039ee780eb5af7d3d2874f1081d49b00c17c4 data/petrochem/recipes/pumpjack/cold_deep_ocean.json
 b1ae5acf17eaea35aae3d1d25443f92d9e90991d data/petrochem/recipes/pumpjack/deep_ocean.json
 101bf7fcdac6f64deaffb1c1acbf071345d4e96f data/petrochem/recipes/pumpjack/desert.json

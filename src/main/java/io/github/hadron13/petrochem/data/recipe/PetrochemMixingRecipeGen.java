@@ -8,6 +8,7 @@ import io.github.hadron13.petrochem.register.PetrochemBlocks;
 import io.github.hadron13.petrochem.register.PetrochemFluids;
 import io.github.hadron13.petrochem.register.PetrochemItems;
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.material.Fluids;
 
 public class PetrochemMixingRecipeGen extends MixingRecipeGen {
@@ -20,6 +21,13 @@ public class PetrochemMixingRecipeGen extends MixingRecipeGen {
             .require(AllItems.GOLDEN_SHEET)
             .output(AllItems.GOLDEN_SHEET)
             .output(PetrochemFluids.SULFURIC_ACID.get(), 1000)
+            .whenModLoaded(Petrochem.REALISTIC_MODID)
+    ),
+    CAUSTIC_PAPER = create("naoh_paper", b -> b
+            .require(AllItems.PULP)
+            .require(AllItems.PULP)
+            .require(PetrochemItems.CAUSTIC_SODA)
+            .output(Items.PAPER, 12)
     ),
     BASIC_GASOLINE = create("basic_gasoline", b -> b
             .require(PetrochemFluids.HEAVY_GAS_OIL.get(), 300)

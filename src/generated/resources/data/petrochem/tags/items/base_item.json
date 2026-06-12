@@ -1,0 +1,19 @@
+{
+  "values": [
+    "petrochem:steam_bucket",
+    "petrochem:chlorine_bucket",
+    "petrochem:lpg_bucket",
+    "petrochem:desalted_oil_bucket",
+    "petrochem:oil_bucket",
+    "petrochem:light_naphta_bucket",
+    "petrochem:heavy_naphta_bucket",
+    "petrochem:plastic_bucket",
+    "petrochem:gasoline_bucket",
+    "petrochem:kerosene_bucket",
+    "petrochem:diesel_bucket",
+    "petrochem:heavy_gas_oil_bucket",
+    "petrochem:oil_residue_bucket",
+    "petrochem:heavy_oil_residue_bucket",
+    "petrochem:lubricant_bucket"
+  ]
+}

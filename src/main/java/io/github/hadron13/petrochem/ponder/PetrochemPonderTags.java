@@ -18,7 +18,6 @@ public class PetrochemPonderTags {
 
 
         HELPER.addToTag(FLUIDS)
-                .add(PetrochemBlocks.CENTRIFUGE)
                 .add(PetrochemBlocks.ELECTROLYZER)
                 .add(PetrochemBlocks.PUMPJACK_WELL)
                 .add(PetrochemBlocks.STEEL_FLUID_PIPE)
@@ -27,7 +26,6 @@ public class PetrochemPonderTags {
                 .add(PetrochemBlocks.DISTILLATION_OUTPUT);
 
         HELPER.addToTag(KINETIC_APPLIANCES)
-                .add(PetrochemBlocks.CENTRIFUGE)
                 .add(PetrochemBlocks.KILN)
                 .add(PetrochemBlocks.PUMPJACK_CRANK);
 

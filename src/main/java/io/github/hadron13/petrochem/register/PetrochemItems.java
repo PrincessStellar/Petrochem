@@ -12,16 +12,18 @@ public class PetrochemItems {
     public static void register() {}
 
     public static final ItemEntry<Item>
-        SULFUR_DUST = ingredient("sulfur_dust"),
-        SALT_DUST = ingredient("salt_dust"),
-        CAUSTIC_SODA = ingredient("caustic_soda");
+        SULFUR_DUST = ingredient("sulfur_dust", true),
+        SALT_DUST = ingredient("salt_dust", false),
+        CAUSTIC_SODA = ingredient("caustic_soda", false);
 
     public static final ItemEntry<CombustibleItem> PET_COKE = REGISTRATE.item("petroleum_coke", CombustibleItem::new)
             .onRegister(i -> i.setBurnTime(4800))
             .register();
 
 
-    private static ItemEntry<Item> ingredient(String name) {
+    private static ItemEntry<Item> ingredient(String name, boolean expert) {
+        if(expert)
+            PetrochemCreativeTabs.expert_item_ids.add(name);
         return REGISTRATE.item(name, Item::new)
                 .register();
     }

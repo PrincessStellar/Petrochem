@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "alloyed:bronze_sheet"
+    },
+    "C": {
+      "item": "alloyed:steel_casing"
+    },
+    "P": {
+      "item": "petrochem:steel_fluid_pipe"
+    },
+    "S": {
+      "item": "alloyed:steel_sheet"
+    }
+  },
+  "pattern": [
+    " B ",
+    "PCP",
+    "SBS"
+  ],
+  "result": {
+    "item": "petrochem:distillation_controller"
+  },
+  "show_notification": true
+}

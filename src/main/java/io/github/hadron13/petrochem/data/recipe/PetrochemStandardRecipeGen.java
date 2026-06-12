@@ -8,13 +8,10 @@ import com.molybdenum.alloyed.common.registry.ModItems;
 import com.mrh0.createaddition.index.CAItems;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
-import com.simibubi.create.Create;
 import com.simibubi.create.api.data.recipe.BaseRecipeProvider;
-import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider;
 import com.tterrag.registrate.util.entry.ItemProviderEntry;
 import io.github.hadron13.petrochem.Petrochem;
 import io.github.hadron13.petrochem.register.PetrochemBlocks;
-import io.github.hadron13.petrochem.register.PetrochemItems;
 import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.data.PackOutput;
@@ -64,7 +61,7 @@ public class PetrochemStandardRecipeGen extends BaseRecipeProvider {
                     );
 
     GeneratedRecipe STEEL_PUMP =
-            create(PetrochemBlocks.STEEL_FLUID_PIPE).withSuffix("_vertical").returns(6)
+            create(PetrochemBlocks.STEEL_PUMP)
                     .unlockedBy(ModItems.STEEL_SHEET::get)
                     .viaShapeless(b -> b
                             .requires(AllBlocks.COGWHEEL.get())
@@ -179,7 +176,7 @@ public class PetrochemStandardRecipeGen extends BaseRecipeProvider {
 
     GeneratedRecipe createSpecial(Supplier<? extends SimpleCraftingRecipeSerializer<?>> serializer, String recipeType,
                                   String path) {
-        ResourceLocation location = Create.asResource(recipeType + "/" + currentFolder + "/" + path);
+        ResourceLocation location = Petrochem.asResource(recipeType + "/" + currentFolder + "/" + path);
         return register(consumer -> {
             SpecialRecipeBuilder b = SpecialRecipeBuilder.special(serializer.get());
             b.save(consumer, location.toString());
@@ -232,7 +229,7 @@ public class PetrochemStandardRecipeGen extends BaseRecipeProvider {
     @Override
     protected void buildRecipes(Consumer<FinishedRecipe> p_200404_1_) {
         all.forEach(c -> c.register(p_200404_1_));
-        Create.LOGGER.info(getName() + " registered " + all.size() + " recipe" + (all.size() == 1 ? "" : "s"));
+        Petrochem.LOGGER.info(getName() + " registered " + all.size() + " recipe" + (all.size() == 1 ? "" : "s"));
     }
 
     protected GeneratedRecipe register(GeneratedRecipe recipe) {
@@ -345,11 +342,11 @@ public class PetrochemStandardRecipeGen extends BaseRecipeProvider {
         }
 
         private ResourceLocation createSimpleLocation(String recipeType) {
-            return Create.asResource(recipeType + "/" + getRegistryName().getPath() + suffix);
+            return Petrochem.asResource(recipeType + "/" + getRegistryName().getPath() + suffix);
         }
 
         private ResourceLocation createLocation(String recipeType) {
-            return Create.asResource(recipeType + "/" + path + "/" + getRegistryName().getPath() + suffix);
+            return Petrochem.asResource(recipeType + "/" + path + "/" + getRegistryName().getPath() + suffix);
         }
 
         private ResourceLocation getRegistryName() {

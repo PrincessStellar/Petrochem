@@ -3,12 +3,21 @@
     "petrochem:nitrogen_bucket",
     "petrochem:oxygen_bucket",
     "petrochem:hydrogen_bucket",
-    "petrochem:steam_bucket",
-    "petrochem:chlorine_bucket",
     "petrochem:hydrogen_sulfide_bucket",
     "petrochem:volatile_gas_bucket",
     "petrochem:butane_bucket",
     "petrochem:propane_bucket",
-    "petrochem:ethylene_bucket"
+    "petrochem:ethylene_bucket",
+    "petrochem:oil_brine_bucket",
+    "petrochem:desulfurized_heavy_naphta_bucket",
+    "petrochem:hydrocracked_gasoline_bucket",
+    "petrochem:untreated_gasoline_bucket",
+    "petrochem:desulfurized_kerosene_bucket",
+    "petrochem:light_diesel_bucket",
+    "petrochem:heavy_diesel_bucket",
+    "petrochem:light_gas_oil_bucket",
+    "petrochem:hydrotreated_gas_oil_bucket",
+    "petrochem:desulfurized_heavy_diesel_bucket",
+    "petrochem:fuel_oil_bucket"
   ]
 }

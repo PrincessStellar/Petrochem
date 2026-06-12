@@ -41,12 +41,13 @@ public class PetrochemBlockEntities {
 
     private static final CreateRegistrate REGISTRATE = Petrochem.registrate();
 
-    public static final BlockEntityEntry<KilnBlockEntity> KILN = REGISTRATE
-            .blockEntity("kiln", KilnBlockEntity::new)
-            .visual(() -> KilnVisual::new)
-            .validBlocks(PetrochemBlocks.KILN)
-            .renderer(() -> KilnRenderer::new)
-            .register();
+    public static final BlockEntityEntry<KilnBlockEntity> KILN = null;
+//            REGISTRATE
+//            .blockEntity("kiln", KilnBlockEntity::new)
+//            .visual(() -> KilnVisual::new)
+//            .validBlocks(PetrochemBlocks.KILN)
+//            .renderer(() -> KilnRenderer::new)
+//            .register();
 
 //    public static final BlockEntityEntry<BlackHoleBlockEntity> BLACK_HOLE = REGISTRATE
 //            .blockEntity("black_hole", BlackHoleBlockEntity::new)

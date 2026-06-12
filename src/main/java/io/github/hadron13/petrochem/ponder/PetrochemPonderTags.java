@@ -26,7 +26,7 @@ public class PetrochemPonderTags {
                 .add(PetrochemBlocks.DISTILLATION_OUTPUT);
 
         HELPER.addToTag(KINETIC_APPLIANCES)
-                .add(PetrochemBlocks.KILN)
+//                .add(PetrochemBlocks.KILN)
                 .add(PetrochemBlocks.PUMPJACK_CRANK);
 
     }

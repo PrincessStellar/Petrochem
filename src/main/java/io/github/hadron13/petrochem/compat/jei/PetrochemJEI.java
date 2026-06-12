@@ -53,14 +53,14 @@ public class PetrochemJEI implements IModPlugin {
     private void loadCategories() {
 
         this.modCategories.clear();
-        CreateRecipeCategory<?>
-                pyroprocessing = builder(PyroprocessingRecipe.class)
-                .addTypedRecipes(PetrochemRecipeTypes.PYROPROCESSING)
-                .catalyst(PetrochemBlocks.KILN::get)
-                .itemIcon(PetrochemBlocks.KILN.get())
-                .emptyBackground(177, 75)
-                .build("pyroprocessing", PyroprocessingCategory::new);
-
+//        CreateRecipeCategory<?>
+//                pyroprocessing = builder(PyroprocessingRecipe.class)
+//                .addTypedRecipes(PetrochemRecipeTypes.PYROPROCESSING)
+//                .catalyst(PetrochemBlocks.KILN::get)
+//                .itemIcon(PetrochemBlocks.KILN.get())
+//                .emptyBackground(177, 75)
+//                .build("pyroprocessing", PyroprocessingCategory::new);
+//
 
 
 

@@ -60,16 +60,17 @@ public class PetrochemBlocks {
 //            .register();
 
 
-    public static final BlockEntry<KilnBlock> KILN = REGISTRATE.block("kiln", KilnBlock::new)
-            .initialProperties(SharedProperties::stone)
-            .properties(p -> p  .mapColor(MapColor.METAL)
-                                .lightLevel(s -> s.getValue(KilnBlock.POWERED) ? 15 : 0))
-            .transform(pickaxeOnly())
-            .blockstate(new KilnGenerator()::generate)
-            .transform(PetrochemStress.setImpact(4.0))
-            .item()
-            .transform(customItemModel())
-            .register();
+    public static final BlockEntry<KilnBlock> KILN = null;
+//            REGISTRATE.block("kiln", KilnBlock::new)
+//            .initialProperties(SharedProperties::stone)
+//            .properties(p -> p  .mapColor(MapColor.METAL)
+//                                .lightLevel(s -> s.getValue(KilnBlock.POWERED) ? 15 : 0))
+//            .transform(pickaxeOnly())
+//            .blockstate(new KilnGenerator()::generate)
+//            .transform(PetrochemStress.setImpact(4.0))
+//            .item()
+//            .transform(customItemModel())
+//            .register();
 
 
 //    public static final BlockEntry<BlackHoleBlock> BLACK_HOLE  = REGISTRATE.block("black_hole", BlackHoleBlock::new)

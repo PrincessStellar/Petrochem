@@ -15,7 +15,7 @@ public class KubeJSPetrochemPlugin extends KubeJSPlugin {
     private static final Map<PetrochemRecipeTypes, RecipeSchema> recipeSchemas = new HashMap<>();
 
     static {
-        recipeSchemas.put(PetrochemRecipeTypes.PYROPROCESSING, ProcessingRecipeSchema.PROCESSING_WITH_TIME);
+//        recipeSchemas.put(PetrochemRecipeTypes.PYROPROCESSING, ProcessingRecipeSchema.PROCESSING_WITH_TIME);
         recipeSchemas.put(PetrochemRecipeTypes.ELECTROLYZING, ProcessingRecipeSchema.PROCESSING_WITH_ENERGY);
 //        recipeSchemas.put(PetrochemRecipeTypes.CENTRIFUGING, ProcessingRecipeSchema.PROCESSING_WITH_TIME);
         recipeSchemas.put(PetrochemRecipeTypes.PUMPJACK, ProcessingRecipeSchema.PUMPJACK_RECIPE);

@@ -19,8 +19,8 @@ public class PetrochemPonderScenes {
         HELPER.forComponents(PetrochemBlocks.PUMPJACK_WELL, PetrochemBlocks.PUMPJACK_CRANK, PetrochemBlocks.PUMPJACK_ARM)
                 .addStoryBoard("pumpjack", PumpjackScenes::pumpjack, FLUIDS);
 
-        HELPER.forComponents(PetrochemBlocks.KILN)
-                .addStoryBoard("kiln", KilnScenes::kiln, KINETIC_APPLIANCES);
+//        HELPER.forComponents(PetrochemBlocks.KILN)
+//                .addStoryBoard("kiln", KilnScenes::kiln, KINETIC_APPLIANCES);
 
     }
 

@@ -8,6 +8,7 @@ import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.foundation.blockEntity.IMultiBlockEntityContainer;
 import io.github.hadron13.petrochem.PetrochemLang;
 import io.github.hadron13.petrochem.blocks.distillation_tower.DistillationControllerBlockEntity;
+import io.github.hadron13.petrochem.register.PetrochemBlockEntities;
 import net.createmod.catnip.data.Iterate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,11 +17,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import org.jetbrains.annotations.NotNull;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -38,6 +37,22 @@ public class SteelTankBlockEntity extends FluidTankBlockEntity implements IHaveG
     public SteelTankBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         setLazyTickRate(10);
+    }
+
+
+    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+        event.registerBlockEntity(
+                Capabilities.FluidHandler.BLOCK,
+                PetrochemBlockEntities.STEEL_FLUID_TANK.get(),
+                (be, context) -> {
+                    SteelTankBlockEntity controller = be.getControllerBE();
+                    if(controller.isDistillingColumn)
+                        return null;
+                    if (be.fluidCapability == null)
+                        be.refreshCapability();
+                    return be.fluidCapability;
+                }
+        );
     }
 
     public void updateConnectivity() {
@@ -194,10 +209,7 @@ public class SteelTankBlockEntity extends FluidTankBlockEntity implements IHaveG
 
 
     @Override
-    public void updateBoilerState() {
-        if (!isController())
-            return;
-    }
+    public void updateBoilerState() {}
 
 
     @Override
@@ -212,9 +224,8 @@ public class SteelTankBlockEntity extends FluidTankBlockEntity implements IHaveG
         sendData();
     }
     public void refreshCapability() {
-        LazyOptional<IFluidHandler> oldCap = fluidCapability;
-        fluidCapability = LazyOptional.of(() -> handlerForCapability());
-        oldCap.invalidate();
+        fluidCapability = handlerForCapability();
+        invalidateCapabilities();
     }
 
     private IFluidHandler handlerForCapability() {
@@ -231,26 +242,21 @@ public class SteelTankBlockEntity extends FluidTankBlockEntity implements IHaveG
         return null;
     }
 
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, Direction side) {
-        SteelTankBlockEntity controller = getControllerBE();
-        if(controller == null || controller.isDistillingColumn)
-            return LazyOptional.empty();
-        return super.getCapability(cap, side);
-    }
 
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        SteelTankBlockEntity controllerTE = getControllerBE();
+        SteelTankBlockEntity controllerBE = getControllerBE();
+        if(controllerBE == null)
+            return false;
 
-        if(controllerTE.isDistillingColumn){
+        if(controllerBE.isDistillingColumn){
             PetrochemLang.translate("gui.distil_layer")
                     .text("#" + (getOutputNumber()))
                     .forGoggles(tooltip);
             return true;
         }
         return containedFluidTooltip(tooltip, isPlayerSneaking,
-                controllerTE.getCapability(ForgeCapabilities.FLUID_HANDLER));
+                level.getCapability(Capabilities.FluidHandler.BLOCK, controllerBE.getBlockPos(), null));
     }
 
     @Override

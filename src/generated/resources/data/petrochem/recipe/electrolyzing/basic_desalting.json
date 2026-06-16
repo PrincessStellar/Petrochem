@@ -1,0 +1,29 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "petrochem_expert"
+      }
+    }
+  ],
+  "type": "petrochem:electrolyzing",
+  "ingredients": [
+    {
+      "type": "neoforge:single",
+      "amount": 500,
+      "fluid": "petrochem:petroleum"
+    }
+  ],
+  "results": [
+    {
+      "chance": 0.5,
+      "id": "petrochem:salt_dust"
+    },
+    {
+      "amount": 500,
+      "id": "petrochem:desalted_oil"
+    }
+  ]
+}

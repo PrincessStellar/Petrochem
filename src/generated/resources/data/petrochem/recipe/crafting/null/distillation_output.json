@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": {
+      "item": "petrochem:steel_fluid_pipe"
+    },
+    "S": {
+      "item": "alloyed:steel_sheet"
+    }
+  },
+  "pattern": [
+    "PSS",
+    " P "
+  ],
+  "result": {
+    "count": 2,
+    "id": "petrochem:distillation_output"
+  }
+}

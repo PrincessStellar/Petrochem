@@ -4,6 +4,7 @@ import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.fluid.SmartFluidTankBehaviour;
+import io.github.hadron13.petrochem.register.PetrochemBlockEntities;
 import net.createmod.catnip.math.VecHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -15,13 +16,12 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import org.jetbrains.annotations.NotNull;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
 import java.util.List;
+
+import static net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
 
 public class FlarestackBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
 
@@ -69,12 +69,12 @@ public class FlarestackBlockEntity extends SmartBlockEntity implements IHaveGogg
         if(level.isClientSide)
             return;
         int amount = tank.getPrimaryHandler().getFluidAmount();
-        tank.getPrimaryHandler().drain(Mth.ceil(amount/2f), IFluidHandler.FluidAction.EXECUTE);
+        tank.getPrimaryHandler().drain(Mth.ceil(amount/2f), EXECUTE);
     }
 
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-        return containedFluidTooltip(tooltip, isPlayerSneaking, getCapability(ForgeCapabilities.FLUID_HANDLER));
+        return containedFluidTooltip(tooltip, isPlayerSneaking, tank.getCapability());
     }
 
     @Override
@@ -83,10 +83,18 @@ public class FlarestackBlockEntity extends SmartBlockEntity implements IHaveGogg
         behaviours.add(tank);
     }
 
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, Direction side) {
-        if(cap == ForgeCapabilities.FLUID_HANDLER && (side == null || side == Direction.DOWN))
-            return tank.getCapability().cast();
-        return super.getCapability(cap, side);
+
+    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+        event.registerBlockEntity(
+                Capabilities.FluidHandler.BLOCK,
+                PetrochemBlockEntities.FLARESTACK.get(),
+                (be, context) -> {
+                    if (context == null || context == Direction.DOWN){
+                        return be.tank.getCapability();
+                    }
+                    return null;
+                }
+        );
     }
+
 }

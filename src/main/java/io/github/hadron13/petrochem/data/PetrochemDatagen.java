@@ -2,45 +2,55 @@ package io.github.hadron13.petrochem.data;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.simibubi.create.AllSoundEvents;
-import com.simibubi.create.foundation.data.recipe.CreateStandardRecipeGen;
 import com.simibubi.create.foundation.utility.FilesHelper;
 import com.tterrag.registrate.providers.ProviderType;
 import io.github.hadron13.petrochem.Petrochem;
-import io.github.hadron13.petrochem.data.recipe.PetrochemMechanicalCraftingRecipeGen;
-import io.github.hadron13.petrochem.data.recipe.PetrochemStandardRecipeGen;
+import io.github.hadron13.petrochem.data.recipe.*;
 import io.github.hadron13.petrochem.ponder.PetrochemPonderPlugin;
-import io.github.hadron13.petrochem.register.PetrochemSoundEvents;
 import net.createmod.ponder.foundation.PonderIndex;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
 public class PetrochemDatagen {
-    public static void gatherData(GatherDataEvent event) {
-        addExtraRegistrateData();
 
+    public static void gatherDataHighPriority(GatherDataEvent event) {
+        if (event.getMods().contains(Petrochem.MODID))
+            addExtraRegistrateData();
+    }
+
+    public static void gatherData(GatherDataEvent event) {
+        if (!event.getMods().contains(Petrochem.MODID))
+            return;
         DataGenerator generator = event.getGenerator();
         PackOutput output = generator.getPackOutput();
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
-
-        generator.addProvider(event.includeClient(), PetrochemSoundEvents.provider(generator));
+        ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
 
         PetrochemGeneratedEntriesProvider generatedEntriesProvider = new PetrochemGeneratedEntriesProvider(output, lookupProvider);
+        lookupProvider = generatedEntriesProvider.getRegistryProvider();
         generator.addProvider(event.includeServer(), generatedEntriesProvider);
 
-        generator.addProvider(event.includeServer(), new PetrochemStandardRecipeGen(output));
-        generator.addProvider(event.includeServer(), new PetrochemMechanicalCraftingRecipeGen(output));
 
-        if (event.includeServer()) {
-            PetrochemRecipeProvider.registerAllProcessing(generator, output);
-        }
+
+        generator.addProvider(event.includeServer(), new PetrochemStandardRecipeGen(output, lookupProvider));
+        generator.addProvider(event.includeServer(), new PetrochemMechanicalCraftingRecipeGen(output, lookupProvider));
+
+        generator.addProvider(event.includeServer(), new PetrochemGasolineEngineRecipeGen(output, lookupProvider));
+        generator.addProvider(event.includeServer(), new PetrochemDieselEngineRecipeGen(output, lookupProvider));
+
+        generator.addProvider(event.includeServer(), new PetrochemPumpjackRecipeGen(output, lookupProvider));
+        generator.addProvider(event.includeServer(), new PetrochemElectrolyzingRecipeGen(output, lookupProvider));
+        generator.addProvider(event.includeServer(), new PetrochemMixingRecipeGen(output, lookupProvider));
+        generator.addProvider(event.includeServer(), new PetrochemDistillingRecipeGen(output, lookupProvider));
+
+        generator.addProvider(event.includeServer(), new PetrochemCompactingRecipeGen(output, lookupProvider));
 
     }
 
@@ -51,9 +61,6 @@ public class PetrochemDatagen {
 
             provideDefaultLang("interface", langConsumer);
             provideDefaultLang("tooltips", langConsumer);
-            //AllAdvancements.provideLang(langConsumer);
-            //AllSoundEvents.provideLang(langConsumer);
-            //AllKeys.provideLang(langConsumer);
             providePonderLang(langConsumer);
         });
     }

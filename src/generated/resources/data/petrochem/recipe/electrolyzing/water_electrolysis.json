@@ -1,0 +1,27 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "petrochem_expert"
+    }
+  ],
+  "type": "petrochem:electrolyzing",
+  "energy": 150,
+  "ingredients": [
+    {
+      "type": "neoforge:single",
+      "amount": 300,
+      "fluid": "minecraft:water"
+    }
+  ],
+  "results": [
+    {
+      "amount": 200,
+      "id": "petrochem:hydrogen"
+    },
+    {
+      "amount": 100,
+      "id": "petrochem:oxygen"
+    }
+  ]
+}

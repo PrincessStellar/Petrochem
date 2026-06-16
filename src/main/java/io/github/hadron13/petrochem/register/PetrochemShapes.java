@@ -16,31 +16,29 @@ public class PetrochemShapes {
 
 
     public static final VoxelShaper
-        PUMPJACK_CRANK = shape(2, 0, 2, 14, 16,14).forDirectional(NORTH),
-        PUMPJACK_WELL = shape(2, 0, 0, 14, 16, 14).forDirectional(NORTH),
-        PUMPJACK_PIVOT = shape(1, 0, 1, 15, 14, 15).forDirectional(NORTH),
-        DIPPER = shape(0, -16, 0, 16, 16, 16).forDirectional(DOWN),
-        DISTILLATION_OUTPUT = shape(3, 3, 3, 13, 13, 16).forDirectional(SOUTH),
-        FLARESTACK = shape(1, 0, 1, 15, 10, 15)
-                .add(2, 10, 2, 14, 20, 14).forDirectional(),
-        SMALL_ENGINE = shape(1, 0, 0, 15, 3, 16)
-                .add(3, 3, 1, 13, 13, 15)
-                .forDirectional(NORTH),
-    
-        MEDIUM_ENGINE = shape(1, 0, 1, 15, 3, 15) //thick base
-                .add(2, 0, 2, 14, 15, 14) //main body
+            PUMPJACK_CRANK = shape(2, 0, 2, 14, 16,14).forDirectional(NORTH),
+            PUMPJACK_WELL = shape(2, 0, 0, 14, 16, 14).forDirectional(NORTH),
+            PUMPJACK_PIVOT = shape(1, 0, 1, 15, 14, 15).forDirectional(NORTH),
+            DIPPER = shape(0, -16, 0, 16, 16, 16).forDirectional(DOWN),
+            DISTILLATION_OUTPUT = shape(3, 3, 3, 13, 13, 16).forDirectional(SOUTH),
+            FLARESTACK = shape(1, 0, 1, 15, 10, 15)
+                    .add(2, 10, 2, 14, 20, 14).forDirectional(),
+            SMALL_ENGINE = shape(1, 0, 0, 15, 3, 16)
+                    .add(3, 3, 1, 13, 13, 15)
+                    .forDirectional(NORTH),
+
+    MEDIUM_ENGINE = shape(1, 0, 1, 15, 3, 15) //thick base
+            .add(2, 0, 2, 14, 15, 14) //main body
 //                .add(1, 5, 4, 15, 13, 12)
-                .forHorizontalAxis(),
-        MEDIUM_ENGINE_CEILING = shape(1, 13, 1, 15, 16, 15)
-                .add(2, 1, 2, 14, 16, 14)
+            .forHorizontalAxis(),
+            MEDIUM_ENGINE_CEILING = shape(1, 13, 1, 15, 16, 15)
+                    .add(2, 1, 2, 14, 16, 14)
 //                .add(1, 3, 4, 15, 11, 12)
-                .forHorizontalAxis(),
-        MEDIUM_ENGINE_WALL = shape(1, 1, 0, 15, 15, 3)
-                .add(2, 2, 0, 14, 14, 15)
+                    .forHorizontalAxis(),
+            MEDIUM_ENGINE_WALL = shape(1, 1, 0, 15, 15, 3)
+                    .add(2, 2, 0, 14, 14, 15)
 //                .add(1, 4, 5, 15, 12, 13)
-                .forHorizontal(SOUTH);
-
-
+                    .forHorizontal(SOUTH);
     private static PetrochemShapes.Builder shape(VoxelShape shape) {
         return new PetrochemShapes.Builder(shape);
     }

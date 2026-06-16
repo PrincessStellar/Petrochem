@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "create:rotation_speed_controller"
+    },
+    "S": {
+      "item": "alloyed:steel_sheet"
+    }
+  },
+  "pattern": [
+    "SSS",
+    "SGS",
+    "SSS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "petrochem:pumpjack_crank"
+  }
+}

@@ -1,0 +1,4 @@
+// 1.21.1	2026-06-16T18:56:49.55534625	petrochem's processing recipes: distilling
+22b20b07e6ac33b53e200ee72d14417318daea45 data/petrochem/recipe/distilling/basic_atmospheric.json
+29ddd7b1fefad5953a21c5b264663431318ba1b3 data/petrochem/recipe/distilling/basic_flash.json
+a0cc45634dd605a9122cddbc10bd56608d2ec46e data/petrochem/recipe/distilling/basic_vacuum.json

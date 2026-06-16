@@ -1,0 +1,17 @@
+{
+  "type": "create:mixing",
+  "heat_requirement": "heated",
+  "ingredients": [
+    {
+      "type": "neoforge:single",
+      "amount": 500,
+      "fluid": "petrochem:light_naphta"
+    }
+  ],
+  "results": [
+    {
+      "amount": 500,
+      "id": "petrochem:plastic"
+    }
+  ]
+}

@@ -11,23 +11,23 @@ import static com.simibubi.create.infrastructure.ponder.AllCreatePonderTags.KINE
 public class PetrochemPonderTags {
 
 
-
     public static void register(PonderTagRegistrationHelper<ResourceLocation> helper) {
-        PonderTagRegistrationHelper<RegistryEntry<?>> HELPER = helper.withKeyFunction(RegistryEntry::getId);
-
+        PonderTagRegistrationHelper<RegistryEntry<?, ?>> HELPER = helper.withKeyFunction(RegistryEntry::getId);
 
 
         HELPER.addToTag(FLUIDS)
+
                 .add(PetrochemBlocks.ELECTROLYZER)
                 .add(PetrochemBlocks.PUMPJACK_WELL)
                 .add(PetrochemBlocks.STEEL_FLUID_PIPE)
                 .add(PetrochemBlocks.STEEL_FLUID_TANK)
                 .add(PetrochemBlocks.DISTILLATION_CONTROLLER)
                 .add(PetrochemBlocks.DISTILLATION_OUTPUT);
+//                .add(GearboxBlocks.DIPPER);
 
         HELPER.addToTag(KINETIC_APPLIANCES)
-//                .add(PetrochemBlocks.KILN)
-                .add(PetrochemBlocks.PUMPJACK_CRANK);
+                .add(PetrochemBlocks.PUMPJACK_CRANK)
+        ;
 
     }
 }

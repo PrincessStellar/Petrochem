@@ -2,7 +2,7 @@
   "replace": false,
   "values": [
     {
-      "id": "petrochem:black_hole",
+      "id": "gearbox:black_hole",
       "required": false
     }
   ]

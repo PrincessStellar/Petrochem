@@ -6,24 +6,22 @@ import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour
 import com.simibubi.create.foundation.blockEntity.behaviour.fluid.SmartFluidTankBehaviour;
 import io.github.hadron13.petrochem.PetrochemLang;
 import io.github.hadron13.petrochem.blocks.steel_tank.SteelTankBlockEntity;
+import io.github.hadron13.petrochem.register.PetrochemBlockEntities;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
 import java.util.List;
 
 import static io.github.hadron13.petrochem.blocks.distillation_tower.DistillationOutputBlock.*;
+import static net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction.EXECUTE;
 
 public class DistillationOutputBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
 
@@ -52,7 +50,7 @@ public class DistillationOutputBlockEntity extends SmartBlockEntity implements I
 
 
         if(getBlockState().getValue(POWERED)){
-            tankInventory.getPrimaryHandler().drain(500, IFluidHandler.FluidAction.EXECUTE);
+            tankInventory.getPrimaryHandler().drain(500, EXECUTE);
             sendData();
         }
 
@@ -112,7 +110,7 @@ public class DistillationOutputBlockEntity extends SmartBlockEntity implements I
         }
 
 
-        containedFluidTooltip(tooltip, isPlayerSneaking, getCapability(ForgeCapabilities.FLUID_HANDLER));
+        containedFluidTooltip(tooltip, isPlayerSneaking, tankInventory.getCapability());
 
 
         if(getBlockState().getValue(POWERED)) {
@@ -123,24 +121,32 @@ public class DistillationOutputBlockEntity extends SmartBlockEntity implements I
     }
 
     @Override
-    protected void write(CompoundTag tag, boolean clientPacket) {
+    protected void write(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
         tag.putBoolean("dup", duplicate);
-        tankInventory.write(tag, clientPacket);
-        super.write(tag, clientPacket);
+        tankInventory.write(tag, registries, clientPacket);
+        super.write(tag, registries, clientPacket);
     }
 
     @Override
-    protected void read(CompoundTag tag, boolean clientPacket) {
+    protected void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
         duplicate = tag.getBoolean("dup");
-        tankInventory.read(tag, clientPacket);
-        super.read(tag, clientPacket);
+        tankInventory.read(tag, registries, clientPacket);
+        super.read(tag, registries, clientPacket);
     }
 
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == ForgeCapabilities.FLUID_HANDLER && (side == null || side == getBlockState().getValue(FACING))){
-            return tankInventory.getCapability().cast();
-        }
-        return super.getCapability(cap, side);
+
+
+
+    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+        event.registerBlockEntity(
+                Capabilities.FluidHandler.BLOCK,
+                PetrochemBlockEntities.DISTILLATION_OUTPUT.get(),
+                (be, context) -> {
+                    if (context == null || context == be.getBlockState().getValue(FACING)){
+                        return be.tankInventory.getCapability();
+                    }
+                    return null;
+                }
+        );
     }
 }

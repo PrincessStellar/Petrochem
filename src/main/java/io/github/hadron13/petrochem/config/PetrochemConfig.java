@@ -1,40 +1,39 @@
 package io.github.hadron13.petrochem.config;
 
 import com.simibubi.create.api.stress.BlockStressValues;
-import io.github.hadron13.petrochem.config.client.PClient;
-import io.github.hadron13.petrochem.config.common.PCommon;
-import io.github.hadron13.petrochem.config.server.PServer;
+import io.github.hadron13.petrochem.config.client.GBClient;
+import io.github.hadron13.petrochem.config.common.GBCommon;
+import io.github.hadron13.petrochem.config.server.GBServer;
 import net.createmod.catnip.config.ConfigBase;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.config.ModConfigEvent;
+import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-@Mod.EventBusSubscriber(
-        bus = Mod.EventBusSubscriber.Bus.MOD
-)
+@EventBusSubscriber
 public class PetrochemConfig {
     private static final Map<ModConfig.Type, ConfigBase> CONFIGS = new EnumMap<>(ModConfig.Type.class);
 
-    private static PClient client;
-    private static PCommon common;
-    private static PServer server;
-    public static PClient client() {
+    private static GBClient client;
+    private static GBCommon common;
+    private static GBServer server;
+    public static GBClient client() {
         return client;
     }
 
-    public static PCommon common() {
+    public static GBCommon common() {
         return common;
     }
 
-    public static PServer server() {
+    public static GBServer server() {
         return server;
     }
 
@@ -42,26 +41,28 @@ public class PetrochemConfig {
         return CONFIGS.get(type);
     }
 
+
+
     private static <T extends ConfigBase> T register(Supplier<T> factory, ModConfig.Type side) {
-        Pair<T, ForgeConfigSpec> specPair = (new ForgeConfigSpec.Builder()).configure((builder) -> {
+        Pair<T, ModConfigSpec> specPair = new ModConfigSpec.Builder().configure(builder -> {
             T config = factory.get();
             config.registerAll(builder);
             return config;
         });
+
         T config = specPair.getLeft();
         config.specification = specPair.getRight();
         CONFIGS.put(side, config);
         return config;
     }
 
-    public static void register(ModLoadingContext context) {
-        server = register(PServer::new, ModConfig.Type.SERVER);
-        common = register(PCommon::new, ModConfig.Type.COMMON);
-        client = register(PClient::new, ModConfig.Type.CLIENT);
+    public static void register(ModLoadingContext context, ModContainer container) {
+        client = register(GBClient::new, ModConfig.Type.CLIENT);
+        common = register(GBCommon::new, ModConfig.Type.COMMON);
+        server = register(GBServer::new, ModConfig.Type.SERVER);
 
-        for (Map.Entry<ModConfig.Type, ConfigBase> pair : CONFIGS.entrySet()) {
-            context.registerConfig(pair.getKey(), pair.getValue().specification);
-        }
+        for (Map.Entry<ModConfig.Type, ConfigBase> pair : CONFIGS.entrySet())
+            container.registerConfig(pair.getKey(), pair.getValue().specification);
 
         PetrochemStress stress = server().kinetics.stressValues;
         BlockStressValues.IMPACTS.registerProvider(stress::getImpact);
@@ -70,23 +71,18 @@ public class PetrochemConfig {
 
     @SubscribeEvent
     public static void onLoad(ModConfigEvent.Loading event) {
-
-        for (ConfigBase config : CONFIGS.values()) {
-            if (config.specification == event.getConfig().getSpec()) {
+        for (ConfigBase config : CONFIGS.values())
+            if (config.specification == event.getConfig()
+                    .getSpec())
                 config.onLoad();
-            }
-        }
-
     }
 
     @SubscribeEvent
     public static void onReload(ModConfigEvent.Reloading event) {
-
-        for (ConfigBase config : CONFIGS.values()) {
-            if (config.specification == event.getConfig().getSpec()) {
+        for (ConfigBase config : CONFIGS.values())
+            if (config.specification == event.getConfig()
+                    .getSpec())
                 config.onReload();
-            }
-        }
-
     }
+
 }

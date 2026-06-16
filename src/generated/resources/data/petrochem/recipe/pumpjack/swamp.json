@@ -1,0 +1,10 @@
+{
+  "type": "petrochem:pumpjack",
+  "biome": "minecraft:swamp",
+  "results": [
+    {
+      "amount": 60,
+      "id": "petrochem:desalted_oil"
+    }
+  ]
+}

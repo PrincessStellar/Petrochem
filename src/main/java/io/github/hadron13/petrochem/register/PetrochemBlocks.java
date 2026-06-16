@@ -3,19 +3,15 @@ package io.github.hadron13.petrochem.register;
 import com.simibubi.create.api.stress.BlockStressValues;
 import com.simibubi.create.content.fluids.PipeAttachmentModel;
 import com.simibubi.create.content.fluids.tank.*;
-import com.simibubi.create.content.kinetics.steamEngine.SteamEngineBlock;
 import com.simibubi.create.content.processing.AssemblyOperatorBlockItem;
 import com.simibubi.create.foundation.data.*;
-import com.simibubi.create.infrastructure.config.CStress;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import io.github.hadron13.petrochem.Petrochem;
-import io.github.hadron13.petrochem.blocks.centrifuge.CentrifugeBlock;
 import io.github.hadron13.petrochem.blocks.distillation_tower.DistillationControllerBlock;
 import io.github.hadron13.petrochem.blocks.distillation_tower.DistillationControllerGenerator;
 import io.github.hadron13.petrochem.blocks.distillation_tower.DistillationOutputBlock;
 import io.github.hadron13.petrochem.blocks.electrolyzer.ElectrolyzerBlock;
 import io.github.hadron13.petrochem.blocks.flarestack.FlarestackBlock;
-import io.github.hadron13.petrochem.blocks.kiln.KilnBlock;
 import io.github.hadron13.petrochem.blocks.medium_engine.MediumEngineBlock;
 import io.github.hadron13.petrochem.blocks.small_engine.SmallEngineBlock;
 import io.github.hadron13.petrochem.blocks.steel_pipe.SteelGlassPipeBlock;
@@ -35,7 +31,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
+import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 
 import static com.simibubi.create.api.behaviour.movement.MovementBehaviour.movementBehaviour;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
@@ -45,64 +41,19 @@ import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 public class PetrochemBlocks {
 
 
-    private static final CreateRegistrate REGISTRATE = Petrochem.registrate().setCreativeTab(PetrochemCreativeTabs.MAIN_TAB);
+    private static final CreateRegistrate REGISTRATE = Petrochem.registrate().setCreativeTab(PetrochemCreativeModeTabs.MAIN_TAB);
 
     public static void register() {}
 
-//    public static final BlockEntry<ExchangerBlock> EXCHANGER = REGISTRATE.block("exchanger", ExchangerBlock::new)
-//            .initialProperties(SharedProperties::stone)
-//            .properties(p -> p.mapColor(MapColor.METAL))
-//            .transform(pickaxeOnly())
-//            .blockstate((c, p) -> p.simpleBlock(c.getEntry(), AssetLookup.partialBaseModel(c, p)))
-//            .transform(BlockStressDefaults.setImpact(2.0))
-//            .item()
-//            .transform(customItemModel())
-//            .register();
-
-
-    public static final BlockEntry<KilnBlock> KILN = null;
-//            REGISTRATE.block("kiln", KilnBlock::new)
-//            .initialProperties(SharedProperties::stone)
-//            .properties(p -> p  .mapColor(MapColor.METAL)
-//                                .lightLevel(s -> s.getValue(KilnBlock.POWERED) ? 15 : 0))
-//            .transform(pickaxeOnly())
-//            .blockstate(new KilnGenerator()::generate)
-//            .transform(PetrochemStress.setImpact(4.0))
-//            .item()
-//            .transform(customItemModel())
-//            .register();
-
-
-//    public static final BlockEntry<BlackHoleBlock> BLACK_HOLE  = REGISTRATE.block("black_hole", BlackHoleBlock::new)
-//            .initialProperties(SharedProperties::netheriteMetal)
-//            .transform(pickaxeOnly())
-//            .properties(p -> p.mapColor(MapColor.COLOR_BLACK).noCollission())
-//            .blockstate((c, p) -> p.simpleBlock(c.get(), AssetLookup.standardModel(c, p)))
-//            .item()
-//            .transform(customItemModel())
-//            .register();
 
     public static final BlockEntry<ElectrolyzerBlock> ELECTROLYZER = REGISTRATE.block("electrolyzer", ElectrolyzerBlock::new)
             .initialProperties(SharedProperties::stone)
-            .transform(pickaxeOnly())
+            .transform(axeOrPickaxe())
             .properties(p -> p.mapColor(MapColor.COLOR_GRAY).noOcclusion())
             .blockstate(BlockStateGen.horizontalBlockProvider(true))
             .item(AssemblyOperatorBlockItem::new)
             .transform(customItemModel())
             .register();
-
-
-    public static final BlockEntry<CentrifugeBlock> CENTRIFUGE = null;
-//    REGISTRATE.block("centrifuge", CentrifugeBlock::new)
-//            .initialProperties(SharedProperties::stone)
-//            .properties(p -> p.sound(SoundType.METAL).mapColor(MapColor.METAL))
-//            .transform(pickaxeOnly())
-//            .blockstate(new PartialAxisBlockStateGen()::generate)
-//            .transform(PetrochemStress.setImpact(8.0))
-//            .item()
-//            .transform(customItemModel())
-//            .register();
-
 
     public static final BlockEntry<PumpjackArmBlock> PUMPJACK_ARM = REGISTRATE.block("pumpjack_arm", PumpjackArmBlock::new)
             .initialProperties(SharedProperties::stone)
@@ -134,6 +85,19 @@ public class PetrochemBlocks {
             .model((ctx, prov) -> prov.withExistingParent(prov.name(ctx), Petrochem.asResource("block/pumpjack/well")))
             .build()
             .register();
+
+
+//    public static final BlockEntry<DipperBlock> DIPPER = REGISTRATE.block("dipper", DipperBlock::new)
+//            .initialProperties(SharedProperties::stone)
+//            .transform(pickaxeOnly())
+//            .properties(p -> p.mapColor(MapColor.COLOR_GRAY).noOcclusion())
+//            .blockstate((c, p) -> p.simpleBlock(c.get(), AssetLookup.partialBaseModel(c, p)))
+//            //.addLayer(() -> RenderType::cutoutMipped)
+//            .item(AssemblyOperatorBlockItem::new)
+//            .transform(customItemModel())
+//            .register();
+//
+
 
 
     public static final BlockEntry<SteelTankBlock> STEEL_FLUID_TANK = REGISTRATE.block("steel_fluid_tank", SteelTankBlock::new)
@@ -240,14 +204,15 @@ public class PetrochemBlocks {
 
 
     public static final BlockEntry<Block> ASPHALT_BLOCK =  REGISTRATE.block("asphalt", Block::new)
-            .initialProperties(SharedProperties::stone)
-            .properties(p -> p.mapColor(MapColor.TERRACOTTA_BLACK).speedFactor(1.5f))
-            .blockstate((c, p) -> p.simpleBlock(c.get(), AssetLookup.standardModel(c, p)))
-            .transform(pickaxeOnly())
-            .lang("Asphalt Block")
-            .item()
-            .build()
-            .register();
+                    .initialProperties(SharedProperties::stone)
+                    .properties(p -> p.mapColor(MapColor.TERRACOTTA_BLACK).speedFactor(1.5f))
+                    .blockstate((c, p) -> p.simpleBlock(c.get(), AssetLookup.standardModel(c, p)))
+                    .transform(pickaxeOnly())
+                    .lang("Asphalt Block")
+                    .item()
+                    .build()
+                    .register();
+
 
     public static final BlockEntry<FlarestackBlock> FLARESTACK = REGISTRATE.block("flarestack", FlarestackBlock::new)
             .initialProperties(SharedProperties::softMetal)

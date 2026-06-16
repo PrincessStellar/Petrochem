@@ -1,0 +1,4 @@
+// 1.21.1	2026-06-16T18:56:49.553505908	petrochem's processing recipes: diesel_engine_fuel
+ca7a2bea7f0b233a38b9bf3317f083aa45f81830 data/petrochem/recipe/diesel_engine_fuel/diesel.json
+420d6bf3c57340c45024670f4a541e51e1eb6ef2 data/petrochem/recipe/diesel_engine_fuel/fuel_oil.json
+3c2171fe3a18eeb465fbfb6205cb22622d958ccc data/petrochem/recipe/diesel_engine_fuel/raw_petroleum.json

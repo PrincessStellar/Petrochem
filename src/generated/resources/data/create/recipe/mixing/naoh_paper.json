@@ -1,0 +1,20 @@
+{
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "create:pulp"
+    },
+    {
+      "item": "create:pulp"
+    },
+    {
+      "item": "petrochem:caustic_soda"
+    }
+  ],
+  "results": [
+    {
+      "count": 12,
+      "id": "minecraft:paper"
+    }
+  ]
+}

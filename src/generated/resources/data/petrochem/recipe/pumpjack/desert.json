@@ -1,0 +1,10 @@
+{
+  "type": "petrochem:pumpjack",
+  "biome": "minecraft:desert",
+  "results": [
+    {
+      "amount": 50,
+      "id": "petrochem:petroleum"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "values": [
+    "petrochem:electrolyzer",
+    "petrochem:pumpjack_arm",
+    "petrochem:pumpjack_crank",
+    "petrochem:pumpjack_well",
+    "petrochem:steel_fluid_tank",
+    "petrochem:steel_fluid_pipe",
+    "petrochem:glass_fluid_pipe",
+    "petrochem:straight_steel_fluid_pipe",
+    "petrochem:distillation_controller",
+    "petrochem:steel_pump",
+    "petrochem:distillation_output",
+    "petrochem:asphalt",
+    "petrochem:flarestack",
+    "petrochem:small_engine",
+    "petrochem:medium_engine"
+  ]
+}

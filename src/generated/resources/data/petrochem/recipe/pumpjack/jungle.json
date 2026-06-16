@@ -1,0 +1,10 @@
+{
+  "type": "petrochem:pumpjack",
+  "biome": "minecraft:jungle",
+  "results": [
+    {
+      "amount": 50,
+      "id": "petrochem:desalted_oil"
+    }
+  ]
+}

@@ -11,9 +11,7 @@ import com.simibubi.create.content.kinetics.base.SingleAxisRotatingVisual;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import io.github.hadron13.petrochem.Petrochem;
-import io.github.hadron13.petrochem.blocks.centrifuge.CentrifugeBlockEntity;
-import io.github.hadron13.petrochem.blocks.centrifuge.CentrifugeVisual;
-import io.github.hadron13.petrochem.blocks.centrifuge.CentrifugeRenderer;
+
 import io.github.hadron13.petrochem.blocks.distillation_tower.DistillationControllerBlockEntity;
 import io.github.hadron13.petrochem.blocks.distillation_tower.DistillationControllerRenderer;
 import io.github.hadron13.petrochem.blocks.distillation_tower.DistillationOutputBlockEntity;
@@ -21,40 +19,25 @@ import io.github.hadron13.petrochem.blocks.distillation_tower.DistillationOutput
 import io.github.hadron13.petrochem.blocks.electrolyzer.ElectrolyzerBlockEntity;
 import io.github.hadron13.petrochem.blocks.electrolyzer.ElectrolyzerVisual;
 import io.github.hadron13.petrochem.blocks.electrolyzer.ElectrolyzerRenderer;
+
 import io.github.hadron13.petrochem.blocks.flarestack.FlarestackBlockEntity;
-import io.github.hadron13.petrochem.blocks.kiln.KilnBlockEntity;
-import io.github.hadron13.petrochem.blocks.kiln.KilnRenderer;
-import io.github.hadron13.petrochem.blocks.kiln.KilnVisual;
 import io.github.hadron13.petrochem.blocks.medium_engine.MediumEngineBlockEntity;
 import io.github.hadron13.petrochem.blocks.medium_engine.MediumEngineRenderer;
 import io.github.hadron13.petrochem.blocks.medium_engine.MediumEngineVisual;
 import io.github.hadron13.petrochem.blocks.pumpjack.*;
-import io.github.hadron13.petrochem.blocks.small_engine.SmallEngineBlock;
+
 import io.github.hadron13.petrochem.blocks.small_engine.SmallEngineBlockEntity;
 import io.github.hadron13.petrochem.blocks.small_engine.SmallEngineRenderer;
 import io.github.hadron13.petrochem.blocks.small_engine.SmallEngineVisual;
+import io.github.hadron13.petrochem.blocks.steel_pump.SteelPumpRenderer;
 import io.github.hadron13.petrochem.blocks.steel_tank.SteelFluidTankRenderer;
 import io.github.hadron13.petrochem.blocks.steel_tank.SteelTankBlockEntity;
+
 
 
 public class PetrochemBlockEntities {
 
     private static final CreateRegistrate REGISTRATE = Petrochem.registrate();
-
-    public static final BlockEntityEntry<KilnBlockEntity> KILN = null;
-//            REGISTRATE
-//            .blockEntity("kiln", KilnBlockEntity::new)
-//            .visual(() -> KilnVisual::new)
-//            .validBlocks(PetrochemBlocks.KILN)
-//            .renderer(() -> KilnRenderer::new)
-//            .register();
-
-//    public static final BlockEntityEntry<BlackHoleBlockEntity> BLACK_HOLE = REGISTRATE
-//            .blockEntity("black_hole", BlackHoleBlockEntity::new)
-//            .validBlocks(ModBlocks.BLACK_HOLE)
-//            .renderer(()-> BlackHoleRenderer::new)
-//            .register();
-
 
 
     public static final BlockEntityEntry<ElectrolyzerBlockEntity> ELECTROLYZER = REGISTRATE
@@ -63,17 +46,6 @@ public class PetrochemBlockEntities {
             .validBlocks(PetrochemBlocks.ELECTROLYZER)
             .renderer(() -> ElectrolyzerRenderer::new)
             .register();
-
-
-    public static final BlockEntityEntry<CentrifugeBlockEntity> CENTRIFUGE = null;
-//            REGISTRATE
-//            .blockEntity("centrifuge", CentrifugeBlockEntity::new)
-//            .visual(() -> CentrifugeVisual::new)
-//            .validBlocks(PetrochemBlocks.CENTRIFUGE)
-//            .renderer(() -> CentrifugeRenderer::new)
-//            .register();
-//
-
 
     public static final BlockEntityEntry<PumpjackArmBlockEntity> PUMPJACK_ARM = REGISTRATE
             .blockEntity("pumpjack_arm", PumpjackArmBlockEntity::new)
@@ -122,7 +94,7 @@ public class PetrochemBlockEntities {
             .blockEntity("steel_fluid_pump", PumpBlockEntity::new)
             .visual(() -> SingleAxisRotatingVisual.ofZ(PetrochemPartialModels.STEEL_PUMP_COG))
             .validBlocks(PetrochemBlocks.STEEL_PUMP)
-            .renderer(() -> PumpRenderer::new)
+            .renderer(() -> SteelPumpRenderer::new)
             .register();
 
     public static final BlockEntityEntry<DistillationControllerBlockEntity> DISTILLATION_CONTROLLER = REGISTRATE

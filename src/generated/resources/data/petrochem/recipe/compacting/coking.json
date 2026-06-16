@@ -1,0 +1,19 @@
+{
+  "type": "create:compacting",
+  "ingredients": [
+    {
+      "type": "neoforge:single",
+      "amount": 600,
+      "fluid": "petrochem:heavy_oil_residue"
+    }
+  ],
+  "results": [
+    {
+      "id": "petrochem:petroleum_coke"
+    },
+    {
+      "amount": 400,
+      "id": "petrochem:fuel_oil"
+    }
+  ]
+}

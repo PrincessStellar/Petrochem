@@ -1,0 +1,7 @@
+{
+  "values": {
+    "petrochem:petroleum_coke": {
+      "burn_time": 3200
+    }
+  }
+}

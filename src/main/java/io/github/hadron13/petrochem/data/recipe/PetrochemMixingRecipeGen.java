@@ -1,15 +1,19 @@
 package io.github.hadron13.petrochem.data.recipe;
 
 import com.simibubi.create.AllItems;
+import com.simibubi.create.Create;
 import com.simibubi.create.api.data.recipe.MixingRecipeGen;
 import com.simibubi.create.content.processing.recipe.HeatCondition;
 import io.github.hadron13.petrochem.Petrochem;
 import io.github.hadron13.petrochem.register.PetrochemBlocks;
 import io.github.hadron13.petrochem.register.PetrochemFluids;
 import io.github.hadron13.petrochem.register.PetrochemItems;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.material.Fluids;
+
+import java.util.concurrent.CompletableFuture;
 
 public class PetrochemMixingRecipeGen extends MixingRecipeGen {
 
@@ -51,9 +55,7 @@ public class PetrochemMixingRecipeGen extends MixingRecipeGen {
     )
     ;
 
-
-
-    public PetrochemMixingRecipeGen(PackOutput output) {
-        super(output, Petrochem.MODID);
+    public PetrochemMixingRecipeGen(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+        super(output, registries, Create.ID);
     }
 }

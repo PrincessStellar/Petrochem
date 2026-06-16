@@ -4,16 +4,14 @@ import com.simibubi.create.compat.jei.category.CreateRecipeCategory;
 import com.simibubi.create.foundation.gui.AllGuiTextures;
 import io.github.hadron13.petrochem.blocks.pumpjack.PumpjackRecipe;
 import io.github.hadron13.petrochem.compat.jei.category.animations.AnimatedPumpjackWell;
-import mezz.jei.api.forge.ForgeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.recipe.IFocusGroup;
-import mezz.jei.api.recipe.RecipeIngredientRole;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidStack;
 
 public class PumpjackCategory extends CreateRecipeCategory<PumpjackRecipe>{
     public final AnimatedPumpjackWell well = new AnimatedPumpjackWell();
@@ -28,10 +26,7 @@ public class PumpjackCategory extends CreateRecipeCategory<PumpjackRecipe>{
 
 
         FluidStack fluidResult = recipe.getFluidResults().get(0);
-        builder.addSlot(RecipeIngredientRole.OUTPUT, xcenter + 40, ycenter+5)
-                .setBackground(getRenderedSlot(), -1, -1)
-                .addIngredient(ForgeTypes.FLUID_STACK, fluidResult)
-                .setFluidRenderer(fluidResult.getAmount(), false, 16, 16);
+        addFluidSlot(builder, xcenter + 40, ycenter + 5, fluidResult);
     }
 
     @Override

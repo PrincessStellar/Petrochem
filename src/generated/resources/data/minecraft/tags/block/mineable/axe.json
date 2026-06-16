@@ -1,0 +1,6 @@
+{
+  "values": [
+    "petrochem:electrolyzer",
+    "petrochem:distillation_controller"
+  ]
+}

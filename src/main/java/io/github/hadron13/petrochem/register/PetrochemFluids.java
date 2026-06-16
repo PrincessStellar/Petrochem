@@ -1,7 +1,6 @@
 package io.github.hadron13.petrochem.register;
 
 import com.simibubi.create.AllFluids;
-import com.simibubi.create.AllTags;
 import com.simibubi.create.content.fluids.VirtualFluid;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.builders.FluidBuilder;
@@ -14,19 +13,17 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.fluids.ForgeFlowingFluid;
+import net.neoforged.neoforge.fluids.BaseFlowingFluid;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidType;
 import org.joml.Vector3f;
 
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class PetrochemFluids {
-    private static final CreateRegistrate REGISTRATE = Petrochem.registrate().setCreativeTab(PetrochemCreativeTabs.INGREDIENTS);
+    private static final CreateRegistrate REGISTRATE = Petrochem.registrate().setCreativeTab(PetrochemCreativeModeTabs.INGREDIENTS);
 
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> PETROLEUM =
+    public static final FluidEntry<BaseFlowingFluid.Flowing> PETROLEUM =
             REGISTRATE.standardFluid("petroleum",
                             SolidRenderedPlaceableFluidType.create(0x352228,
                                     () -> 1f / 32f ))
@@ -37,17 +34,24 @@ public class PetrochemFluids {
                             .tickRate(25)
                             .slopeFindDistance(3)
                             .explosionResistance(100f))
-                    .source(ForgeFlowingFluid.Source::new)
+                    .source(BaseFlowingFluid.Source::new)
                     .block()
                     .properties(p -> p.mapColor(MapColor.TERRACOTTA_YELLOW))
                     .build()
                     .bucket()
-                    .tag(AllTags.forgeItemTag("buckets/petroleum")) //TODO: remove this
                     .build()
                     .register();
 
 
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> SULFURIC_ACID =
+    public static final FluidEntry<VirtualFluid> AIR = REGISTRATE
+            .virtualFluid("air")
+            .properties(p -> p.viscosity(0).density(-100))
+            .lang("Air")
+            .bucket()
+            .build()
+            .register();
+
+    public static final FluidEntry<BaseFlowingFluid.Flowing> SULFURIC_ACID =
             REGISTRATE.standardFluid("sulfuric_acid",
                             SolidRenderedPlaceableFluidType.create(0xd66d842,
                                     () -> 1f / 32f ))
@@ -60,7 +64,7 @@ public class PetrochemFluids {
                             .slopeFindDistance(5)
                             .explosionResistance(100f))
                     .tag(FluidTags.LAVA)
-                    .source(ForgeFlowingFluid.Source::new)
+                    .source(BaseFlowingFluid.Source::new)
                     .block()
                     .properties(p -> p.mapColor(MapColor.COLOR_YELLOW))
                     .build()
@@ -68,143 +72,108 @@ public class PetrochemFluids {
                     .build()
                     .register();
 
-    static{
-        PetrochemCreativeTabs.expert_fluid_ids.add("sulfuric_acid");
-        PetrochemCreativeTabs.expert_fluid_ids.add("sulfuric_acid_bucket");
-    }
+    public static final FluidEntry<BaseFlowingFluid.Flowing> NITROGEN = gas("Nitrogen", true);
+    public static final FluidEntry<BaseFlowingFluid.Flowing> OXYGEN = gas("Oxygen", true);
+    public static final FluidEntry<BaseFlowingFluid.Flowing> HYDROGEN = gas("Hydrogen", true);
+
+    public static final FluidEntry<BaseFlowingFluid.Flowing> STEAM = gas("Steam", false);
+    public static final FluidEntry<BaseFlowingFluid.Flowing> CHLORINE = gas("Chlorine", false);
+    public static final FluidEntry<BaseFlowingFluid.Flowing> HYDROGEN_SULFIDE = gas("Hydrogen Sulfide", "hydrogen_sulfide", true);
+    public static final FluidEntry<BaseFlowingFluid.Flowing> VOLATILE_GAS = gas("Volatile Gas", "volatile_gas", true);
+    public static final FluidEntry<BaseFlowingFluid.Flowing> BUTANE = gas("Butane", true);
+    public static final FluidEntry<BaseFlowingFluid.Flowing> PROPANE = gas("Propane", true);
+    public static final FluidEntry<BaseFlowingFluid.Flowing> LPG = gas("Lpg", false);
+    public static final FluidEntry<BaseFlowingFluid.Flowing> ETHYLENE = gas("Ethylene", true);
 
 
-    public static final FluidEntry<VirtualFluid> AIR = REGISTRATE
-            .virtualFluid("air")
-            .properties(p -> p.viscosity(0).density(-100))
-            .lang("Air")
-            .bucket()
-            .build()
-            .register();
-
-
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> NITROGEN = gas("Nitrogen", true);
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> OXYGEN = gas("Oxygen", true);
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> HYDROGEN = gas("Hydrogen", true);
-
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> STEAM = gas("Steam", false);
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> CHLORINE = gas("Chlorine", false);
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> HYDROGEN_SULFIDE = gas("hydrogen_sulfide", true);
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> VOLATILE_GAS = gas("volatile_gas", true);
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> BUTANE = gas("Butane", true);
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> PROPANE = gas("Propane", true);
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> LPG = gas("Lpg", false);
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> ETHYLENE = gas("Ethylene", true);
-
-
-    public static final FluidEntry<ForgeFlowingFluid.Flowing>
-        OIL_BRINE    = oillike("oil_brine", "Petroleum Brine", 0x373e42, true),
-        DESALTED_OIL = oillike("desalted_oil", "Desalted Petroleum", 0x482e37, false),
-        OIL          = oillike("oil", "Oil", 0x11141d, false),
-        LIGHT_NAPHTA = oillike("light_naphta", "Light Naphta", 0xd9d8a3, false),
-        HEAVY_NAPHTA = oillike("heavy_naphta", "Heavy Naphta", 0xc4c26e, false),
-        DESULFURIZED_HEAVY_NAPHTA = oillike("desulfurized_heavy_naphta", "Desulfurized Heavy Naphta", 0xcfc254, true),
-        PLASTIC = oillike("plastic", "Liquid Polyethylene", 0xd8d8d5, false),
-        HYDROCRACKED_GASOLINE = oillike("hydrocracked_gasoline", "Raw Gasoline", 0xa68d3f, true),
-        UNTREATED_GASOLINE = oillike("untreated_gasoline", "Untreated Gasoline", 0xc49b21, true),
-        GASOLINE = oillike("gasoline", "Refined Gasoline", 0xcfc254, false),
-        KEROSENE = oillike("kerosene", "Kerosene", 0x26a69a, false),
-        DESULFURIZED_KEROSENE = oillike("desulfurized_kerosene", "Desulfurized Kerosene", 0x26a69a,true),
-        LIGHT_DIESEL = oillike("light_diesel", "Light Diesel", 0xb58c4f, true),
-        HEAVY_DIESEL = oillike("heavy_diesel", "Heavy Diesel", 0x856638, true),
-        REFINED_DIESEL = oillike("diesel", "Refined Diesel", 0xe57373, false),
-        LIGHT_GAS_OIL = oillike("light_gas_oil", "Light Gas Oil", 0x5e7a88, true),
-        HEAVY_GAS_OIL = oillike("heavy_gas_oil", "Heavy Gas Oil", 0x2c393f, false),
-        HYDROTREATED_GAS_OIL = oillike("hydrotreated_gas_oil", "Hydrotreated Gas Oil", 0x3c394f, true),
-        DESULFURIZED_HEAVY_DIESEL = oillike("desulfurized_heavy_diesel", "Desulfurized Heavy Diesel", 0xb54f4f, true),
-        OIL_RESIDUE = oillike("oil_residue", "Oil Residue", 0x311111, false),
-        HEAVY_OIL_RESIDUE = oillike("heavy_oil_residue", "Heavy Oil Residue", 0x111111, false),
-        FUEL_OIL =  oillike("fuel_oil", "Fuel Oil", 0x525252, false),
-        ALKYLATE =  oillike("fuel_oil", "Fuel Oil", 0xb1a7c3, true),
-        LUBRICANT = oillike("lubricant", "Lubricant", 0xffc107, false)
+    public static final FluidEntry<BaseFlowingFluid.Flowing>
+            OIL_BRINE    = oillike("oil_brine", "Petroleum Brine", 0x373e42, true),
+            DESALTED_OIL = oillike("desalted_oil", "Desalted Petroleum", 0x482e37, false),
+            OIL          = oillike("oil", "Oil", 0x11141d, false),
+            LIGHT_NAPHTA = oillike("light_naphta", "Light Naphta", 0xd9d8a3, false),
+            HEAVY_NAPHTA = oillike("heavy_naphta", "Heavy Naphta", 0xc4c26e, false),
+            DESULFURIZED_HEAVY_NAPHTA = oillike("desulfurized_heavy_naphta", "Desulfurized Heavy Naphta", 0xcfc254, true),
+            PLASTIC = oillike("plastic", "Liquid Polyethylene", 0xd8d8d5, false),
+            HYDROCRACKED_GASOLINE = oillike("hydrocracked_gasoline", "Raw Gasoline", 0xa68d3f, true),
+            UNTREATED_GASOLINE = oillike("untreated_gasoline", "Untreated Gasoline", 0xc49b21, true),
+            GASOLINE = oillike("gasoline", "Refined Gasoline", 0xcfc254, false),
+            KEROSENE = oillike("kerosene", "Kerosene", 0x26a69a, false),
+            DESULFURIZED_KEROSENE = oillike("desulfurized_kerosene", "Desulfurized Kerosene", 0x26a69a,true),
+            LIGHT_DIESEL = oillike("light_diesel", "Light Diesel", 0xb58c4f, true),
+            HEAVY_DIESEL = oillike("heavy_diesel", "Heavy Diesel", 0x856638, true),
+            REFINED_DIESEL = oillike("diesel", "Refined Diesel", 0xe57373, false),
+            LIGHT_GAS_OIL = oillike("light_gas_oil", "Light Gas Oil", 0x5e7a88, true),
+            HEAVY_GAS_OIL = oillike("heavy_gas_oil", "Heavy Gas Oil", 0x2c393f, false),
+            HYDROTREATED_GAS_OIL = oillike("hydrotreated_gas_oil", "Hydrotreated Gas Oil", 0x3c394f, true),
+            DESULFURIZED_HEAVY_DIESEL = oillike("desulfurized_heavy_diesel", "Desulfurized Heavy Diesel", 0xb54f4f, true),
+            OIL_RESIDUE = oillike("oil_residue", "Oil Residue", 0x311111, false),
+            HEAVY_OIL_RESIDUE = oillike("heavy_oil_residue", "Heavy Oil Residue", 0x111111, false),
+            FUEL_OIL =  oillike("fuel_oil", "Fuel Oil", 0x525252, false),
+            ALKYLATE =  oillike("fuel_oil", "Fuel Oil", 0xb1a7c3, true),
+            LUBRICANT = oillike("lubricant", "Lubricant", 0xffc107, false)
     ;
 
-    public static FluidEntry<ForgeFlowingFluid.Flowing> gas(String name, boolean expert){
+    public static FluidEntry<BaseFlowingFluid.Flowing> gas(String name, boolean expert) {
+        return gas(name, name.toLowerCase(), expert);
+    }
+    public static FluidEntry<BaseFlowingFluid.Flowing> gas(String name, String id, boolean expert){
         if(expert) {
-            PetrochemCreativeTabs.expert_fluid_ids.add(name.toLowerCase());
-            PetrochemCreativeTabs.expert_item_ids.add(name.toLowerCase() + "_bucket");
+            PetrochemCreativeModeTabs.expert_fluid_ids.add(id);
+            PetrochemCreativeModeTabs.expert_item_ids.add(id + "_bucket");
         }
-
         return REGISTRATE
-            .fluid(name.toLowerCase(), Petrochem.asResource("fluid/" + name.toLowerCase() + "_still"), Petrochem.asResource("fluid/" + name.toLowerCase() + "_flow"), TransparentFluidType::new)
+            .fluid(id, Petrochem.asResource("fluid/" + id + "_still"), Petrochem.asResource("fluid/" + id + "_flow"), TransparentFluidType::new)
+            .lang(name)
             .properties(p -> p.viscosity(0).density(-100))
             .fluidProperties(p -> p.levelDecreasePerBlock(7)
                     .tickRate(1)
                     .slopeFindDistance(3)
                     .explosionResistance(100f))
-            .source(ForgeFlowingFluid.Source::new)
-            .tag(expert? PetrochemTags.EXPERT_ONLY_FLUID : PetrochemTags.BASE_FLUID)
+            .source(BaseFlowingFluid.Source::new)
             .bucket()
-            .tag(expert? PetrochemTags.EXPERT_ONLY_ITEM : PetrochemTags.BASE_ITEM)
             .build()
             .register();
     }
 
-
-    public static FluidEntry<ForgeFlowingFluid.Flowing> oillike(String name, String lang, int fogColor, boolean expert){
+    public static FluidEntry<BaseFlowingFluid.Flowing> oillike(String name, String lang, int fogColor, boolean expert){
 
         if(expert) {
-            PetrochemCreativeTabs.expert_fluid_ids.add(name.toLowerCase());
-            PetrochemCreativeTabs.expert_item_ids.add(name.toLowerCase() + "_bucket");
+            PetrochemCreativeModeTabs.expert_fluid_ids.add(name.toLowerCase());
+            PetrochemCreativeModeTabs.expert_item_ids.add(name.toLowerCase() + "_bucket");
         }
         return REGISTRATE.standardFluid(name,
-                            SolidRenderedPlaceableFluidType.create(fogColor,
-                                    () -> 1f / 32f ))
-                    .lang(lang)
-                    .properties(b -> b.viscosity(2000)
-                            .density(1000))
-                    .fluidProperties(p -> p.levelDecreasePerBlock(3)
-                            .tickRate(25)
-                            .slopeFindDistance(3)
-                            .explosionResistance(100f))
-                    .source(ForgeFlowingFluid.Source::new)
-                    .tag(expert? PetrochemTags.EXPERT_ONLY_FLUID : PetrochemTags.BASE_FLUID)
-                    .block()
-                    .properties(p -> p.mapColor(MapColor.TERRACOTTA_YELLOW))
-                    .build()
-                    .bucket()
-                    .tag(expert? PetrochemTags.EXPERT_ONLY_ITEM : PetrochemTags.BASE_ITEM)
+                        SolidRenderedPlaceableFluidType.create(fogColor,
+                                () -> 1f / 32f ))
+                .lang(lang)
+                .properties(b -> b.viscosity(2000)
+                        .density(1000))
+                .fluidProperties(p -> p.levelDecreasePerBlock(3)
+                        .tickRate(25)
+                        .slopeFindDistance(3)
+                        .explosionResistance(100f))
+                .source(BaseFlowingFluid.Source::new)
+                .block()
+                .properties(p -> p.mapColor(MapColor.TERRACOTTA_YELLOW))
+                .build()
+                .bucket()
 //                    .onRegister(AllFluids::registerFluidDispenseBehavior)
-                    .build()
-                    .register();
+                .build()
+                .register();
     }
-//
-//    public static final ResourceLocation GAS_STILL = new ResourceLocation("minecraft", "block/water_still");
-//    public static final ResourceLocation GAS_FLOW = new ResourceLocation("minecraft", "block/water_flow");
-//    private static final ResourceLocation GAS_OVERLAY = new ResourceLocation("minecraft", "block/water_overlay");
 
-
-
-    public static class TransparentFluidType extends FluidType {
-        protected ResourceLocation stillTexture;
-        protected ResourceLocation flowingTexture;
-
+    public static class TransparentFluidType extends AllFluids.TintedFluidType{
         protected TransparentFluidType(FluidType.Properties properties, ResourceLocation stillTexture, ResourceLocation flowingTexture) {
-            super(properties);
-            this.stillTexture = stillTexture;
-            this.flowingTexture = flowingTexture;
+            super(properties, stillTexture, flowingTexture);
         }
 
-        public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
-            consumer.accept(new IClientFluidTypeExtensions() {
-                public ResourceLocation getStillTexture() {
-                    return TransparentFluidType.this.stillTexture;
-                }
+        @Override
+        protected int getTintColor(FluidStack stack) {
+            return NO_TINT;
+        }
 
-                public ResourceLocation getFlowingTexture() {
-                    return TransparentFluidType.this.flowingTexture;
-                }
-
-                @Override
-                public int getTintColor(FluidState state, BlockAndTintGetter getter, BlockPos pos) {
-                    return 0x00ffffff;
-                }
-            });
+        @Override
+        protected int getTintColor(FluidState state, BlockAndTintGetter getter, BlockPos pos) {
+            return NO_TINT;
         }
     }
 

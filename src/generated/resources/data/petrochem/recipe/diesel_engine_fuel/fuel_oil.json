@@ -1,0 +1,12 @@
+{
+  "type": "petrochem:diesel_engine_fuel",
+  "ingredients": [
+    {
+      "type": "neoforge:single",
+      "amount": 1,
+      "fluid": "petrochem:fuel_oil"
+    }
+  ],
+  "processing_time": 30,
+  "results": []
+}

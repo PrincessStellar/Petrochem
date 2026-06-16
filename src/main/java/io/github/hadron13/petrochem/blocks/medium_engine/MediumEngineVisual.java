@@ -44,7 +44,7 @@ public class MediumEngineVisual extends AbstractBlockEntityVisual<SteamEngineBlo
     }
 
     @Override
-    public void beginFrame(DynamicVisual.Context ctx) {
+    public void beginFrame(Context ctx) {
         animate();
     }
 

@@ -1,27 +1,30 @@
 package io.github.hadron13.petrochem.blocks.pumpjack;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.MapCodec;
+import com.simibubi.create.content.kinetics.deployer.ItemApplicationRecipe;
+import com.simibubi.create.content.kinetics.deployer.ItemApplicationRecipeParams;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
-import io.github.hadron13.petrochem.Petrochem;
 import io.github.hadron13.petrochem.register.PetrochemRecipeTypes;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.fluids.FluidStack;
 
-public class PumpjackRecipe extends ProcessingRecipe<RecipeWrapper> {
+public class PumpjackRecipe extends ProcessingRecipe<RecipeInput, PumpjackRecipeParams> {
 
     public ResourceKey<Biome> biome;
     public float density;
 
-    public PumpjackRecipe(ProcessingRecipeBuilder.ProcessingRecipeParams params) {
+    public PumpjackRecipe(PumpjackRecipeParams params) {
         super(PetrochemRecipeTypes.PUMPJACK, params);
+        biome = ResourceKey.create(Registries.BIOME, ResourceLocation.parse(params.biome));
     }
 
     public static boolean match(PumpjackWellBlockEntity be, PumpjackRecipe recipe){
@@ -32,6 +35,7 @@ public class PumpjackRecipe extends ProcessingRecipe<RecipeWrapper> {
     public FluidStack getFluidResult(){
         return getFluidResults().get(0);
     }
+
     @Override
     protected int getMaxInputCount() {
         return 0;
@@ -47,38 +51,55 @@ public class PumpjackRecipe extends ProcessingRecipe<RecipeWrapper> {
         return 1;
     }
 
+
+    @FunctionalInterface
+    public interface Factory<R extends PumpjackRecipe> extends ProcessingRecipe.Factory<PumpjackRecipeParams, R> {
+        R create(PumpjackRecipeParams params);
+    }
+
+    public static class Builder<R extends PumpjackRecipe> extends ProcessingRecipeBuilder<PumpjackRecipeParams, R, PumpjackRecipe.Builder<R>> {
+        public Builder(PumpjackRecipe.Factory<R> factory, ResourceLocation recipeId) {
+            super(factory, recipeId);
+        }
+
+        @Override
+        protected PumpjackRecipeParams createParams() {
+            return new PumpjackRecipeParams();
+        }
+
+        @Override
+        public PumpjackRecipe.Builder<R> self() {
+            return this;
+        }
+
+        public PumpjackRecipe.Builder<R> biome(String biome){
+            params.biome = biome;
+            return this;
+        }
+    }
+
+    public static class Serializer<R extends PumpjackRecipe> implements RecipeSerializer<R> {
+        private final MapCodec<R> codec;
+        private final StreamCodec<RegistryFriendlyByteBuf, R> streamCodec;
+
+        public Serializer(ProcessingRecipe.Factory<PumpjackRecipeParams, R> factory) {
+            this.codec = ProcessingRecipe.codec(factory, PumpjackRecipeParams.CODEC);
+            this.streamCodec = ProcessingRecipe.streamCodec(factory, PumpjackRecipeParams.STREAM_CODEC);
+        }
+
+        @Override
+        public MapCodec<R> codec() {
+            return codec;
+        }
+
+        @Override
+        public StreamCodec<RegistryFriendlyByteBuf, R> streamCodec() {
+            return streamCodec;
+        }
+    }
+
     @Override
-    public boolean matches(RecipeWrapper pContainer, Level pLevel) {
+    public boolean matches(RecipeInput recipeInput, Level level) {
         return false;
-    }
-
-    public void setBiome(String location){
-        biome = ResourceKey.create(ForgeRegistries.BIOMES.getRegistryKey(), new ResourceLocation(location));
-    }
-
-    public void readAdditional(JsonObject json) {
-        String biome_key = GsonHelper.getAsString(json, "biome");
-        if(biome_key == null){
-            Petrochem.LOGGER.warn("invalid biome in recipe " + this.getId().getPath());
-            return;
-        }
-        setBiome(biome_key);
-    }
-
-    public void readAdditional(FriendlyByteBuf buffer) {
-        String biome_key = buffer.readUtf();
-        if(biome_key == null){
-            Petrochem.LOGGER.warn("invalid biome in recipe " + this.getId().getPath());
-            return;
-        }
-        biome = ResourceKey.create(ForgeRegistries.BIOMES.getRegistryKey(), new ResourceLocation(biome_key));
-    }
-
-    public void writeAdditional(JsonObject json) {
-        json.addProperty("biome", biome.location().toString());
-    }
-
-    public void writeAdditional(FriendlyByteBuf buffer) {
-        buffer.writeUtf(biome.location().toString());
     }
 }

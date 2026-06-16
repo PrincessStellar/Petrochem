@@ -18,9 +18,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegisterEvent;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.RegisterEvent;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -76,15 +75,6 @@ public class PetrochemSoundEvents {
                         1f + player.level().random.nextFloat());
     }
 
-//	@SubscribeEvent
-//	public static void cancelSubtitlesOfCompoundedSounds(PlaySoundEvent event) {
-//		ResourceLocation soundLocation = event.getSound().getSoundLocation();
-//		if (!soundLocation.getNamespace().equals(Create.ID))
-//			return;
-//		if (soundLocation.getPath().contains("_compounded_")
-//			event.setResultSound();
-//
-//	}
 
     public static class SoundEntryProvider implements DataProvider {
 
@@ -119,8 +109,7 @@ public class PetrochemSoundEvents {
 
     }
 
-    public record ConfiguredSoundEvent(Supplier<SoundEvent> event, float volume, float pitch) {
-    }
+    public record ConfiguredSoundEvent(Supplier<SoundEvent> event, float volume, float pitch) {}
 
     public static class SoundEntryBuilder {
 
@@ -180,7 +169,7 @@ public class PetrochemSoundEvents {
         }
 
         public SoundEntryBuilder playExisting(Holder<SoundEvent> event) {
-            return playExisting(event::get, 1, 1);
+            return playExisting(event::value, 1, 1);
         }
 
         public SoundEntry build() {
@@ -212,6 +201,8 @@ public class PetrochemSoundEvents {
         public abstract void register(RegisterEvent.RegisterHelper<SoundEvent> registry);
 
         public abstract void write(JsonObject json);
+
+        public abstract Holder<SoundEvent> getMainEventHolder();
 
         public abstract SoundEvent getMainEvent();
 
@@ -291,7 +282,7 @@ public class PetrochemSoundEvents {
             for (int i = 0; i < wrappedEvents.size(); i++) {
                 ConfiguredSoundEvent wrapped = wrappedEvents.get(i);
                 ResourceLocation location = getIdOf(i);
-                RegistryObject<SoundEvent> event = RegistryObject.create(location, ForgeRegistries.SOUND_EVENTS);
+                DeferredHolder<SoundEvent, SoundEvent> event = DeferredHolder.create(Registries.SOUND_EVENT, location);
                 compiledEvents.add(new WrappedSoundEntry.CompiledSoundEvent(event, wrapped.volume(), wrapped.pitch()));
             }
         }
@@ -305,13 +296,17 @@ public class PetrochemSoundEvents {
         }
 
         @Override
+        public Holder<SoundEvent> getMainEventHolder() {
+            return compiledEvents.getFirst().event();
+        }
+
+        @Override
         public SoundEvent getMainEvent() {
-            return compiledEvents.get(0)
-                    .event().get();
+            return compiledEvents.getFirst().event().get();
         }
 
         protected ResourceLocation getIdOf(int i) {
-            return new ResourceLocation(id.getNamespace(), i == 0 ? id.getPath() : id.getPath() + "_compounded_" + i);
+            return ResourceLocation.fromNamespaceAndPath(id.getNamespace(), i == 0 ? id.getPath() : id.getPath() + "_compounded_" + i);
         }
 
         @Override
@@ -352,7 +347,7 @@ public class PetrochemSoundEvents {
             }
         }
 
-        private record CompiledSoundEvent(RegistryObject<SoundEvent> event, float volume, float pitch) {
+        private record CompiledSoundEvent(DeferredHolder<SoundEvent, SoundEvent> event, float volume, float pitch) {
         }
 
     }
@@ -360,7 +355,7 @@ public class PetrochemSoundEvents {
     private static class CustomSoundEntry extends SoundEntry {
 
         protected List<ResourceLocation> variants;
-        protected RegistryObject<SoundEvent> event;
+        protected DeferredHolder<SoundEvent, SoundEvent> event;
 
         public CustomSoundEntry(ResourceLocation id, List<ResourceLocation> variants, String subtitle,
                                 SoundSource category, int attenuationDistance) {
@@ -370,13 +365,18 @@ public class PetrochemSoundEvents {
 
         @Override
         public void prepare() {
-            event = RegistryObject.create(id, ForgeRegistries.SOUND_EVENTS);
+            event = DeferredHolder.create(Registries.SOUND_EVENT, id);
         }
 
         @Override
         public void register(RegisterEvent.RegisterHelper<SoundEvent> helper) {
             ResourceLocation location = event.getId();
             helper.register(location, SoundEvent.createVariableRangeEvent(location));
+        }
+
+        @Override
+        public Holder<SoundEvent> getMainEventHolder() {
+            return event;
         }
 
         @Override

@@ -1,35 +1,57 @@
 package io.github.hadron13.petrochem.blocks.distillation_tower;
 
-import com.google.gson.JsonObject;
+import com.mojang.serialization.MapCodec;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
-import com.simibubi.create.foundation.fluid.FluidIngredient;
 import io.github.hadron13.petrochem.Petrochem;
-import io.github.hadron13.petrochem.data.recipe.base.DistillingRecipeGen;
 import io.github.hadron13.petrochem.register.PetrochemRecipeTypes;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.crafting.SizedFluidIngredient;
 
-public class DistillingRecipe extends ProcessingRecipe<RecipeWrapper> {
+import java.util.List;
+
+public class DistillingRecipe extends ProcessingRecipe<RecipeInput, DistillationRecipeParams> {
 
     public DistillationControllerBlockEntity.DistilMode mode;
 
-    public DistillingRecipe(ProcessingRecipeBuilder.ProcessingRecipeParams params) {
+    public DistillingRecipe(DistillationRecipeParams params) {
         super(PetrochemRecipeTypes.DISTILLING, params);
+        mode = stringToMode(params.mode);
+    }
+
+    public DistillationControllerBlockEntity.DistilMode stringToMode(String mode){
+        return switch (mode.toLowerCase()){
+            case "distil_flash" ->  DistillationControllerBlockEntity.DistilMode.DISTIL_FLASH;
+            case "distil_atmospheric" ->  DistillationControllerBlockEntity.DistilMode.DISTIL_ATMOSPHERIC;
+            case "distil_vacuum" ->  DistillationControllerBlockEntity.DistilMode.DISTIL_VACUUM;
+            default -> null;
+        };
+    }
+
+
+    @Override
+    public List<String> validate() {
+        List<String> errors = super.validate();
+        if(mode == null){
+            errors.add("invalid distilling mode (null)");
+        }
+        return errors;
     }
 
     public static  boolean match(DistillationControllerBlockEntity be, DistillingRecipe recipe){
         if(recipe == null)
             return false;
-        FluidIngredient fluidIngredient = recipe.fluidIngredients.get(0);
+        SizedFluidIngredient fluidIngredient = recipe.fluidIngredients.get(0);
 
-        IFluidHandler availableFluids = be.getCapability(ForgeCapabilities.FLUID_HANDLER)
-                .orElse(null);
+        IFluidHandler availableFluids = be.getLevel().getCapability(Capabilities.FluidHandler.BLOCK, be.getBlockPos(), null);
         if(availableFluids == null)
             return false;
         if(be.distilMode.get() != recipe.mode)
@@ -38,7 +60,7 @@ public class DistillingRecipe extends ProcessingRecipe<RecipeWrapper> {
         for(int i = 0; i < availableFluids.getTanks(); i++){
             FluidStack fluid = availableFluids.getFluidInTank(i);
             if(fluidIngredient.test(fluid) &&
-                fluid.getAmount() >= fluidIngredient.getRequiredAmount()) {
+                fluid.getAmount() >= fluidIngredient.amount()) {
                 return true;
             }
         }
@@ -64,48 +86,68 @@ public class DistillingRecipe extends ProcessingRecipe<RecipeWrapper> {
     protected int getMaxFluidOutputCount() {
         return 8;
     }
-    public DistillingRecipe setMode(DistillationControllerBlockEntity.DistilMode mode){
-        this.mode = mode;
-        return this;
-    }
-
-    public void readAdditional(JsonObject json) {
-        String mode_name = GsonHelper.getAsString(json, "mode");
-        if(mode_name == null){
-            Petrochem.LOGGER.warn("invalid mode in recipe " + this.getId().getPath());
-            return;
-        }
-        switch (mode_name){
-            case "distil_flash" -> mode = DistillationControllerBlockEntity.DistilMode.DISTIL_FLASH;
-            case "distil_atmospheric" -> mode = DistillationControllerBlockEntity.DistilMode.DISTIL_ATMOSPHERIC;
-            case "distil_vacuum" -> mode = DistillationControllerBlockEntity.DistilMode.DISTIL_VACUUM;
-        }
-    }
-
-    public void readAdditional(FriendlyByteBuf buffer) {
-        String mode_name = buffer.readUtf();
-        if(mode_name== null){
-            Petrochem.LOGGER.warn("invalid mode in recipe " + this.getId().getPath());
-            return;
-        }
-        switch (mode_name){
-            case "distil_flash" -> mode = DistillationControllerBlockEntity.DistilMode.DISTIL_FLASH;
-            case "distil_atmospheric" -> mode = DistillationControllerBlockEntity.DistilMode.DISTIL_ATMOSPHERIC;
-            case "distil_vacuum" -> mode = DistillationControllerBlockEntity.DistilMode.DISTIL_VACUUM;
-        }
-    }
-
-    public void writeAdditional(JsonObject json) {
-        json.addProperty("mode", mode.toString().toLowerCase());
-    }
-
-    public void writeAdditional(FriendlyByteBuf buffer) {
-        buffer.writeUtf(mode.toString().toLowerCase());
-    }
-
 
     @Override
-    public boolean matches(RecipeWrapper container, Level level) {
+    protected boolean canSpecifyDuration() {
+        return true;
+    }
+
+
+
+    @FunctionalInterface
+    public interface Factory<R extends DistillingRecipe> extends ProcessingRecipe.Factory<DistillationRecipeParams, R> {
+        R create(DistillationRecipeParams params);
+    }
+
+    public static class Builder<R extends DistillingRecipe> extends ProcessingRecipeBuilder<DistillationRecipeParams, R, DistillingRecipe.Builder<R>> {
+        public Builder(DistillingRecipe.Factory<R> factory, ResourceLocation recipeId) {
+            super(factory, recipeId);
+        }
+
+        @Override
+        protected DistillationRecipeParams createParams() {
+            return new DistillationRecipeParams();
+        }
+
+        @Override
+        public DistillingRecipe.Builder<R> self() {
+            return this;
+        }
+
+        public DistillingRecipe.Builder<R> mode(String mode){
+            params.mode = mode;
+            return this;
+        }
+
+        public DistillingRecipe.Builder<R> mode(DistillationControllerBlockEntity.DistilMode mode){
+            params.mode = mode.name();
+            return this;
+        }
+
+    }
+
+    public static class Serializer<R extends DistillingRecipe> implements RecipeSerializer<R> {
+        private final MapCodec<R> codec;
+        private final StreamCodec<RegistryFriendlyByteBuf, R> streamCodec;
+
+        public Serializer(ProcessingRecipe.Factory<DistillationRecipeParams, R> factory) {
+            this.codec = ProcessingRecipe.codec(factory, DistillationRecipeParams.CODEC);
+            this.streamCodec = ProcessingRecipe.streamCodec(factory, DistillationRecipeParams.STREAM_CODEC);
+        }
+
+        @Override
+        public MapCodec<R> codec() {
+            return codec;
+        }
+
+        @Override
+        public StreamCodec<RegistryFriendlyByteBuf, R> streamCodec() {
+            return streamCodec;
+        }
+    }
+
+    @Override
+    public boolean matches(RecipeInput recipeInput, Level level) {
         return false;
     }
 }

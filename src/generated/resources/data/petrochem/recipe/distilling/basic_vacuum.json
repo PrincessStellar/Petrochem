@@ -1,0 +1,34 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:not",
+      "value": {
+        "type": "neoforge:mod_loaded",
+        "modid": "petrochem_expert"
+      }
+    }
+  ],
+  "type": "petrochem:distilling",
+  "ingredients": [
+    {
+      "type": "neoforge:single",
+      "amount": 800,
+      "fluid": "petrochem:oil_residue"
+    }
+  ],
+  "mode": "DISTIL_VACUUM",
+  "results": [
+    {
+      "amount": 200,
+      "id": "petrochem:heavy_oil_residue"
+    },
+    {
+      "amount": 300,
+      "id": "petrochem:heavy_gas_oil"
+    },
+    {
+      "amount": 300,
+      "id": "petrochem:fuel_oil"
+    }
+  ]
+}

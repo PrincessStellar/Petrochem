@@ -21,7 +21,6 @@ public class PetrochemPartialModels {
             PUMPJACK_PITMAN = block("pumpjack/pitman"),
             PUMPJACK_CRANK = block("pumpjack/crank"),
             PUMPJACK_SMOOTHROD = block("pumpjack/smooth_rod"),
-            DIPPER_POLE = block("dipper/pole"),
             STEEL_FLUID_PIPE_CASING = block("steel_fluid_pipe/casing"),
             STEEL_PUMP_COG = block("steel_pump/cog"),
             DISTILLATION_SELECTOR = block("distillation_controller/head"),
@@ -33,7 +32,8 @@ public class PetrochemPartialModels {
             MEDIUM_PISTON = block("medium_engine/piston"),
             MEDIUM_ENGINE_LINKAGE = block("medium_engine/linkage"),
             MEDIUM_ENGINE_CONNECTOR = block("medium_engine/shaft_connector")
-    ;
+                    ;
+
 
 
     public static final Map<FluidTransportBehaviour.AttachmentTypes.ComponentPartials, Map<Direction, PartialModel>> STEEL_PIPE_ATTACHMENTS =

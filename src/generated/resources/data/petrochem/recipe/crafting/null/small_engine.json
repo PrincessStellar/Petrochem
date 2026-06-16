@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "create:shaft"
+    },
+    "B": {
+      "item": "alloyed:bronze_sheet"
+    },
+    "L": {
+      "item": "petrochem:lubricant_bucket"
+    },
+    "O": {
+      "item": "alloyed:steel_block"
+    },
+    "S": {
+      "item": "alloyed:steel_sheet"
+    }
+  },
+  "pattern": [
+    "BLB",
+    "AOA",
+    "SSS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "petrochem:small_engine"
+  }
+}

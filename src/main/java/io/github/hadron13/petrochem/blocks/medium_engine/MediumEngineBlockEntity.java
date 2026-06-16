@@ -1,17 +1,15 @@
 package io.github.hadron13.petrochem.blocks.medium_engine;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.simibubi.create.Create;
 import com.simibubi.create.api.equipment.goggles.IHaveGoggleInformation;
-import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
-import com.simibubi.create.content.kinetics.KineticNetwork;
-import com.simibubi.create.content.kinetics.RotationPropagator;
-import com.simibubi.create.content.kinetics.TorquePropagator;
 import com.simibubi.create.content.kinetics.base.GeneratingKineticBlockEntity;
 import com.simibubi.create.content.kinetics.base.IRotate;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityRenderer;
 import com.simibubi.create.content.kinetics.motor.KineticScrollValueBehaviour;
-import com.simibubi.create.content.kinetics.steamEngine.*;
+import com.simibubi.create.content.kinetics.steamEngine.PoweredShaftBlockEntity;
+import com.simibubi.create.content.kinetics.steamEngine.SteamEngineBlock;
+import com.simibubi.create.content.kinetics.steamEngine.SteamEngineBlockEntity;
+import com.simibubi.create.content.kinetics.steamEngine.SteamJetParticleData;
 import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
 import com.simibubi.create.foundation.blockEntity.behaviour.ValueBoxTransform;
 import com.simibubi.create.foundation.blockEntity.behaviour.fluid.SmartFluidTankBehaviour;
@@ -21,7 +19,8 @@ import dev.engine_room.flywheel.lib.transform.TransformStack;
 import io.github.hadron13.petrochem.PetrochemLang;
 import io.github.hadron13.petrochem.blocks.small_engine.EngineFuelRecipe;
 import io.github.hadron13.petrochem.blocks.small_engine.EngineSoundInstance;
-import io.github.hadron13.petrochem.mixin.KineticBlockEntityAccessor;
+import io.github.hadron13.petrochem.mixin.accessor.KineticBlockEntityAccessor;
+import io.github.hadron13.petrochem.register.PetrochemBlockEntities;
 import io.github.hadron13.petrochem.register.PetrochemBlocks;
 import io.github.hadron13.petrochem.register.PetrochemRecipeTypes;
 import io.github.hadron13.petrochem.register.PetrochemSoundEvents;
@@ -29,30 +28,32 @@ import net.createmod.catnip.lang.LangBuilder;
 import net.createmod.catnip.math.AngleHelper;
 import net.createmod.catnip.math.Pointing;
 import net.createmod.catnip.math.VecHelper;
+import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fml.DistExecutor;
-import org.jetbrains.annotations.NotNull;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
+
+;
 
 public class MediumEngineBlockEntity extends SteamEngineBlockEntity implements IHaveGoggleInformation {
 
@@ -60,7 +61,6 @@ public class MediumEngineBlockEntity extends SteamEngineBlockEntity implements I
     public boolean initialized = false;
 
 
-    @OnlyIn(Dist.CLIENT)
     public EngineSoundInstance soundInstance;
     public SmartFluidTankBehaviour tank;
     public EngineFuelRecipe currentFuel = null;
@@ -103,10 +103,10 @@ public class MediumEngineBlockEntity extends SteamEngineBlockEntity implements I
             currentFuel = null;
         }else{
             if(currentFuel == null){
-                List<EngineFuelRecipe> allFuels = level.getRecipeManager().getAllRecipesFor(PetrochemRecipeTypes.DIESEL_ENGINE_FUEL.getType());
+                List<RecipeHolder<EngineFuelRecipe>> allFuels = level.getRecipeManager().getAllRecipesFor(PetrochemRecipeTypes.DIESEL_ENGINE_FUEL.getType());
 
                 Optional<EngineFuelRecipe> matchingFuel =
-                        allFuels.stream().filter(recipe -> recipe.match(fluid) ).findAny();
+                        allFuels.stream().map(RecipeHolder::value).filter(recipe -> recipe.match(fluid) ).findAny();
                 if(matchingFuel.isEmpty())
                     return;
                 currentFuel = matchingFuel.get();
@@ -185,8 +185,8 @@ public class MediumEngineBlockEntity extends SteamEngineBlockEntity implements I
 
 
         if(level.isClientSide){
-            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> this::tickAudio);
-            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> this::spawnParticles);
+            CatnipServices.PLATFORM.executeOnClientOnly(() -> this::tickAudio);
+            CatnipServices.PLATFORM.executeOnClientOnly(() -> this::spawnParticles);
             return;
         }
 
@@ -259,7 +259,7 @@ public class MediumEngineBlockEntity extends SteamEngineBlockEntity implements I
             }
         }
 
-        containedFluidTooltip(tooltip, isPlayerSneaking, getCapability(ForgeCapabilities.FLUID_HANDLER));
+        containedFluidTooltip(tooltip, isPlayerSneaking, tank.getCapability());
 
         return true;
     }
@@ -359,28 +359,33 @@ public class MediumEngineBlockEntity extends SteamEngineBlockEntity implements I
     }
 
 
-    @Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, Direction side) {
-        Direction dir = SteamEngineBlock.getConnectedDirection(getBlockState()).getOpposite();
-
-        if(cap == ForgeCapabilities.FLUID_HANDLER && (side == null || side == dir))
-            return tank.getCapability().cast();
-        return super.getCapability(cap, side);
+    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+        event.registerBlockEntity(
+                Capabilities.FluidHandler.BLOCK,
+                PetrochemBlockEntities.MEDIUM_ENGINE.get(),
+                (be, context) -> {
+                    Direction dir = SteamEngineBlock.getConnectedDirection(be.getBlockState()).getOpposite();
+                    if (context == null || context == dir){
+                        return be.tank.getCapability();
+                    }
+                    return null;
+                }
+        );
     }
 
 
     @Override
-    protected void write(CompoundTag compound, boolean clientPacket) {
-        super.write(compound, clientPacket);
-        compound.putFloat("load", load);
-        compound.putFloat("consumption", getConsumption());
+    protected void write(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
+        super.write(tag, registries, clientPacket);
+        tag.putFloat("load", load);
+        tag.putFloat("consumption", getConsumption());
     }
 
     @Override
-    protected void read(CompoundTag compound, boolean clientPacket) {
-        super.read(compound, clientPacket);
-        load = compound.getFloat("load");
-        consumption = compound.getFloat("consumption");
+    protected void read(CompoundTag tag, HolderLookup.Provider registries, boolean clientPacket) {
+        super.read(tag, registries, clientPacket);
+        load = tag.getFloat("load");
+        consumption = tag.getFloat("consumption");
     }
 
     @Override

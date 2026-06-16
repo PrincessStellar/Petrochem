@@ -4,26 +4,29 @@ import io.github.hadron13.petrochem.Petrochem;
 import io.github.hadron13.petrochem.data.recipe.base.ElectrolyzingRecipeGen;
 import io.github.hadron13.petrochem.register.PetrochemFluids;
 import io.github.hadron13.petrochem.register.PetrochemItems;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.material.Fluids;
 
+import java.util.concurrent.CompletableFuture;
+
 public class PetrochemElectrolyzingRecipeGen extends ElectrolyzingRecipeGen {
 
-    GeneratedRecipe BASIC_DESALTED_OIL = createElectrolyzing("basic_desalting", b -> (ElectrolyzingRecipeBuilder) b
+    GeneratedRecipe BASIC_DESALTED_OIL = create("basic_desalting", b -> b
             .energy(100)
             .require(PetrochemFluids.PETROLEUM.get(), 500)
             .output(PetrochemFluids.DESALTED_OIL.get(), 500)
             .output(0.5f, PetrochemItems.SALT_DUST)
             .whenModMissing(Petrochem.REALISTIC_MODID)
     ),
-    WATER_ELECTROLYSIS = createElectrolyzing("water_electrolysis", b -> (ElectrolyzingRecipeBuilder) b
+    WATER_ELECTROLYSIS = create("water_electrolysis", b -> b
             .energy(150)
             .require(Fluids.WATER, 300)
             .output(PetrochemFluids.HYDROGEN.get(), 200)
             .output(PetrochemFluids.OXYGEN.get(), 100)
             .whenModLoaded(Petrochem.REALISTIC_MODID)
     ),
-    CHLOR_ALKALI = createElectrolyzing("chlor_alkali", b -> (ElectrolyzingRecipeBuilder) b
+    CHLOR_ALKALI = create("chlor_alkali", b -> b
             .energy(150)
             .require(Fluids.WATER, 500)
             .require(PetrochemItems.SALT_DUST.get())
@@ -32,14 +35,10 @@ public class PetrochemElectrolyzingRecipeGen extends ElectrolyzingRecipeGen {
     )
 
 
-
-
-
-
             ;
 
 
-    public PetrochemElectrolyzingRecipeGen(PackOutput generator) {
-        super(generator, Petrochem.MODID);
+    public PetrochemElectrolyzingRecipeGen(PackOutput generator, CompletableFuture<HolderLookup.Provider> registries) {
+        super(generator, registries, Petrochem.MODID);
     }
 }

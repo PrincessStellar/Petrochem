@@ -6,8 +6,11 @@ import com.simibubi.create.api.data.recipe.MixingRecipeGen;
 import io.github.hadron13.petrochem.Petrochem;
 import io.github.hadron13.petrochem.register.PetrochemFluids;
 import io.github.hadron13.petrochem.register.PetrochemItems;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.material.Fluids;
+
+import java.util.concurrent.CompletableFuture;
 
 public class PetrochemCompactingRecipeGen extends CompactingRecipeGen {
 
@@ -19,7 +22,7 @@ public class PetrochemCompactingRecipeGen extends CompactingRecipeGen {
 
 
 
-    public PetrochemCompactingRecipeGen(PackOutput output) {
-        super(output, Petrochem.MODID);
+    public PetrochemCompactingRecipeGen(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+        super(output, registries, Petrochem.MODID);
     }
 }

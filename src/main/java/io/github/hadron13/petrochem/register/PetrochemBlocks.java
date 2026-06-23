@@ -231,7 +231,7 @@ public class PetrochemBlocks {
             .transform(pickaxeOnly())
             .lang("Gasoline Engine")
             .blockstate(BlockStateGen.horizontalBlockProvider(true))
-            .transform(PetrochemStress.setCapacity(256.0))
+            .transform(PetrochemStress.setCapacity(128.0))
             .onRegister(BlockStressValues.setGeneratorSpeed(256, true))
             .item()
             .transform(customItemModel())
@@ -244,7 +244,7 @@ public class PetrochemBlocks {
             .lang("Diesel Engine")
             .blockstate((c, p) -> p.horizontalFaceBlock(c.get(), AssetLookup.partialBaseModel(c, p)))
             .transform(PetrochemStress.setCapacity(131072.0))
-            .onRegister(BlockStressValues.setGeneratorSpeed(1, true))
+            .onRegister(BlockStressValues.setGeneratorSpeed(1, false))
             .item()
             .transform(customItemModel())
             .register();

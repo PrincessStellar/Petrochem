@@ -1,0 +1,14 @@
+{
+  "engine": {
+    "sounds": [
+      {
+        "type": "file",
+        "name": "petrochem:engine",
+        "attenuation_distance": 16,
+        "stream": false,
+        "replace": false
+      }
+    ],
+    "subtitle": "petrochem.subtitle.engine_small"
+  }
+}

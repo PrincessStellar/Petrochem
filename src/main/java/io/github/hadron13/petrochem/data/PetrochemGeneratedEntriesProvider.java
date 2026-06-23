@@ -21,6 +21,6 @@ public class PetrochemGeneratedEntriesProvider extends DatapackBuiltinEntriesPro
 
     @Override
     public String getName() {
-        return "Gearbox's Generated Registry Entries";
+        return "Petrochem's Generated Registry Entries";
     }
 }

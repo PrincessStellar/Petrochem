@@ -15,7 +15,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -30,28 +32,14 @@ public class SteelGlassPipeBlock extends GlassFluidPipeBlock {
         super(p_i48339_1_);
     }
 
-
     @Override
-    public InteractionResult onWrenched(BlockState state, UseOnContext context) {
-        if (tryRemoveBracket(context))
-            return InteractionResult.SUCCESS;
-        BlockState newState;
-        Level world = context.getLevel();
-        BlockPos pos = context.getClickedPos();
-        FluidTransportBehaviour.cacheFlows(world, pos);
-
+    public BlockState toRegularPipe(LevelAccessor world, BlockPos pos, BlockState state) {
         Direction side = Direction.get(Direction.AxisDirection.POSITIVE, state.getValue(AXIS));
         Map<Direction, BooleanProperty> facingToPropertyMap = FluidPipeBlock.PROPERTY_BY_DIRECTION;
-
-        newState = AllBlocks.FLUID_PIPE.get()
-            .updateBlockState(PetrochemBlocks.STEEL_FLUID_PIPE.getDefaultState()
-                .setValue(facingToPropertyMap.get(side), true)
-                .setValue(facingToPropertyMap.get(side.getOpposite()), true), side, null, world, pos)
-                .setValue(BlockStateProperties.WATERLOGGED, state.getValue(BlockStateProperties.WATERLOGGED));
-
-        world.setBlock(pos, newState, 3);
-        FluidTransportBehaviour.loadFlows(world, pos);
-        return InteractionResult.SUCCESS;
+        return PetrochemBlocks.STEEL_FLUID_PIPE.get()
+                .updateBlockState(PetrochemBlocks.STEEL_FLUID_PIPE.getDefaultState()
+                        .setValue(facingToPropertyMap.get(side), true)
+                        .setValue(facingToPropertyMap.get(side.getOpposite()), true), side, null, world, pos);
     }
 
     @Override

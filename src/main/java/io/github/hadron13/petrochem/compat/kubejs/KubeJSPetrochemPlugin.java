@@ -10,7 +10,7 @@ import io.github.hadron13.petrochem.register.PetrochemRecipeTypes;
 import java.util.HashMap;
 import java.util.Map;
 
-public class KubeJSGearboxPlugin implements KubeJSPlugin {
+public class KubeJSPetrochemPlugin implements KubeJSPlugin {
 
     private static final Map<PetrochemRecipeTypes, RecipeSchema> recipeSchemas = new HashMap<>();
 

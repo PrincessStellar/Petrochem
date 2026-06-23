@@ -203,7 +203,7 @@ public class PetrochemJEI implements IModPlugin {
             };
             CreateRecipeCategory.Info<T> info = new CreateRecipeCategory.Info<>(
                     createRecipeHolderType(Petrochem.asResource(id)),
-                    Component.translatable( "gearbox.recipe." + id),
+                    Component.translatable( "petrochem.recipe." + id),
                     background,
                     icon,
                     recipesSupplier,

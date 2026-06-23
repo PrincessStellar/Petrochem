@@ -436,7 +436,7 @@ public class DistillationControllerBlockEntity extends SmartBlockEntity implemen
 
         @Override
         public String getTranslationKey() {
-            return "gearbox." + translationKey;
+            return "petrochem." + translationKey;
         }
 
         public String getRawTranslationKey(){

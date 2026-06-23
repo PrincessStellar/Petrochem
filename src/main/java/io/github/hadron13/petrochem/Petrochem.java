@@ -48,6 +48,7 @@ public class Petrochem {
 
         REGISTRATE.registerEventListeners(modEventBus);
 
+        PetrochemSoundEvents.prepare();
         PetrochemCreativeModeTabs.register(modEventBus);
         PetrochemBlocks.register();
         PetrochemItems.register();
@@ -57,6 +58,7 @@ public class Petrochem {
         PetrochemRecipeTypes.register(modEventBus);
         PetrochemConfig.register(modLoadingContext, modContainer);
 
+        modEventBus.addListener(PetrochemSoundEvents::register);
         modEventBus.addListener(EventPriority.HIGHEST, PetrochemDatagen::gatherDataHighPriority);
         modEventBus.addListener(EventPriority.LOWEST, PetrochemDatagen::gatherData);
 

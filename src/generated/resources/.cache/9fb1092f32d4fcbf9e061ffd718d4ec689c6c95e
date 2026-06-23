@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-16T20:06:18.164184049	Recipes
+// 1.21.1	2026-06-23T09:35:32.594463448	Recipes
 16c6da1957f4d3bace320cbdc7b75b5cd47dc4b9 data/petrochem/advancement/recipes/misc/crafting/null/distillation_controller.json
 0ec7aaf4babc11291b621cc101cc4318f8b39d3e data/petrochem/advancement/recipes/misc/crafting/null/distillation_output.json
 553773e7ed3774e5444e5c795ce89a224d80bc97 data/petrochem/advancement/recipes/misc/crafting/null/electrolyzer.json
@@ -10,7 +10,9 @@ c1f734f749872222930ccd56488b767542caf471 data/petrochem/advancement/recipes/misc
 16054ffa8052511323db938a16e27f789b9c1d63 data/petrochem/advancement/recipes/misc/crafting/null/steel_fluid_pipe.json
 5114245e062a01e94553f2eb5256015ed53a1d94 data/petrochem/advancement/recipes/misc/crafting/null/steel_fluid_pipe_vertical.json
 256f2a4ad9d31f14b09c12e1ed2a0ca920b5e0e5 data/petrochem/advancement/recipes/misc/crafting/null/steel_fluid_tank.json
+ea868d5c24ccad39cd7638979c5af8b3de63d579 data/petrochem/advancement/recipes/misc/crafting/null/steel_fluid_valve.json
 2cebf19a5ca400f73d3143a3abfbf8fbc487bfff data/petrochem/advancement/recipes/misc/crafting/null/steel_pump.json
+c9b4e6eb00b551c87cb6addc77d2af9d86c13a2a data/petrochem/advancement/recipes/misc/crafting/null/steel_smart_fluid_pipe.json
 ffdc107d04782055495931066367af64c2a1a972 data/petrochem/recipe/crafting/null/distillation_controller.json
 7c5a262fde524d5dd021abc3212c6209804405c6 data/petrochem/recipe/crafting/null/distillation_output.json
 26f3dbc9f9b8c9cd473369c6c3ceb2e1cd95fc33 data/petrochem/recipe/crafting/null/electrolyzer.json
@@ -22,4 +24,6 @@ b1c365943332f174f4090485342f06c32e91cb70 data/petrochem/recipe/crafting/null/fla
 f23bc423bb4d4e866a6c9549b42157d0c874f967 data/petrochem/recipe/crafting/null/steel_fluid_pipe.json
 9c1088892c36c87ba38576019dd45e76726f92c2 data/petrochem/recipe/crafting/null/steel_fluid_pipe_vertical.json
 46a0fbeb292a9327f81188e23e241d8c36fb6926 data/petrochem/recipe/crafting/null/steel_fluid_tank.json
+a5dc27c94f9f90ce92ca603fa18221f83c72603f data/petrochem/recipe/crafting/null/steel_fluid_valve.json
 09610a83c827d8d8dd3d0e3029ccdc108319a2d1 data/petrochem/recipe/crafting/null/steel_pump.json
+275518f9294fab7efbd8478ee04151e62c39171c data/petrochem/recipe/crafting/null/steel_smart_fluid_pipe.json

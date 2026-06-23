@@ -150,7 +150,7 @@ public class PumpjackWellBlockEntity extends SmartBlockEntity implements IHaveGo
         if(isTankFull())
             return;
 
-        FluidStack result = currentRecipe.getFluidResult();
+        FluidStack result = currentRecipe.getFluidResult().copy();
         result.setAmount((int) ((float)result.getAmount() * efficiency));
         tank.allowInsertion();
         tank.getPrimaryHandler().fill(result, EXECUTE);

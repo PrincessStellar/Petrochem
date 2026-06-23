@@ -15,6 +15,7 @@ import com.simibubi.create.AllItems;
 import com.simibubi.create.Create;
 import com.simibubi.create.api.data.recipe.BaseRecipeProvider;
 import com.simibubi.create.foundation.data.recipe.CommonMetal;
+import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider;
 import com.simibubi.create.foundation.data.recipe.CreateStandardRecipeGen;
 import com.simibubi.create.foundation.data.recipe.Mods;
 import com.simibubi.create.foundation.mixin.accessor.MappedRegistryAccessor;
@@ -103,6 +104,20 @@ public class PetrochemStandardRecipeGen extends BaseRecipeProvider {
                     .pattern("S")
                     .pattern("B")
                     .pattern("S"));
+
+    GeneratedRecipe STEEL_SMART_FLUID_PIPE = create(PetrochemBlocks.STEEL_SMART_FLUID_PIPE).unlockedBy(ModItems.STEEL_SHEET::get)
+		.viaShaped(b -> b.define('P', AllItems.ELECTRON_TUBE)
+            .define('S', PetrochemBlocks.STEEL_FLUID_PIPE.get())
+            .define('I', ModItems.STEEL_SHEET.get())
+            .pattern("I")
+			.pattern("S")
+			.pattern("P"));
+
+
+    GeneratedRecipe STEEL_FLUID_VALVE = create(PetrochemBlocks.STEEL_FLUID_VALVE).unlockedBy(ModItems.STEEL_SHEET::get)
+		.viaShapeless(b -> b.requires(ModItems.STEEL_SHEET.get())
+            .requires(PetrochemBlocks.STEEL_FLUID_PIPE.get()));
+
 
     GeneratedRecipe ELECTROLYZER =
             create(PetrochemBlocks.ELECTROLYZER)

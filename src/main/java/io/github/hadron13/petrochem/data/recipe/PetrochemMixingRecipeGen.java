@@ -27,6 +27,11 @@ public class PetrochemMixingRecipeGen extends MixingRecipeGen {
             .output(PetrochemFluids.SULFURIC_ACID.get(), 1000)
             .whenModLoaded(Petrochem.REALISTIC_MODID)
     ),
+    STEAM = create("steam", b -> b
+            .require(Fluids.WATER, 100)
+            .requiresHeat(HeatCondition.HEATED)
+            .output(PetrochemFluids.STEAM.get(), 1000)
+    ),
     CAUSTIC_PAPER = create("naoh_paper", b -> b
             .require(AllItems.PULP)
             .require(AllItems.PULP)

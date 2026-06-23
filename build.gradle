@@ -162,6 +162,9 @@ dependencies {
     interfaceInjectionData("dev.latvian.mods:kubejs-neoforge:$kubejs_version")
     implementation("dev.latvian.mods:kubejs-create-neoforge:$kubejs_create_version")
 
+    runtimeOnly("curse.maven:irisshaders-455508:6661598")
+    runtimeOnly("curse.maven:sodium-394468:6382651")
+
     implementation("curse.maven:createaddition-439890:7262496")
     implementation("curse.maven:create-alloyed-564792:7886505")
 

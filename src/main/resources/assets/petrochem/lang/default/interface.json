@@ -19,6 +19,8 @@
 
   "petrochem.gui.electrolyzer.speed": "Speed (%)",
 
+  "petrochem.gui.pumpjack_well.efficiency": "Efficiency: ",
+  "petrochem.gui.pumpjack_well.other_wells": "Other wells nearby reduce efficiency",
   "petrochem.gui.distil_mode": "Distillation Mode",
   "petrochem.gui.distil_mode.distil_flash": "Flash Distillation",
   "petrochem.gui.distil_mode.distil_atmospheric": "Atmospheric Distillation",

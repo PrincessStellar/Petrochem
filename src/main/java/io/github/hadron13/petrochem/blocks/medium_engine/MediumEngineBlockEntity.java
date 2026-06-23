@@ -320,7 +320,7 @@ public class MediumEngineBlockEntity extends SteamEngineBlockEntity implements I
             }
 
             soundInstance.setPitch( 0.4f + load * 0.2f + Mth.abs(shaft.getSpeed()/256f) * 0.2f);
-            soundInstance.setVolume( 0.2f + Mth.abs(shaft.getSpeed()/256f) * 0.1f);
+            soundInstance.setVolume( 0.1f + Mth.abs(shaft.getSpeed()/256f) * 0.07f);
 //            soundInstance.setVolume(1.0f);
 //            soundInstance.setPitch(1.0f);
         }else{

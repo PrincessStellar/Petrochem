@@ -83,7 +83,8 @@ public class DistillationControllerBlockEntity extends SmartBlockEntity implemen
 
 
         inputTank = new SmartFluidTankBehaviour(SmartFluidTankBehaviour.INPUT, this, 2, 4000, true)
-                .whenFluidUpdates(this::sendData);
+                .whenFluidUpdates(this::sendData)
+                .forbidExtraction();
         outputTank = new SmartFluidTankBehaviour(SmartFluidTankBehaviour.OUTPUT, this, 1, 8000, true)
                 .whenFluidUpdates(this::sendData)
                 .forbidInsertion();
@@ -112,6 +113,11 @@ public class DistillationControllerBlockEntity extends SmartBlockEntity implemen
         outputs.put(level, pos);
         if(currentRecipe != null)
             requiredOutputs = currentRecipe.getFluidResults().size() - outputs.size();
+        else{
+            SteelTankBlockEntity tankController = getTankControllerBE().orElse(null);
+            if(tankController != null)
+                requiredOutputs = (tankController.getHeight()/2)+2 - outputs.size();
+        }
         sendData();
         return false;
     }

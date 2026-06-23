@@ -2,6 +2,9 @@ package io.github.hadron13.petrochem.register;
 
 import com.simibubi.create.api.stress.BlockStressValues;
 import com.simibubi.create.content.fluids.PipeAttachmentModel;
+import com.simibubi.create.content.fluids.pipes.SmartFluidPipeBlock;
+import com.simibubi.create.content.fluids.pipes.SmartFluidPipeGenerator;
+import com.simibubi.create.content.fluids.pipes.valve.FluidValveBlock;
 import com.simibubi.create.content.fluids.tank.*;
 import com.simibubi.create.content.processing.AssemblyOperatorBlockItem;
 import com.simibubi.create.foundation.data.*;
@@ -19,9 +22,11 @@ import io.github.hadron13.petrochem.blocks.steel_pipe.SteelPipeAttachmentModel;
 import io.github.hadron13.petrochem.blocks.steel_pipe.SteelPipeBlock;
 import io.github.hadron13.petrochem.blocks.steel_pipe.StraightSteelPipeBlock;
 import io.github.hadron13.petrochem.blocks.steel_pump.SteelPumpBlock;
+import io.github.hadron13.petrochem.blocks.steel_smart_pipe.SteelSmartPipeBlock;
 import io.github.hadron13.petrochem.blocks.steel_tank.SteelFluidTankModel;
 import io.github.hadron13.petrochem.blocks.steel_tank.SteelTankBlock;
 import io.github.hadron13.petrochem.blocks.steel_tank.SteelTankItem;
+import io.github.hadron13.petrochem.blocks.steel_valve.SteelFluidValveBlock;
 import io.github.hadron13.petrochem.data.client.blockstates.*;
 import io.github.hadron13.petrochem.blocks.pumpjack.*;
 import io.github.hadron13.petrochem.config.PetrochemStress;
@@ -185,7 +190,7 @@ public class PetrochemBlocks {
             .properties(p -> p.mapColor(MapColor.METAL))
             .transform(pickaxeOnly())
             .blockstate(BlockStateGen.directionalBlockProviderIgnoresWaterlogged(true))
-            .onRegister(CreateRegistrate.blockModel(() -> PipeAttachmentModel::withAO))
+            .onRegister(CreateRegistrate.blockModel(() -> SteelPipeAttachmentModel::withAO))
             .transform(PetrochemStress.setImpact(3.0))
             .item()
             .transform(customItemModel())
@@ -248,6 +253,29 @@ public class PetrochemBlocks {
             .item()
             .transform(customItemModel())
             .register();
+
+    public static final BlockEntry<SteelFluidValveBlock> STEEL_FLUID_VALVE = REGISTRATE.block("steel_fluid_valve", SteelFluidValveBlock::new)
+            .initialProperties(SharedProperties::softMetal)
+            .transform(pickaxeOnly())
+            .addLayer(() -> RenderType::cutoutMipped)
+            .blockstate((c, p) -> BlockStateGen.directionalAxisBlock(c, p,
+                    (state, vertical) -> AssetLookup.partialBaseModel(c, p, vertical ? "vertical" : "horizontal",
+                            state.getValue(SteelFluidValveBlock.ENABLED) ? "open" : "closed")))
+            .onRegister(CreateRegistrate.blockModel(() -> SteelPipeAttachmentModel::withAO))
+            .item()
+            .transform(customItemModel())
+            .register();
+
+    public static final BlockEntry<SteelSmartPipeBlock> STEEL_SMART_FLUID_PIPE =
+            REGISTRATE.block("steel_smart_fluid_pipe", SteelSmartPipeBlock::new)
+                    .initialProperties(SharedProperties::copperMetal)
+                    .properties(p -> p.mapColor(MapColor.TERRACOTTA_YELLOW))
+                    .transform(pickaxeOnly())
+                    .blockstate(new SmartFluidPipeGenerator()::generate)
+                    .onRegister(CreateRegistrate.blockModel(() -> SteelPipeAttachmentModel::withAO))
+                    .item()
+                    .transform(customItemModel())
+                    .register();
 
 
 }

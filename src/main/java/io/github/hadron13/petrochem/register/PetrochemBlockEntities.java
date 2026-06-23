@@ -1,13 +1,15 @@
 package io.github.hadron13.petrochem.register;
 
 
-import com.simibubi.create.content.fluids.pipes.FluidPipeBlockEntity;
-import com.simibubi.create.content.fluids.pipes.GlassPipeVisual;
-import com.simibubi.create.content.fluids.pipes.StraightPipeBlockEntity;
-import com.simibubi.create.content.fluids.pipes.TransparentStraightPipeRenderer;
+import com.simibubi.create.AllBlocks;
+import com.simibubi.create.content.fluids.pipes.*;
+import com.simibubi.create.content.fluids.pipes.valve.FluidValveBlockEntity;
+import com.simibubi.create.content.fluids.pipes.valve.FluidValveRenderer;
+import com.simibubi.create.content.fluids.pipes.valve.FluidValveVisual;
 import com.simibubi.create.content.fluids.pump.PumpBlockEntity;
 import com.simibubi.create.content.fluids.pump.PumpRenderer;
 import com.simibubi.create.content.kinetics.base.SingleAxisRotatingVisual;
+import com.simibubi.create.foundation.blockEntity.renderer.SmartBlockEntityRenderer;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import io.github.hadron13.petrochem.Petrochem;
@@ -126,6 +128,19 @@ public class PetrochemBlockEntities {
             .visual(() -> MediumEngineVisual::new)
             .validBlocks(PetrochemBlocks.MEDIUM_ENGINE)
             .renderer(() -> MediumEngineRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<FluidValveBlockEntity> STEEL_FLUID_VALVE = REGISTRATE
+            .blockEntity("steel_fluid_valve", FluidValveBlockEntity::new)
+            .visual(() -> FluidValveVisual::new)
+            .validBlocks(PetrochemBlocks.STEEL_FLUID_VALVE)
+            .renderer(() -> FluidValveRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<SmartFluidPipeBlockEntity> STEEL_SMART_FLUID_PIPE = REGISTRATE
+            .blockEntity("steel_smart_fluid_pipe", SmartFluidPipeBlockEntity::new)
+            .validBlocks(PetrochemBlocks.STEEL_SMART_FLUID_PIPE)
+            .renderer(() -> SmartBlockEntityRenderer::new)
             .register();
 
 

@@ -108,7 +108,7 @@ public class PetrochemStandardRecipeGen extends BaseRecipeProvider {
     GeneratedRecipe STEEL_SMART_FLUID_PIPE = create(PetrochemBlocks.STEEL_SMART_FLUID_PIPE).unlockedBy(ModItems.STEEL_SHEET::get)
 		.viaShaped(b -> b.define('P', AllItems.ELECTRON_TUBE)
             .define('S', PetrochemBlocks.STEEL_FLUID_PIPE.get())
-            .define('I', ModItems.STEEL_SHEET.get())
+            .define('I', ModItems.BRONZE_SHEET.get())
             .pattern("I")
 			.pattern("S")
 			.pattern("P"));

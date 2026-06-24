@@ -1,0 +1,27 @@
+{
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "type": "neoforge:single",
+      "amount": 200,
+      "fluid": "petrochem:chlorine"
+    },
+    {
+      "type": "neoforge:single",
+      "amount": 500,
+      "fluid": "minecraft:water"
+    }
+  ],
+  "results": [
+    {
+      "amount": 250,
+      "components": {
+        "create:potion_fluid_bottle_type": "lingering",
+        "minecraft:potion_contents": {
+          "potion": "minecraft:poison"
+        }
+      },
+      "id": "create:potion"
+    }
+  ]
+}

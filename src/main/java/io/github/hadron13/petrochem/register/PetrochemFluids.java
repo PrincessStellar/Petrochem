@@ -72,6 +72,11 @@ public class PetrochemFluids {
                     .build()
                     .register();
 
+    static{
+        PetrochemCreativeModeTabs.expert_fluid_ids.add("sulfuric_acid");
+        PetrochemCreativeModeTabs.expert_item_ids.add("sulfuric_acid_bucket");
+    }
+
     public static final FluidEntry<BaseFlowingFluid.Flowing> NITROGEN = gas("Nitrogen", true);
     public static final FluidEntry<BaseFlowingFluid.Flowing> OXYGEN = gas("Oxygen", true);
     public static final FluidEntry<BaseFlowingFluid.Flowing> HYDROGEN = gas("Hydrogen", true);

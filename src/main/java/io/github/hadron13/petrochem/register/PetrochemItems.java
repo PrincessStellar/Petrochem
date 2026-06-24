@@ -18,6 +18,9 @@ public class PetrochemItems {
             .burnTime(3200)
             .register();
 
+    static{
+        PetrochemCreativeModeTabs.expert_item_ids.add("sulfur_dust");
+    }
 
 
     private static ItemEntry<Item> ingredient(String name) {

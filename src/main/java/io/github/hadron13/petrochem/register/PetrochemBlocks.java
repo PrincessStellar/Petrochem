@@ -236,7 +236,7 @@ public class PetrochemBlocks {
             .transform(pickaxeOnly())
             .lang("Gasoline Engine")
             .blockstate(BlockStateGen.horizontalBlockProvider(true))
-            .transform(PetrochemStress.setCapacity(128.0))
+            .transform(PetrochemStress.setCapacity(192.0))
             .onRegister(BlockStressValues.setGeneratorSpeed(256, true))
             .item()
             .transform(customItemModel())

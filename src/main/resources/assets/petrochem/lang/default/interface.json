@@ -19,6 +19,9 @@
 
   "petrochem.gui.electrolyzer.speed": "Speed (%)",
 
+  "petrochem.gui.goggles.energy_consumption": "Energy Consumption",
+  "petrochem.gui.goggles.energy_stats": "Energy Stats",
+  "petrochem.gui.goggles.energy_stored": "Energy Stored",
   "petrochem.gui.pumpjack_well.efficiency": "Efficiency: ",
   "petrochem.gui.pumpjack_well.other_wells": "Other wells nearby reduce efficiency",
   "petrochem.gui.distil_mode": "Distillation Mode",

@@ -3,6 +3,7 @@ package io.github.hadron13.petrochem.data.recipe;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.Create;
 import com.simibubi.create.api.data.recipe.MixingRecipeGen;
+import com.simibubi.create.content.fluids.potion.PotionFluidHandler;
 import com.simibubi.create.content.processing.recipe.HeatCondition;
 import io.github.hadron13.petrochem.Petrochem;
 import io.github.hadron13.petrochem.register.PetrochemBlocks;
@@ -11,6 +12,8 @@ import io.github.hadron13.petrochem.register.PetrochemItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.material.Fluids;
 
 import java.util.concurrent.CompletableFuture;
@@ -38,6 +41,12 @@ public class PetrochemMixingRecipeGen extends MixingRecipeGen {
             .require(PetrochemItems.CAUSTIC_SODA)
             .output(Items.PAPER, 12)
     ),
+    CHLORINE_POISON = create("chlorine_poison", b -> b
+            .require(PetrochemFluids.CHLORINE.get(), 200)
+            .require(Fluids.WATER, 500)
+            .output(PotionFluidHandler.getFluidFromPotionItem(PotionContents.createItemStack(Items.LINGERING_POTION, Potions.POISON)))
+    ),
+
     BASIC_GASOLINE = create("basic_gasoline", b -> b
             .require(PetrochemFluids.HEAVY_GAS_OIL.get(), 300)
             .require(PetrochemFluids.HEAVY_NAPHTA.get(), 500)

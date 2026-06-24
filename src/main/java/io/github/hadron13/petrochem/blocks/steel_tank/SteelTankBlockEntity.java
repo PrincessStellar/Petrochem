@@ -46,6 +46,8 @@ public class SteelTankBlockEntity extends FluidTankBlockEntity implements IHaveG
                 PetrochemBlockEntities.STEEL_FLUID_TANK.get(),
                 (be, context) -> {
                     SteelTankBlockEntity controller = be.getControllerBE();
+                    if(controller == null)
+                        return null;
                     if(controller.isDistillingColumn)
                         return null;
                     if (be.fluidCapability == null)

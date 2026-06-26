@@ -42,7 +42,7 @@ public class PetrochemMixingRecipeGen extends MixingRecipeGen {
             .output(Items.PAPER, 12)
     ),
     CHLORINE_POISON = create("chlorine_poison", b -> b
-            .require(PetrochemFluids.CHLORINE.get(), 200)
+            .require(PetrochemFluids.CHLORINE.get(), 250)
             .require(Fluids.WATER, 500)
             .output(PotionFluidHandler.getFluidFromPotionItem(PotionContents.createItemStack(Items.LINGERING_POTION, Potions.POISON)))
     ),

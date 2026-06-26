@@ -38,7 +38,8 @@ public enum PetrochemRecipeTypes implements IRecipeTypeInfo, StringRepresentable
     DISTILLING(() -> new DistillingRecipe.Serializer<>(DistillingRecipe::new)),
     DIESEL_ENGINE_FUEL(EngineFuelRecipe::diesel),
     GASOLINE_ENGINE_FUEL(EngineFuelRecipe::gasoline),
-    SHIP_ENGINE_FUEL(EngineFuelRecipe::ship)
+    SHIP_ENGINE_FUEL(EngineFuelRecipe::ship),
+    TURBINE_FUEL(EngineFuelRecipe::turbine);
     ;
 
     public final ResourceLocation id;

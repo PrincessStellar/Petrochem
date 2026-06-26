@@ -16,6 +16,7 @@
     "petrochem:small_engine",
     "petrochem:medium_engine",
     "petrochem:steel_fluid_valve",
-    "petrochem:steel_smart_fluid_pipe"
+    "petrochem:steel_smart_fluid_pipe",
+    "petrochem:turbine"
   ]
 }

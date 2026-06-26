@@ -34,7 +34,8 @@ import io.github.hadron13.petrochem.blocks.small_engine.SmallEngineVisual;
 import io.github.hadron13.petrochem.blocks.steel_pump.SteelPumpRenderer;
 import io.github.hadron13.petrochem.blocks.steel_tank.SteelFluidTankRenderer;
 import io.github.hadron13.petrochem.blocks.steel_tank.SteelTankBlockEntity;
-
+import io.github.hadron13.petrochem.blocks.turbine.TurbineBlockEntity;
+import io.github.hadron13.petrochem.blocks.turbine.TurbineRenderer;
 
 
 public class PetrochemBlockEntities {
@@ -141,6 +142,12 @@ public class PetrochemBlockEntities {
             .blockEntity("steel_smart_fluid_pipe", SmartFluidPipeBlockEntity::new)
             .validBlocks(PetrochemBlocks.STEEL_SMART_FLUID_PIPE)
             .renderer(() -> SmartBlockEntityRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<TurbineBlockEntity> TURBINE = REGISTRATE
+            .blockEntity("turbine", TurbineBlockEntity::new)
+            .validBlocks(PetrochemBlocks.TURBINE)
+            .renderer(() -> TurbineRenderer::new)
             .register();
 
 

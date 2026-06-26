@@ -27,6 +27,7 @@ import io.github.hadron13.petrochem.blocks.steel_tank.SteelFluidTankModel;
 import io.github.hadron13.petrochem.blocks.steel_tank.SteelTankBlock;
 import io.github.hadron13.petrochem.blocks.steel_tank.SteelTankItem;
 import io.github.hadron13.petrochem.blocks.steel_valve.SteelFluidValveBlock;
+import io.github.hadron13.petrochem.blocks.turbine.TurbineBlock;
 import io.github.hadron13.petrochem.data.client.blockstates.*;
 import io.github.hadron13.petrochem.blocks.pumpjack.*;
 import io.github.hadron13.petrochem.config.PetrochemStress;
@@ -277,5 +278,14 @@ public class PetrochemBlocks {
                     .transform(customItemModel())
                     .register();
 
+    public static final BlockEntry<TurbineBlock> TURBINE = REGISTRATE.block("turbine", TurbineBlock::new)
+            .initialProperties(SharedProperties::softMetal)
+            .properties(p -> p.sound(SoundType.METAL).mapColor(MapColor.METAL).noOcclusion())
+            .blockstate(BlockStateGen.directionalBlockProvider(true))
+            .transform(pickaxeOnly())
+            .lang("Gas Turbine")
+            .item()
+            .transform(customItemModel())
+            .register();
 
 }

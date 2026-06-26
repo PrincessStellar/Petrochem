@@ -1,0 +1,12 @@
+{
+  "type": "petrochem:turbine_fuel",
+  "ingredients": [
+    {
+      "type": "neoforge:single",
+      "amount": 1,
+      "fluid": "petrochem:lpg"
+    }
+  ],
+  "processing_time": 30,
+  "results": []
+}

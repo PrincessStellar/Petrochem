@@ -27,6 +27,11 @@ public class EngineFuelRecipe extends StandardProcessingRecipe<RecipeInput> {
         return new EngineFuelRecipe(PetrochemRecipeTypes.SHIP_ENGINE_FUEL, params);
     }
 
+
+    public static EngineFuelRecipe turbine(ProcessingRecipeParams params) {
+        return new EngineFuelRecipe(PetrochemRecipeTypes.TURBINE_FUEL, params);
+    }
+
     public boolean match(FluidStack fuel){
         return getFluidIngredients().get(0).test(fuel);
     }

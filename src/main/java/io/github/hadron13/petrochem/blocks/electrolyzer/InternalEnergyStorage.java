@@ -106,4 +106,16 @@ public class InternalEnergyStorage extends EnergyStorage {
     }
 
 
+
+    public static void energyProductionTooltip(List<Component> tooltip, int consumption){
+        PetrochemLang.number(consumption)
+                .add(PetrochemLang.text(" FE/tick"))
+                .style(ChatFormatting.AQUA)
+                .space()
+                .add(PetrochemLang.translate("gui.goggles.energy_production")
+                        .style(ChatFormatting.DARK_GRAY))
+                .forGoggles(tooltip, 1);
+    }
+
+
 }

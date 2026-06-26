@@ -10,5 +10,29 @@
       }
     ],
     "subtitle": "petrochem.subtitle.engine_small"
+  },
+  "turbine": {
+    "sounds": [
+      {
+        "type": "file",
+        "name": "petrochem:turbine",
+        "attenuation_distance": 16,
+        "stream": false,
+        "replace": false
+      }
+    ],
+    "subtitle": "petrochem.subtitle.turbine"
+  },
+  "diesel": {
+    "sounds": [
+      {
+        "type": "file",
+        "name": "petrochem:diesel",
+        "attenuation_distance": 16,
+        "stream": false,
+        "replace": false
+      }
+    ],
+    "subtitle": "petrochem.subtitle.diesel"
   }
 }

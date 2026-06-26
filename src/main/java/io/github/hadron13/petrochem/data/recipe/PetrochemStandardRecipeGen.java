@@ -1,22 +1,16 @@
 package io.github.hadron13.petrochem.data.recipe;
 
 import com.google.common.base.Supplier;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.molybdenum.alloyed.common.compat.create.CreateAlloyedBlocks;
 import com.molybdenum.alloyed.common.registry.ModBlocks;
 import com.molybdenum.alloyed.common.registry.ModItems;
-import com.mrh0.createaddition.index.CAItems;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
-import com.simibubi.create.Create;
 import com.simibubi.create.api.data.recipe.BaseRecipeProvider;
 import com.simibubi.create.foundation.data.recipe.CommonMetal;
-import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider;
-import com.simibubi.create.foundation.data.recipe.CreateStandardRecipeGen;
 import com.simibubi.create.foundation.data.recipe.Mods;
 import com.simibubi.create.foundation.mixin.accessor.MappedRegistryAccessor;
 import com.tterrag.registrate.util.entry.BlockEntry;
@@ -25,7 +19,6 @@ import com.tterrag.registrate.util.entry.ItemProviderEntry;
 import io.github.hadron13.petrochem.Petrochem;
 import io.github.hadron13.petrochem.register.PetrochemBlocks;
 import io.github.hadron13.petrochem.register.PetrochemFluids;
-import net.createmod.catnip.platform.CatnipServices;
 import net.createmod.catnip.registry.RegisteredObjectsHelper;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.advancements.Advancement;
@@ -46,7 +39,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
-
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -125,7 +117,7 @@ public class PetrochemStandardRecipeGen extends BaseRecipeProvider {
                     .viaShaped(b -> b
                             .define('M', AllBlocks.MECHANICAL_MIXER.get())
                             .define('S', ModItems.STEEL_SHEET.get())
-                            .define('R', CAItems.COPPER_ROD.get())
+                            .define('R', AllItems.COPPER_NUGGET.get())
                             .define('C', Items.COPPER_INGOT)
                             .define('Z', AllItems.ZINC_INGOT.get())
                             .pattern(" S ")

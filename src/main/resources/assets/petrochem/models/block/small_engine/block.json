@@ -1,4 +1,5 @@
 {
+	"format_version": "1.21.11",
 	"credit": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
 	"parent": "block/block",
 	"textures": {
@@ -37,7 +38,7 @@
 			"to": [13, 13, 15],
 			"rotation": {"angle": 0, "axis": "y", "origin": [7, 2, 1]},
 			"faces": {
-				"north": {"uv": [6.5, 9.5, 1.5, 15], "texture": "#1"},
+				"north": {"uv": [1.5, 9.5, 6.5, 15], "texture": "#1"},
 				"east": {"uv": [8.5, 9.5, 15.5, 15], "texture": "#1"},
 				"south": {"uv": [1.5, 9.5, 6.5, 15], "texture": "#1"},
 				"west": {"uv": [8.5, 9.5, 15.5, 15], "texture": "#1"},

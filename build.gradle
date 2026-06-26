@@ -57,7 +57,7 @@ repositories {
 }
 
 base {
-    archivesName = mod_id
+    archivesName = "${mod_id}-neoforge-${minecraft_version}"
 }
 
 // Mojang ships Java 21 to end users in 1.21.1, so mods should target Java 21.
@@ -165,7 +165,7 @@ dependencies {
     runtimeOnly("curse.maven:irisshaders-455508:6661598")
     runtimeOnly("curse.maven:sodium-394468:6382651")
 
-    implementation("curse.maven:createaddition-439890:7262496")
+    runtimeOnly("curse.maven:createaddition-439890:7262496")
     implementation("curse.maven:create-alloyed-564792:7886505")
 
     // For more info:

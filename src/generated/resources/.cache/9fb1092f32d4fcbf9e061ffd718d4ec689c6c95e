@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-23T20:21:49.454030335	Recipes
+// 1.21.1	2026-06-25T19:45:44.021933686	Recipes
 16c6da1957f4d3bace320cbdc7b75b5cd47dc4b9 data/petrochem/advancement/recipes/misc/crafting/null/distillation_controller.json
 0ec7aaf4babc11291b621cc101cc4318f8b39d3e data/petrochem/advancement/recipes/misc/crafting/null/distillation_output.json
 553773e7ed3774e5444e5c795ce89a224d80bc97 data/petrochem/advancement/recipes/misc/crafting/null/electrolyzer.json
@@ -15,7 +15,7 @@ ea868d5c24ccad39cd7638979c5af8b3de63d579 data/petrochem/advancement/recipes/misc
 c9b4e6eb00b551c87cb6addc77d2af9d86c13a2a data/petrochem/advancement/recipes/misc/crafting/null/steel_smart_fluid_pipe.json
 ffdc107d04782055495931066367af64c2a1a972 data/petrochem/recipe/crafting/null/distillation_controller.json
 7c5a262fde524d5dd021abc3212c6209804405c6 data/petrochem/recipe/crafting/null/distillation_output.json
-26f3dbc9f9b8c9cd473369c6c3ceb2e1cd95fc33 data/petrochem/recipe/crafting/null/electrolyzer.json
+42fc2ecfb648185d5307e91d27a1c7c75a98b193 data/petrochem/recipe/crafting/null/electrolyzer.json
 b1c365943332f174f4090485342f06c32e91cb70 data/petrochem/recipe/crafting/null/flarestack.json
 3422922c8062b2dd15a6d007882d0f92784b3cb0 data/petrochem/recipe/crafting/null/medium_engine.json
 5ccbc7582722f91ea6f673a97a4a4f93caae1e42 data/petrochem/recipe/crafting/null/pumpjack_crank.json

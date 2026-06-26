@@ -31,7 +31,8 @@ public class PetrochemPartialModels {
             SMALL_PISTON = block("small_engine/piston"),
             MEDIUM_PISTON = block("medium_engine/piston"),
             MEDIUM_ENGINE_LINKAGE = block("medium_engine/linkage"),
-            MEDIUM_ENGINE_CONNECTOR = block("medium_engine/shaft_connector")
+            MEDIUM_ENGINE_CONNECTOR = block("medium_engine/shaft_connector"),
+            TURBINE_PROPELLER = block("turbine/propeller")
                     ;
 
 

@@ -9,7 +9,7 @@
       "item": "create:mechanical_mixer"
     },
     "R": {
-      "item": "createaddition:copper_rod"
+      "item": "create:copper_nugget"
     },
     "S": {
       "item": "alloyed:steel_sheet"

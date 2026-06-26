@@ -145,7 +145,6 @@ public class SmallEngineBlockEntity extends GeneratingKineticBlockEntity {
                 tank.getPrimaryHandler().drain(Mth.floor(consumptionCounter), IFluidHandler.FluidAction.EXECUTE);
                 consumptionCounter = Mth.frac(consumptionCounter);
             }
-
         }
     }
 

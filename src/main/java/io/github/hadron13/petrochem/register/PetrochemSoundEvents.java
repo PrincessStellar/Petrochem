@@ -37,7 +37,14 @@ public class PetrochemSoundEvents {
     public static final SoundEntry
             SMALL_ENGINE_HUMMING = create("engine").subtitle("Engine humming")
             .category(SoundSource.BLOCKS)
+            .build(),
+            TURBINE_HUMMING = create("turbine").subtitle("Turbine humming")
+            .category(SoundSource.BLOCKS)
+            .build(),
+            DIESEL_HUMMING = create("diesel").subtitle("Diesel engine humming")
+            .category(SoundSource.BLOCKS)
             .build();
+    ;
 
     private static SoundEntryBuilder create(String name) {
         return create(Petrochem.asResource(name));

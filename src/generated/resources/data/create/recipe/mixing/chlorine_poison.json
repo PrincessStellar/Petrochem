@@ -3,7 +3,7 @@
   "ingredients": [
     {
       "type": "neoforge:single",
-      "amount": 200,
+      "amount": 250,
       "fluid": "petrochem:chlorine"
     },
     {

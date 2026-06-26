@@ -201,9 +201,9 @@ public class ElectrolyzerBlockEntity extends MechanicalMixerBlockEntity {
     @Override
     protected void read(CompoundTag compound, HolderLookup.Provider registries, boolean clientPacket) {
         super.read(compound, registries, clientPacket);
+        energyStorage.read(compound);
         if(clientPacket) {
             energy_consumption = compound.getInt("consumption");
-            energyStorage.read(compound);
         }
     }
 

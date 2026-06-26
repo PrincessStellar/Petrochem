@@ -8,6 +8,7 @@ import io.github.hadron13.petrochem.blocks.medium_engine.MediumEngineBlockEntity
 import io.github.hadron13.petrochem.blocks.pumpjack.PumpjackWellBlockEntity;
 import io.github.hadron13.petrochem.blocks.small_engine.SmallEngineBlockEntity;
 import io.github.hadron13.petrochem.blocks.steel_tank.SteelTankBlockEntity;
+import io.github.hadron13.petrochem.blocks.turbine.TurbineBlockEntity;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
@@ -24,5 +25,6 @@ public class PetrochemCommonEvents {
         SmallEngineBlockEntity.registerCapabilities(event);
         FlarestackBlockEntity.registerCapabilities(event);
         MediumEngineBlockEntity.registerCapabilities(event);
+        TurbineBlockEntity.registerCapabilities(event);
     }
 }

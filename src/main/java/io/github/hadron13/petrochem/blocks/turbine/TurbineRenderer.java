@@ -28,7 +28,7 @@ public class TurbineRenderer extends SafeBlockEntityRenderer<TurbineBlockEntity>
 
     @Override
     protected void renderSafe(TurbineBlockEntity be, float partialTicks, PoseStack ms, MultiBufferSource bufferSource, int light, int overlay) {
-//        if (VisualizationManager.supportsVisualization(be.getLevel())) return;
+        if (VisualizationManager.supportsVisualization(be.getLevel())) return;
 
         Direction direction = be.getBlockState()
                 .getValue(FACING);
@@ -39,30 +39,26 @@ public class TurbineRenderer extends SafeBlockEntityRenderer<TurbineBlockEntity>
         SuperByteBuffer shaftHalf = CachedBuffers.partialFacing(AllPartialModels.SHAFT_HALF, be.getBlockState(), direction);
         SuperByteBuffer fan = CachedBuffers.partialFacing(PetrochemPartialModels.TURBINE_PROPELLER, be.getBlockState(), direction.getOpposite());
 
-        float time = AnimationTickHolder.getRenderTime(be.getLevel());
-        float speed = be.turbineSpeed.getValue(partialTicks);
-
-        float angle1 = ((3/10f * time * speed) % 360) / 180 * Mth.PI;
-        float angle2 = ((1/20f * time * speed * 1.00f) % 360) * Mth.DEG_TO_RAD;
-        float angle3 = ((1/20f * time * speed * 1.0f) % 360) * Mth.DEG_TO_RAD;
+        float speed = be.turbineSpeed.getValue(partialTicks) * 3/10f;
+        float angle = be.turbineAngle + speed * partialTicks;
 
         shaftHalf.light(lightInFront)
                 .translate(Vec3.atLowerCornerOf(direction.getNormal()).scale(-2/16f))
-                .rotateCentered(angle1, direction)
+                .rotateCenteredDegrees(angle, direction)
                 .renderInto(ms, vb);
 
         fan.light(lightInFront)
-            .rotateCentered(angle1, direction)
+            .rotateCenteredDegrees(angle, direction)
             .renderInto(ms, vb);
 
-//        fan.light(lightInFront)
-//            .translate(Vec3.atLowerCornerOf(direction.getNormal()).scale(-1/16f))
-//            .rotateCentered(angle2 + (30 * Mth.DEG_TO_RAD), direction)
-//            .renderInto(ms, vb);
-//
-//        fan.light(lightInFront)
-//                .translate(Vec3.atLowerCornerOf(direction.getNormal()).scale(-2/16f))
-//                .rotateCentered(angle3 + (60 * Mth.DEG_TO_RAD), direction)
-//                .renderInto(ms, vb);
+        fan.light(lightInFront)
+            .translate(Vec3.atLowerCornerOf(direction.getNormal()).scale(-1/16f))
+            .rotateCenteredDegrees(-angle + 30, direction)
+            .renderInto(ms, vb);
+
+        fan.light(lightInFront)
+                .translate(Vec3.atLowerCornerOf(direction.getNormal()).scale(-2/16f))
+                .rotateCentered(angle + 60, direction)
+                .renderInto(ms, vb);
     }
 }

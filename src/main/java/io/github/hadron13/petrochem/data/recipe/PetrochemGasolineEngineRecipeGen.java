@@ -16,12 +16,12 @@ public class PetrochemGasolineEngineRecipeGen extends StandardProcessingRecipeGe
 
     GeneratedRecipe STANDARD_GASOLINE = create("gasoline", b -> b
             .require(PetrochemFluids.GASOLINE.get(), 1)
-            .duration(35)
+            .duration(15)
     );
 
     GeneratedRecipe STANDARD_KEROSENE = create("kerosene", b -> b
             .require(PetrochemFluids.KEROSENE.get(), 1)
-            .duration(25)
+            .duration(20)
     );
 
 

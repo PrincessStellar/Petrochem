@@ -3,10 +3,10 @@
   "ingredients": [
     {
       "type": "neoforge:single",
-      "amount": 1,
-      "fluid": "petrochem:lpg"
+      "amount": 20,
+      "fluid": "petrochem:steam"
     }
   ],
-  "processing_time": 20,
+  "processing_time": 1,
   "results": []
 }

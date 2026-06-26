@@ -36,6 +36,7 @@ import io.github.hadron13.petrochem.blocks.steel_tank.SteelFluidTankRenderer;
 import io.github.hadron13.petrochem.blocks.steel_tank.SteelTankBlockEntity;
 import io.github.hadron13.petrochem.blocks.turbine.TurbineBlockEntity;
 import io.github.hadron13.petrochem.blocks.turbine.TurbineRenderer;
+import io.github.hadron13.petrochem.blocks.turbine.TurbineVisual;
 
 
 public class PetrochemBlockEntities {
@@ -146,6 +147,7 @@ public class PetrochemBlockEntities {
 
     public static final BlockEntityEntry<TurbineBlockEntity> TURBINE = REGISTRATE
             .blockEntity("turbine", TurbineBlockEntity::new)
+            .visual(() -> TurbineVisual::new)
             .validBlocks(PetrochemBlocks.TURBINE)
             .renderer(() -> TurbineRenderer::new)
             .register();

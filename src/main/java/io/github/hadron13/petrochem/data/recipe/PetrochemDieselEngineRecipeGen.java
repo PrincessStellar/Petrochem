@@ -17,17 +17,17 @@ public class PetrochemDieselEngineRecipeGen extends StandardProcessingRecipeGen<
 
     GeneratedRecipe standard_diesel = create("diesel", b -> b
             .require(PetrochemFluids.REFINED_DIESEL.get(), 1)
-            .duration(20)
+            .duration(10)
     );
 
     GeneratedRecipe fuel_oil = create("fuel_oil", b -> b
             .require(PetrochemFluids.FUEL_OIL.get(), 1)
-            .duration(30)
+            .duration(5)
     );
 
     GeneratedRecipe petrol = create("raw_petroleum", b -> b
             .require(PetrochemFluids.PETROLEUM.get(), 1)
-            .duration(10)
+            .duration(2)
     );
 
 

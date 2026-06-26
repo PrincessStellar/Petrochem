@@ -132,7 +132,7 @@ public class SmallEngineBlockEntity extends GeneratingKineticBlockEntity {
     public float getConsumption(){
         if(currentFuel == null)
             return 0;
-        return currentFuel.getConsumptionRate() * (float)Math.max(load, 0.3) * 10;
+        return currentFuel.getConsumptionRate() * (float)Math.max(load, 0.3) ;
     }
 
     @Override

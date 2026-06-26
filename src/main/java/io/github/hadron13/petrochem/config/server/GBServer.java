@@ -1,13 +1,16 @@
 package io.github.hadron13.petrochem.config.server;
 
+import com.simibubi.create.infrastructure.config.CServer;
 import net.createmod.catnip.config.ConfigBase;
 
 public class GBServer extends ConfigBase {
 
     public final GBKinetics kinetics = this.nested(0, GBKinetics::new, "Parameters and abilities of Petrochem's kinetic mechanisms");
 
+
     @Override
     public String getName() {
         return "server";
     }
+
 }

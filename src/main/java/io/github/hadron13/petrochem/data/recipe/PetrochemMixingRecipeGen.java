@@ -46,6 +46,11 @@ public class PetrochemMixingRecipeGen extends MixingRecipeGen {
             .require(Fluids.WATER, 500)
             .output(PotionFluidHandler.getFluidFromPotionItem(PotionContents.createItemStack(Items.LINGERING_POTION, Potions.POISON)))
     ),
+    CANDY = create("candy", b -> b
+            .require(PetrochemFluids.FUEL_OIL.get(), 500)
+            .require(PetrochemItems.PET_COKE)
+            .output(PetrochemItems.BLAZE_CANDY)
+    ),
 
     BASIC_GASOLINE = create("basic_gasoline", b -> b
             .require(PetrochemFluids.HEAVY_GAS_OIL.get(), 300)

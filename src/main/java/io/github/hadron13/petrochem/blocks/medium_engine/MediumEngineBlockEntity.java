@@ -196,8 +196,6 @@ public class MediumEngineBlockEntity extends SteamEngineBlockEntity implements I
             return;
         }
 
-        Direction facing = MediumEngineBlock.getFacing(getBlockState());
-
         float previous_load = load;
         load = ((KineticBlockEntityAccessor)shaft).getStress() / ((KineticBlockEntityAccessor)shaft).getCapacity();
         if(Float.isNaN(load))
@@ -224,7 +222,7 @@ public class MediumEngineBlockEntity extends SteamEngineBlockEntity implements I
     public float getConsumption(){
         if(currentFuel == null)
             return 0;
-        return currentFuel.getConsumptionRate() * (float)Math.max(load, 0.3) ;
+        return currentFuel.getConsumptionRate() * (float)Math.max(load, 0.5) ;
     }
 
 

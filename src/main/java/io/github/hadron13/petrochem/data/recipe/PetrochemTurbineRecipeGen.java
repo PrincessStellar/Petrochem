@@ -15,8 +15,13 @@ public class PetrochemTurbineRecipeGen extends StandardProcessingRecipeGen<Engin
 
     GeneratedRecipe STANDARD_LPG = create("lpg", b -> b
             .require(PetrochemFluids.LPG.get(), 1)
-            .duration(30)
+            .duration(20)
     );
+    GeneratedRecipe STANDARD_STEAM = create("steam", b -> b
+            .require(PetrochemFluids.STEAM.get(), 20)
+            .duration(1)
+    );
+
 
 
     public PetrochemTurbineRecipeGen(PackOutput generator, CompletableFuture<HolderLookup.Provider> registries) {

@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-25T19:45:44.021933686	Recipes
+// 1.21.1	2026-06-26T19:04:27.936336548	Recipes
 16c6da1957f4d3bace320cbdc7b75b5cd47dc4b9 data/petrochem/advancement/recipes/misc/crafting/null/distillation_controller.json
 0ec7aaf4babc11291b621cc101cc4318f8b39d3e data/petrochem/advancement/recipes/misc/crafting/null/distillation_output.json
 553773e7ed3774e5444e5c795ce89a224d80bc97 data/petrochem/advancement/recipes/misc/crafting/null/electrolyzer.json
@@ -13,6 +13,7 @@ c1f734f749872222930ccd56488b767542caf471 data/petrochem/advancement/recipes/misc
 ea868d5c24ccad39cd7638979c5af8b3de63d579 data/petrochem/advancement/recipes/misc/crafting/null/steel_fluid_valve.json
 2cebf19a5ca400f73d3143a3abfbf8fbc487bfff data/petrochem/advancement/recipes/misc/crafting/null/steel_pump.json
 c9b4e6eb00b551c87cb6addc77d2af9d86c13a2a data/petrochem/advancement/recipes/misc/crafting/null/steel_smart_fluid_pipe.json
+75349907ebf3f543095a9c3935d132cecdbaed3c data/petrochem/advancement/recipes/misc/crafting/null/turbine.json
 ffdc107d04782055495931066367af64c2a1a972 data/petrochem/recipe/crafting/null/distillation_controller.json
 7c5a262fde524d5dd021abc3212c6209804405c6 data/petrochem/recipe/crafting/null/distillation_output.json
 42fc2ecfb648185d5307e91d27a1c7c75a98b193 data/petrochem/recipe/crafting/null/electrolyzer.json
@@ -27,3 +28,4 @@ f23bc423bb4d4e866a6c9549b42157d0c874f967 data/petrochem/recipe/crafting/null/ste
 a5dc27c94f9f90ce92ca603fa18221f83c72603f data/petrochem/recipe/crafting/null/steel_fluid_valve.json
 09610a83c827d8d8dd3d0e3029ccdc108319a2d1 data/petrochem/recipe/crafting/null/steel_pump.json
 ead5f53963e368006cd61dcfb240521df2c7b216 data/petrochem/recipe/crafting/null/steel_smart_fluid_pipe.json
+959e69dec7f42fbdddb7528a976cb6da7a52e2eb data/petrochem/recipe/crafting/null/turbine.json

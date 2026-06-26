@@ -8,6 +8,7 @@ import io.github.hadron13.petrochem.PetrochemLang;
 import io.github.hadron13.petrochem.blocks.electrolyzer.InternalEnergyStorage;
 import io.github.hadron13.petrochem.blocks.small_engine.EngineFuelRecipe;
 import io.github.hadron13.petrochem.blocks.small_engine.EngineSoundInstance;
+import io.github.hadron13.petrochem.config.PetrochemConfig;
 import io.github.hadron13.petrochem.register.PetrochemBlockEntities;
 import io.github.hadron13.petrochem.register.PetrochemRecipeTypes;
 import io.github.hadron13.petrochem.register.PetrochemSoundEvents;
@@ -43,6 +44,7 @@ public class TurbineBlockEntity extends SmartBlockEntity implements IHaveGoggleI
     public InternalEnergyStorage energyStorage;
     public EngineFuelRecipe currentFuel = null;
     public LerpedFloat turbineSpeed = LerpedFloat.linear();
+    float turbineAngle = 0;
     public float consumptionCounter = 0;
 
 
@@ -50,7 +52,7 @@ public class TurbineBlockEntity extends SmartBlockEntity implements IHaveGoggleI
     public TurbineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         energyStorage = new InternalEnergyStorage(16384, 0, 16384);
-        turbineSpeed.chase(0f, 1 / 8f, LerpedFloat.Chaser.LINEAR);
+        turbineSpeed.chase(0f, 1 / 64f, LerpedFloat.Chaser.EXP);
     }
 
     @Override
@@ -85,16 +87,18 @@ public class TurbineBlockEntity extends SmartBlockEntity implements IHaveGoggleI
 
         if (level.isClientSide) {
             turbineSpeed.tickChaser();
+            turbineAngle += turbineSpeed.getValue() * 3 / 10f;
+            turbineAngle %= 360;
             CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> this.tickAudio());
             return;
         }
-        if(currentFuel != null && !tank.isEmpty()){
+        if(currentFuel != null && !tank.isEmpty() && energyStorage.getSpace() != 0){
             consumptionCounter += currentFuel.getConsumptionRate();
             if(consumptionCounter > 1f){
                 tank.getPrimaryHandler().drain(Mth.floor(consumptionCounter), IFluidHandler.FluidAction.EXECUTE);
                 consumptionCounter = Mth.frac(consumptionCounter);
             }
-            energyStorage.internalProduceEnergy(256);
+            energyStorage.internalProduceEnergy(PetrochemConfig.common().turbineEnergyProduction.get());
         }
     }
 
@@ -109,8 +113,8 @@ public class TurbineBlockEntity extends SmartBlockEntity implements IHaveGoggleI
                 Minecraft.getInstance().getSoundManager().play(soundInstance);
             }
 
-            soundInstance.setPitch( 1.0f + (turbineSpeed.getValue()/4096.0f));
-            soundInstance.setVolume( (turbineSpeed.getValue() / 1024.0f) * 0.09f);
+            soundInstance.setPitch( 1.0f + (turbineSpeed.getValue()/1024.0f));
+            soundInstance.setVolume( (turbineSpeed.getValue() / 1024.0f) * 0.07f);
         }else{
             if(soundInstance != null)
                 soundInstance.cease();
@@ -120,10 +124,10 @@ public class TurbineBlockEntity extends SmartBlockEntity implements IHaveGoggleI
     @Override
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
         energyStorage.storedEnergyTooltip(tooltip);
+        if(turbineSpeed.getValue() > 0.1f)
+            InternalEnergyStorage.energyProductionTooltip(tooltip, PetrochemConfig.common().turbineEnergyProduction.get());
         containedFluidTooltip(tooltip, isPlayerSneaking, tank.getCapability());
-        PetrochemLang.text("speed " + turbineSpeed.getValue()).forGoggles(tooltip);
-//        if(energy_consumption > 0)
-//            InternalEnergyStorage.energyConsumptionTooltip(tooltip, energy_consumption);
+//        PetrochemLang.text("speed " + turbineSpeed.getValue()).forGoggles(tooltip);
         return true;
     }
 
@@ -133,7 +137,7 @@ public class TurbineBlockEntity extends SmartBlockEntity implements IHaveGoggleI
         super.write(compound, registries, clientPacket);
         energyStorage.write(compound);
         if(clientPacket){
-            compound.putFloat("speed", currentFuel == null? 0 : 64.0f);
+            compound.putFloat("speed", currentFuel == null? 0 : 1024.0f);
         }
     }
 

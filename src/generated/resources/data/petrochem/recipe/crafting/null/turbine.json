@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "alloyed:bronze_sheet"
+    },
+    "P": {
+      "item": "create:propeller"
+    },
+    "S": {
+      "item": "alloyed:steel_sheet"
+    }
+  },
+  "pattern": [
+    "SPS",
+    "BPB",
+    "SPS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "petrochem:turbine"
+  }
+}

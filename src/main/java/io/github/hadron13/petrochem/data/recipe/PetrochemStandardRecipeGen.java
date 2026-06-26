@@ -211,6 +211,19 @@ public class PetrochemStandardRecipeGen extends BaseRecipeProvider {
                     )
             ;
 
+    GeneratedRecipe TURBINE =
+            create(PetrochemBlocks.TURBINE)
+                    .unlockedBy(ModItems.BRONZE_SHEET::get)
+                    .viaShaped(b -> b
+                            .define('S', ModItems.STEEL_SHEET.get())
+                            .define('B', ModItems.BRONZE_SHEET.get())
+                            .define('P', AllItems.PROPELLER.get())
+                            .pattern("SPS")
+                            .pattern("BPB")
+                            .pattern("SPS")
+                    )
+            ;
+
 
 
     static class Marker {

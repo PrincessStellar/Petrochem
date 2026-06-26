@@ -1,4 +1,4 @@
-// 1.21.1	2026-06-25T21:25:10.390940054	Registrate Provider for petrochem [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (blocks), Tags (enchantments), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
+// 1.21.1	2026-06-26T20:37:25.0214731	Registrate Provider for petrochem [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (blocks), Tags (enchantments), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
 998bcd26022966bc3d97fe2502eac2b9a9bb1c29 assets/petrochem/blockstates/asphalt.json
 850e2a21ec92b0cd645bf1479e4db56abc58a863 assets/petrochem/blockstates/butane.json
 e133679180ad569f4c8e2839dd0af4cebb8c4967 assets/petrochem/blockstates/chlorine.json
@@ -53,8 +53,8 @@ bd8a5f386a8775d9a2f78e5f175876b2f8098453 assets/petrochem/blockstates/straight_s
 eacba25088da7f3023d0f06f4f66a1da451da370 assets/petrochem/blockstates/turbine.json
 5fb985075e0b1b77d883094e92729f4a9ffe7105 assets/petrochem/blockstates/untreated_gasoline.json
 da00d7f51b325b06b7e8b523fc6433e69c118df7 assets/petrochem/blockstates/volatile_gas.json
-724911038612a9248a7e836128d27f80b78d30a2 assets/petrochem/lang/en_ud.json
-384dc7dfc98c8530e9ce2bd101fdfc6e13f25ebb assets/petrochem/lang/en_us.json
+c4f69bb8856fad40f84def15bbd8017513aa7e28 assets/petrochem/lang/en_ud.json
+7a1b9f896d4f8f7c977c8bc24ddb1ffebb69d42a assets/petrochem/lang/en_us.json
 0ea1936a87a157e8b826ed3db00971bbbb563326 assets/petrochem/models/block/butane.json
 be42263101c780283f41b7e91216d3951e52c5fd assets/petrochem/models/block/chlorine.json
 f88df60cac6df81c02c1d9c7feef8f7c9b5e0501 assets/petrochem/models/block/desalted_oil.json
@@ -123,6 +123,7 @@ bb99fb03e6b62ed4d4b6960d11701ca75bf33146 assets/petrochem/models/block/untreated
 22004a89cd482f7cb0d5f98002896724da7e94a1 assets/petrochem/models/block/volatile_gas.json
 79b676e55a916adbaf1797f5529e74a88018eeb2 assets/petrochem/models/item/air_bucket.json
 f7e3a7d8d0e5ab5c616925dafe379b1a4b8540c1 assets/petrochem/models/item/asphalt.json
+c5384f0650f4e664d39829dead7eb3b0e6e28cea assets/petrochem/models/item/blaze_candy.json
 2893be722fe590326cee72ac5581304354f26d4e assets/petrochem/models/item/butane_bucket.json
 ee9f6ec8f8abe0bc2fd4efecb809e15edb95b326 assets/petrochem/models/item/caustic_soda.json
 82ce4892830443b348b552fa8ebecef9e584d47e assets/petrochem/models/item/chlorine_bucket.json
@@ -178,10 +179,11 @@ fdb8de25202b23bdf9e4c9e5b075a8a737cc6473 assets/petrochem/models/item/sulfuric_a
 4f0a93eae65c8051c2af922433e8925916bbfe6b assets/petrochem/models/item/turbine.json
 b34ddc2939156a6cabaa35520b5330236f9dcc2c assets/petrochem/models/item/untreated_gasoline_bucket.json
 82e3bdb98006f7101cf79a2d67280752faffca61 assets/petrochem/models/item/volatile_gas_bucket.json
+cbe371197c63645d64b78dd2aa224facc572b41b data/create/data_maps/item/superheated_blaze_burner_fuels.json
 65e486690862462934941e446d98ccb4cdff1145 data/minecraft/tags/block/mineable/axe.json
 0be1ca142729a323086c5859d0339bb363ec459e data/minecraft/tags/block/mineable/pickaxe.json
 f890531145e2a9feef8eff4424e5477ce76a2cf8 data/minecraft/tags/fluid/lava.json
-fa8db8057ace5408d4d61b407316a9545e93e503 data/neoforge/data_maps/item/furnace_fuels.json
+75aa4d7537f5ea3f33921f9972ec9402be7c2db9 data/neoforge/data_maps/item/furnace_fuels.json
 784d6641cc6d5d2605df866eb637a61438e7d33e data/petrochem/loot_table/blocks/asphalt.json
 faf00e2140fd12246725843681b16793273528a0 data/petrochem/loot_table/blocks/distillation_controller.json
 af121ad167825a5a99b8605732b60d8d57bfdd52 data/petrochem/loot_table/blocks/distillation_output.json

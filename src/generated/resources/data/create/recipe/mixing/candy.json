@@ -1,0 +1,18 @@
+{
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "petrochem:petroleum_coke"
+    },
+    {
+      "type": "neoforge:single",
+      "amount": 500,
+      "fluid": "petrochem:fuel_oil"
+    }
+  ],
+  "results": [
+    {
+      "id": "petrochem:blaze_candy"
+    }
+  ]
+}

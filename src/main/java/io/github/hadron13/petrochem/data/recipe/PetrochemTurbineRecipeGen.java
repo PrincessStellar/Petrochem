@@ -18,7 +18,7 @@ public class PetrochemTurbineRecipeGen extends StandardProcessingRecipeGen<Engin
             .duration(20)
     );
     GeneratedRecipe STANDARD_STEAM = create("steam", b -> b
-            .require(PetrochemFluids.STEAM.get(), 20)
+            .require(PetrochemFluids.STEAM.get(), 1000)
             .duration(1)
     );
 

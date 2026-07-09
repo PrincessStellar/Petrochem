@@ -61,6 +61,14 @@ public class PumpjackScenes {
 
         scene.idle(80);
 
+        scene.overlay().showText(80)
+                .independent()
+                .placeNearTarget()
+                .attachKeyFrame()
+                .text("The well must be situated in certain biomes, such as desert or ocean.")
+                .pointAt(Vec3.atCenterOf(well));
+        scene.idle(100);
+
 
         scene.world().hideSection(util.select().fromTo(0, 0, 0, 1, 0, 2), Direction.DOWN);
 

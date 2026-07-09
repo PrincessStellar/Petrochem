@@ -7,7 +7,9 @@ import io.github.hadron13.petrochem.register.PetrochemShapes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -29,6 +31,21 @@ public class SmallEngineBlock extends HorizontalKineticBlock implements IBE<Smal
     @Override
     public boolean hasShaftTowards(LevelReader world, BlockPos pos, BlockState state, Direction face) {
         return state.getValue(HORIZONTAL_FACING).getAxis() == face.getAxis();
+    }
+
+
+    @Override
+    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
+                                boolean isMoving) {
+        if (worldIn.isClientSide)
+            return;
+
+        int signal = worldIn.getBestNeighborSignal(pos);
+        withBlockEntityDo(worldIn, pos, be -> {
+            be.speed_modulator = ((float)(15 - signal))/15.0f;
+            be.updateGeneratedRotation();
+        }
+        );
     }
 
     @Override

@@ -137,7 +137,7 @@ public class TurbineBlockEntity extends SmartBlockEntity implements IHaveGoggleI
         super.write(compound, registries, clientPacket);
         energyStorage.write(compound);
         if(clientPacket){
-            compound.putFloat("speed", currentFuel == null? 0 : 1024.0f);
+            compound.putFloat("speed", currentFuel == null? 0 : energyStorage.getSpace() == 0? 128.0f : 1024.0f);
         }
     }
 

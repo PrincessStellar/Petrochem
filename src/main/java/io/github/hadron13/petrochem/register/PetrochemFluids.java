@@ -10,7 +10,9 @@ import net.createmod.catnip.theme.Color;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.fluids.BaseFlowingFluid;
@@ -28,6 +30,7 @@ public class PetrochemFluids {
                             SolidRenderedPlaceableFluidType.create(0x352228,
                                     () -> 1f / 32f ))
                     .lang("Petroleum")
+                    .tag(PetrochemTags.FluidTags.CRUDE_OIL.tag)
                     .properties(b -> b.viscosity(20000)
                             .density(1000))
                     .fluidProperties(p -> p.levelDecreasePerBlock(2)
@@ -101,12 +104,12 @@ public class PetrochemFluids {
             PLASTIC = oillike("plastic", "Liquid Polyethylene", 0xd8d8d5, false),
             HYDROCRACKED_GASOLINE = oillike("hydrocracked_gasoline", "Raw Gasoline", 0xa68d3f, true),
             UNTREATED_GASOLINE = oillike("untreated_gasoline", "Untreated Gasoline", 0xc49b21, true),
-            GASOLINE = oillike("gasoline", "Refined Gasoline", 0xcfc254, false),
+            GASOLINE = oillike("gasoline", "Refined Gasoline", 0xcfc254, false, PetrochemTags.FluidTags.GASOLINE.tag),
             KEROSENE = oillike("kerosene", "Kerosene", 0x26a69a, false),
             DESULFURIZED_KEROSENE = oillike("desulfurized_kerosene", "Desulfurized Kerosene", 0x26a69a,true),
             LIGHT_DIESEL = oillike("light_diesel", "Light Diesel", 0xb58c4f, true),
             HEAVY_DIESEL = oillike("heavy_diesel", "Heavy Diesel", 0x856638, true),
-            REFINED_DIESEL = oillike("diesel", "Refined Diesel", 0xe57373, false),
+            REFINED_DIESEL = oillike("diesel", "Refined Diesel", 0xe57373, false, PetrochemTags.FluidTags.DIESEL.tag),
             LIGHT_GAS_OIL = oillike("light_gas_oil", "Light Gas Oil", 0x5e7a88, true),
             HEAVY_GAS_OIL = oillike("heavy_gas_oil", "Heavy Gas Oil", 0x2c393f, false),
             HYDROTREATED_GAS_OIL = oillike("hydrotreated_gas_oil", "Hydrotreated Gas Oil", 0x3c394f, true),
@@ -121,6 +124,7 @@ public class PetrochemFluids {
     public static FluidEntry<BaseFlowingFluid.Flowing> gas(String name, boolean expert) {
         return gas(name, name.toLowerCase(), expert);
     }
+
     public static FluidEntry<BaseFlowingFluid.Flowing> gas(String name, String id, boolean expert){
         if(expert) {
             PetrochemCreativeModeTabs.expert_fluid_ids.add(id);
@@ -139,17 +143,25 @@ public class PetrochemFluids {
             .build()
             .register();
     }
+    public static FluidEntry<BaseFlowingFluid.Flowing> oillike(String name, String lang, int fogColor, boolean expert) {
+        return oillike(name, lang, fogColor, expert, null);
+    }
 
-    public static FluidEntry<BaseFlowingFluid.Flowing> oillike(String name, String lang, int fogColor, boolean expert){
+    public static FluidEntry<BaseFlowingFluid.Flowing> oillike(String name, String lang, int fogColor, boolean expert, TagKey<Fluid> tag){
 
         if(expert) {
             PetrochemCreativeModeTabs.expert_fluid_ids.add(name.toLowerCase());
             PetrochemCreativeModeTabs.expert_item_ids.add(name.toLowerCase() + "_bucket");
         }
-        return REGISTRATE.standardFluid(name,
+        FluidBuilder<BaseFlowingFluid.Flowing, CreateRegistrate> builder = REGISTRATE.standardFluid(name,
                         SolidRenderedPlaceableFluidType.create(fogColor,
                                 () -> 1f / 32f ))
-                .lang(lang)
+                .lang(lang);
+
+        if(tag != null)
+            builder.tag(tag);
+
+        return builder
                 .properties(b -> b.viscosity(2000)
                         .density(1000))
                 .fluidProperties(p -> p.levelDecreasePerBlock(3)

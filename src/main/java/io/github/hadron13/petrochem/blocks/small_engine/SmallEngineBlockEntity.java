@@ -55,6 +55,7 @@ public class SmallEngineBlockEntity extends GeneratingKineticBlockEntity {
     public SmartFluidTankBehaviour tank;
     public EngineFuelRecipe currentFuel = null;
     public ScrollValueBehaviour targetSpeed;
+    public float speed_modulator = 1.0f;
     public float consumptionCounter = 0;
     public float load = 0;
     public float consumption = 0;
@@ -184,7 +185,7 @@ public class SmallEngineBlockEntity extends GeneratingKineticBlockEntity {
             return 0;
         if(tank.isEmpty())
             return 0;
-        return  convertToDirection(targetSpeed.getValue(), getBlockState().getValue(HORIZONTAL_FACING));
+        return  convertToDirection(targetSpeed.getValue() * speed_modulator, getBlockState().getValue(HORIZONTAL_FACING));
     }
 
     @Override

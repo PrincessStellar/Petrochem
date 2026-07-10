@@ -24,7 +24,7 @@ public class PumpjackScenes {
 
         scene.idle(20);
 
-        scene.overlay().showText(60)
+        scene.overlay().showText(55)
                 .placeNearTarget()
                 .attachKeyFrame()
                 .text("The pumpjack is a multi-block resource extractor")
@@ -32,30 +32,32 @@ public class PumpjackScenes {
 
         scene.idle(80);
 
-        scene.overlay().showText(50)
+        scene.overlay().showText(45)
                 .placeNearTarget()
                 .attachKeyFrame()
                 .text("It consists of 3 blocks")
                 .pointAt(Vec3.atCenterOf(arm));
 
-        scene.idle(70);
+        scene.idle(65);
 
-        scene.overlay().showText(60)
-                .placeNearTarget()
-                .attachKeyFrame()
-                .text("Arm")
-                .pointAt(Vec3.atCenterOf(arm));
-
-        scene.overlay().showText(60)
+        scene.overlay().showText(80)
                 .placeNearTarget()
                 .attachKeyFrame()
                 .text("Crank")
                 .pointAt(Vec3.atCenterOf(crank));
 
+        scene.idle(10);
+
+        scene.overlay().showText(70)
+                .placeNearTarget()
+                .text("Arm")
+                .pointAt(Vec3.atCenterOf(arm));
+
+        scene.idle(10);
+
         scene.overlay().showText(60)
                 .independent()
                 .placeNearTarget()
-                .attachKeyFrame()
                 .text("Well")
                 .pointAt(Vec3.atCenterOf(well));
 
@@ -65,7 +67,7 @@ public class PumpjackScenes {
                 .independent()
                 .placeNearTarget()
                 .attachKeyFrame()
-                .text("The well must be situated in certain biomes, such as desert or ocean.")
+                .text("The well must be situated in certain biomes, such as desert or ocean")
                 .pointAt(Vec3.atCenterOf(well));
         scene.idle(100);
 
@@ -76,7 +78,7 @@ public class PumpjackScenes {
                 .independent()
                 .placeNearTarget()
                 .attachKeyFrame()
-                .text("The well needs to be connected to bedrock through pipes")
+                .text("It must also be connected to bedrock through a straight line of pipes")
                 .pointAt(Vec3.atCenterOf(well.below()));
         scene.idle(100);
 

@@ -2,6 +2,7 @@ package io.github.hadron13.petrochem.ponder;
 
 import com.tterrag.registrate.util.entry.ItemProviderEntry;
 import com.tterrag.registrate.util.entry.RegistryEntry;
+import io.github.hadron13.petrochem.ponder.scenes.fluids.DistillationScenes;
 import io.github.hadron13.petrochem.ponder.scenes.fluids.PumpjackScenes;
 import io.github.hadron13.petrochem.register.PetrochemBlocks;
 import net.createmod.ponder.api.registration.PonderSceneRegistrationHelper;
@@ -17,6 +18,8 @@ public class PetrochemPonderScenes {
         HELPER.forComponents(PetrochemBlocks.PUMPJACK_WELL, PetrochemBlocks.PUMPJACK_CRANK, PetrochemBlocks.PUMPJACK_ARM)
                 .addStoryBoard("pumpjack", PumpjackScenes::pumpjack, FLUIDS);
 
+        HELPER.forComponents(PetrochemBlocks.DISTILLATION_CONTROLLER, PetrochemBlocks.DISTILLATION_OUTPUT, PetrochemBlocks.STEEL_FLUID_TANK)
+                .addStoryBoard("distillation", DistillationScenes::distillation_tower, FLUIDS);
 ;
     }
 

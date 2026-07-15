@@ -37,7 +37,8 @@ public class PumpjackCrankBlockEntity extends KineticBlockEntity {
 
 
 
-        float targetSpeed = Mth.log2((int)Mth.abs(getSpeed())) * 3.3f;
+//        float targetSpeed = Mth.log2((int)Mth.abs(getSpeed())) * 3.3f;
+        float targetSpeed = 32 * (1.0f - (float)Math.exp( -Mth.abs(getSpeed())/128.0f ) );
         if(Mth.abs(getSpeed()) < 32){
             targetSpeed = 0;
         }
@@ -46,6 +47,11 @@ public class PumpjackCrankBlockEntity extends KineticBlockEntity {
         visualSpeed.tickChaser();
         angle += visualSpeed.getValue() * 6/20f;
         angle %= 360;
+    }
+
+    @Override
+    public boolean isSpeedRequirementFulfilled() {
+        return Mth.abs(getSpeed()) >= 32f;
     }
 
     @Override

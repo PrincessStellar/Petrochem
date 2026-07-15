@@ -13,23 +13,30 @@ import io.github.hadron13.petrochem.register.PetrochemBlockEntities;
 import io.github.hadron13.petrochem.register.PetrochemRecipeTypes;
 import io.github.hadron13.petrochem.register.PetrochemSoundEvents;
 import net.createmod.catnip.animation.LerpedFloat;
+import net.createmod.catnip.data.Iterate;
 import net.createmod.catnip.platform.CatnipServices;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.capabilities.BlockCapabilityCache;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.energy.IEnergyStorage;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,12 +54,15 @@ public class TurbineBlockEntity extends SmartBlockEntity implements IHaveGoggleI
     float turbineAngle = 0;
     public float consumptionCounter = 0;
 
+    public EnumMap<Direction, BlockCapabilityCache<IEnergyStorage, Direction>> targetCapabilities;
+
 
 
     public TurbineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         energyStorage = new InternalEnergyStorage(16384, 0, 16384);
         turbineSpeed.chase(0f, 1 / 64f, LerpedFloat.Chaser.EXP);
+        targetCapabilities = new EnumMap<>(Direction.class);
     }
 
     @Override
@@ -92,6 +102,30 @@ public class TurbineBlockEntity extends SmartBlockEntity implements IHaveGoggleI
             CatnipServices.PLATFORM.executeOnClientOnly(() -> () -> this.tickAudio());
             return;
         }
+        Direction facing = getBlockState().getValue(FACING);
+        for(Direction dir : Iterate.directions){
+            if(dir.getAxis() == facing.getAxis())
+                continue;
+
+            if(!targetCapabilities.containsKey(dir)){
+                targetCapabilities.put(dir, BlockCapabilityCache.create(Capabilities.EnergyStorage.BLOCK, (ServerLevel) level, getBlockPos().relative(dir), dir.getOpposite()));
+            }
+
+            IEnergyStorage targetStorage = targetCapabilities.get(dir).getCapability();
+
+            if(targetStorage == null || !targetStorage.canReceive())
+                continue;
+
+            int extractableEnergy = energyStorage.extractEnergy(16384, true);
+            int storableEnergy = targetStorage.receiveEnergy(extractableEnergy, true);
+
+            if(storableEnergy == 0)
+                continue;
+
+            energyStorage.internalConsumeEnergy(storableEnergy);
+            targetStorage.receiveEnergy(storableEnergy, false);
+        }
+
         if(currentFuel != null && !tank.isEmpty() && energyStorage.getSpace() != 0){
             consumptionCounter += currentFuel.getConsumptionRate();
             if(consumptionCounter > 1f){

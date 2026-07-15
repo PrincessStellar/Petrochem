@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "alloyed:steel_sheet"
+            "items": "petrochem:steel_sheet"
           }
         ]
       },

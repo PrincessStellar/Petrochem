@@ -17,7 +17,7 @@ public class PetrochemCompactingRecipeGen extends CompactingRecipeGen {
     GeneratedRecipe COKING = create("coking", b -> b
             .require(PetrochemFluids.HEAVY_OIL_RESIDUE.get(), 600)
             .output(PetrochemFluids.FUEL_OIL.get(), 400)
-            .output(PetrochemItems.PET_COKE)
+            .output(PetrochemItems.PET_COKE, 2)
     );
 
 

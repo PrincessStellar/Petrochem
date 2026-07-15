@@ -1,0 +1,17 @@
+{
+  "type": "create:mixing",
+  "heat_requirement": "heated",
+  "ingredients": [
+    {
+      "item": "minecraft:copper_ingot"
+    },
+    {
+      "item": "petrochem:tin_nugget"
+    }
+  ],
+  "results": [
+    {
+      "id": "petrochem:bronze_ingot"
+    }
+  ]
+}

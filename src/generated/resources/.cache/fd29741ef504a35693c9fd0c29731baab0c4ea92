@@ -1,0 +1,12 @@
+// 1.21.1	2026-07-15T19:10:04.08614701	petrochem's processing recipes: mixing
+6bfd0cd8bb77cc081484e5382676304840139251 data/petrochem/recipe/mixing/basic_deasphalting.json
+2409281158588b5674df0ba40ac802d10969efc3 data/petrochem/recipe/mixing/basic_gasoline.json
+1ea91a9d5a7ff3c5d0ee0ae8fe676c76b05aecbc data/petrochem/recipe/mixing/basic_plastic.json
+dd38d335b53e7bb9f4da30db4c0ab0e4c8901d4f data/petrochem/recipe/mixing/bronze_alloy.json
+cbd27af11e708346e983cbb0131110b2b487d7aa data/petrochem/recipe/mixing/candy.json
+a4439d35726b9ea4e2c1c531ff4aebb2907461fd data/petrochem/recipe/mixing/chlorine_poison.json
+f8ae6e1060d91c3d9268b1c23127b1ed12173774 data/petrochem/recipe/mixing/naoh_paper.json
+6a2bb7cd4b6cf96ff2199d9a5a1658f740136d75 data/petrochem/recipe/mixing/steam.json
+b8c06b61d99630d52bdc2040b0d175716034dc38 data/petrochem/recipe/mixing/steel_alloy_coal.json
+9d98d838a6fc1d562d2a59676df425e6c395b8b9 data/petrochem/recipe/mixing/steel_alloy_coke.json
+ae27479e59a15d90e0ee89176244ca4e30510500 data/petrochem/recipe/mixing/sulfuric_acid.json

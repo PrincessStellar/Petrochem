@@ -12,7 +12,7 @@
       "item": "create:copper_nugget"
     },
     "S": {
-      "item": "alloyed:steel_sheet"
+      "tag": "c:plates/steel"
     },
     "Z": {
       "item": "create:zinc_ingot"

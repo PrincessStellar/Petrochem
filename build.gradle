@@ -166,7 +166,7 @@ dependencies {
     runtimeOnly("curse.maven:sodium-394468:6382651")
 
     runtimeOnly("curse.maven:createaddition-439890:7262496")
-    implementation("curse.maven:create-alloyed-564792:7886505")
+    runtimeOnly("curse.maven:create-alloyed-564792:7886505")
 
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html

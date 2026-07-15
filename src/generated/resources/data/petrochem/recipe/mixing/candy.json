@@ -6,7 +6,7 @@
     },
     {
       "type": "neoforge:single",
-      "amount": 500,
+      "amount": 400,
       "fluid": "petrochem:fuel_oil"
     }
   ],

@@ -3,7 +3,7 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "alloyed:steel_sheet"
+      "tag": "c:plates/steel"
     },
     {
       "item": "petrochem:steel_fluid_pipe"

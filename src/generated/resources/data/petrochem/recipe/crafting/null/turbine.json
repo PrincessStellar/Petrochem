@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "B": {
-      "item": "alloyed:bronze_sheet"
+      "tag": "c:plates/bronze"
     },
     "P": {
       "item": "create:propeller"
     },
     "S": {
-      "item": "alloyed:steel_sheet"
+      "tag": "c:plates/steel"
     }
   },
   "pattern": [

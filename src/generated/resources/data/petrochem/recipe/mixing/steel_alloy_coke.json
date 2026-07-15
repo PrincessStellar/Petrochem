@@ -1,0 +1,17 @@
+{
+  "type": "create:mixing",
+  "heat_requirement": "heated",
+  "ingredients": [
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "petrochem:petroleum_coke"
+    }
+  ],
+  "results": [
+    {
+      "id": "petrochem:steel_ingot"
+    }
+  ]
+}

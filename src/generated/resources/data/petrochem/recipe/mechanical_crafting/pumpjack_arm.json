@@ -7,16 +7,16 @@
       "item": "create:shaft"
     },
     "B": {
-      "item": "alloyed:steel_block"
+      "item": "petrochem:steel_block"
     },
     "C": {
       "item": "minecraft:chain"
     },
     "I": {
-      "item": "alloyed:steel_ingot"
+      "item": "petrochem:steel_ingot"
     },
     "S": {
-      "item": "alloyed:steel_sheet"
+      "item": "petrochem:steel_sheet"
     }
   },
   "pattern": [

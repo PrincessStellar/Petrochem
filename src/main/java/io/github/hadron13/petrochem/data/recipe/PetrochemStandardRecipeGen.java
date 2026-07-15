@@ -4,9 +4,6 @@ import com.google.common.base.Supplier;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.molybdenum.alloyed.common.compat.create.CreateAlloyedBlocks;
-import com.molybdenum.alloyed.common.registry.ModBlocks;
-import com.molybdenum.alloyed.common.registry.ModItems;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.AllItems;
 import com.simibubi.create.api.data.recipe.BaseRecipeProvider;
@@ -19,6 +16,8 @@ import com.tterrag.registrate.util.entry.ItemProviderEntry;
 import io.github.hadron13.petrochem.Petrochem;
 import io.github.hadron13.petrochem.register.PetrochemBlocks;
 import io.github.hadron13.petrochem.register.PetrochemFluids;
+import io.github.hadron13.petrochem.register.PetrochemItems;
+import io.github.hadron13.petrochem.register.PetrochemTags;
 import net.createmod.catnip.registry.RegisteredObjectsHelper;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.advancements.Advancement;
@@ -60,21 +59,37 @@ import java.util.function.UnaryOperator;
 public class PetrochemStandardRecipeGen extends BaseRecipeProvider {
     final List<GeneratedRecipe> all = new ArrayList<>();
 
+
+
+    GeneratedRecipe STEEL_BLOCK = create(PetrochemBlocks.STEEL_BlOCK).unlockedBy(PetrochemItems.STEEL_INGOT::get)
+		.viaShaped(b -> b.define('C', PetrochemItems.STEEL_INGOT.get())
+            .pattern("CCC")
+			.pattern("CCC")
+			.pattern("CCC"));
+
+    GeneratedRecipe STEEL_FROM_BLOCK = create(PetrochemItems.STEEL_INGOT).withSuffix("_from_block")
+		.returns(9)
+		.unlockedBy(PetrochemItems.STEEL_INGOT::get)
+		.viaShapeless(b -> b.requires(PetrochemBlocks.STEEL_BlOCK.get()));
+
+
+
+
     GeneratedRecipe STEEL_PIPE =
             create(PetrochemBlocks.STEEL_FLUID_PIPE).returns(6)
-                    .unlockedBy(ModItems.STEEL_SHEET::get)
+                    .unlockedBy(PetrochemItems.STEEL_SHEET::get)
                     .viaShaped(b -> b
-                            .define('I', ModItems.STEEL_INGOT.get())
-                            .define('S', ModItems.STEEL_SHEET.get())
+                            .define('I', CommonMetal.STEEL.ingots)
+                            .define('S', CommonMetal.STEEL.plates)
                             .pattern("SIS")
                     );
 
     GeneratedRecipe STEEL_PIPE_2 =
             create(PetrochemBlocks.STEEL_FLUID_PIPE).withSuffix("_vertical").returns(6)
-                    .unlockedBy(ModItems.STEEL_SHEET::get)
+                    .unlockedBy(PetrochemItems.STEEL_SHEET::get)
                     .viaShaped(b -> b
-                            .define('I', ModItems.STEEL_INGOT.get())
-                            .define('S', ModItems.STEEL_SHEET.get())
+                            .define('I', CommonMetal.STEEL.ingots)
+                            .define('S', CommonMetal.STEEL.plates)
                             .pattern("S")
                             .pattern("I")
                             .pattern("S")
@@ -82,7 +97,7 @@ public class PetrochemStandardRecipeGen extends BaseRecipeProvider {
 
     GeneratedRecipe STEEL_PUMP =
             create(PetrochemBlocks.STEEL_PUMP)
-                    .unlockedBy(ModItems.STEEL_SHEET::get)
+                    .unlockedBy(PetrochemItems.STEEL_SHEET::get)
                     .viaShapeless(b -> b
                             .requires(AllBlocks.COGWHEEL.get())
                             .requires(PetrochemBlocks.STEEL_FLUID_PIPE)
@@ -91,23 +106,23 @@ public class PetrochemStandardRecipeGen extends BaseRecipeProvider {
 
     GeneratedRecipe STEEL_FLUID_TANK = create(PetrochemBlocks.STEEL_FLUID_TANK).returns(2).unlockedByTag(() -> Tags.Items.BARRELS_WOODEN)
             .viaShaped(b -> b
-                    .define('S', ModItems.STEEL_SHEET.get())
+                    .define('S', CommonMetal.STEEL.plates)
                     .define('B', Tags.Items.BARRELS_WOODEN)
                     .pattern("S")
                     .pattern("B")
                     .pattern("S"));
 
-    GeneratedRecipe STEEL_SMART_FLUID_PIPE = create(PetrochemBlocks.STEEL_SMART_FLUID_PIPE).unlockedBy(ModItems.STEEL_SHEET::get)
+    GeneratedRecipe STEEL_SMART_FLUID_PIPE = create(PetrochemBlocks.STEEL_SMART_FLUID_PIPE).unlockedBy(PetrochemItems.STEEL_SHEET::get)
 		.viaShaped(b -> b.define('P', AllItems.ELECTRON_TUBE)
             .define('S', PetrochemBlocks.STEEL_FLUID_PIPE.get())
-            .define('I', ModItems.BRONZE_SHEET.get())
+            .define('I', PetrochemTags.Metals.BRONZE.plates)
             .pattern("I")
 			.pattern("S")
 			.pattern("P"));
 
 
-    GeneratedRecipe STEEL_FLUID_VALVE = create(PetrochemBlocks.STEEL_FLUID_VALVE).unlockedBy(ModItems.STEEL_SHEET::get)
-		.viaShapeless(b -> b.requires(ModItems.STEEL_SHEET.get())
+    GeneratedRecipe STEEL_FLUID_VALVE = create(PetrochemBlocks.STEEL_FLUID_VALVE).unlockedBy(PetrochemItems.STEEL_SHEET::get)
+		.viaShapeless(b -> b.requires(CommonMetal.STEEL.plates)
             .requires(PetrochemBlocks.STEEL_FLUID_PIPE.get()));
 
 
@@ -116,7 +131,7 @@ public class PetrochemStandardRecipeGen extends BaseRecipeProvider {
                     .unlockedBy(AllBlocks.MECHANICAL_MIXER::get)
                     .viaShaped(b -> b
                             .define('M', AllBlocks.MECHANICAL_MIXER.get())
-                            .define('S', ModItems.STEEL_SHEET.get())
+                            .define('S', CommonMetal.STEEL.plates)
                             .define('R', AllItems.COPPER_NUGGET.get())
                             .define('C', Items.COPPER_INGOT)
                             .define('Z', AllItems.ZINC_INGOT.get())
@@ -129,10 +144,10 @@ public class PetrochemStandardRecipeGen extends BaseRecipeProvider {
             create(PetrochemBlocks.DISTILLATION_CONTROLLER)
                     .unlockedBy(PetrochemBlocks.STEEL_FLUID_TANK::get)
                     .viaShaped(b -> b
-                            .define('B', ModItems.BRONZE_SHEET.get())
-                            .define('S', ModItems.STEEL_SHEET.get())
+                            .define('B', PetrochemTags.Metals.BRONZE.plates)
+                            .define('S', CommonMetal.STEEL.plates)
                             .define('P', PetrochemBlocks.STEEL_FLUID_PIPE.get())
-                            .define('C', CreateAlloyedBlocks.STEEL_CASING.get())
+                            .define('C', PetrochemBlocks.STEEL_BlOCK)
                             .pattern(" B ")
                             .pattern("PCP")
                             .pattern("SBS")
@@ -142,8 +157,8 @@ public class PetrochemStandardRecipeGen extends BaseRecipeProvider {
             create(PetrochemBlocks.FLARESTACK).returns(2)
                     .unlockedBy(PetrochemBlocks.STEEL_FLUID_TANK::get)
                     .viaShaped(b -> b
-                            .define('B', ModItems.BRONZE_SHEET.get())
-                            .define('S', ModItems.STEEL_SHEET.get())
+                            .define('B', PetrochemTags.Metals.BRONZE.plates)
+                            .define('S', CommonMetal.STEEL.plates)
                             .define('P', PetrochemBlocks.STEEL_FLUID_PIPE.get())
                             .pattern(" P ")
                             .pattern("BPB")
@@ -154,7 +169,7 @@ public class PetrochemStandardRecipeGen extends BaseRecipeProvider {
             create(PetrochemBlocks.DISTILLATION_OUTPUT).returns(2)
                     .unlockedBy(PetrochemBlocks.STEEL_FLUID_TANK::get)
                     .viaShaped(b -> b
-                            .define('S', ModItems.STEEL_SHEET.get())
+                            .define('S', CommonMetal.STEEL.plates)
                             .define('P', PetrochemBlocks.STEEL_FLUID_PIPE.get())
                             .pattern("PSS")
                             .pattern(" P ")
@@ -163,9 +178,9 @@ public class PetrochemStandardRecipeGen extends BaseRecipeProvider {
 
     GeneratedRecipe PUMPJACK_WELL =
             create(PetrochemBlocks.PUMPJACK_WELL)
-                    .unlockedBy(ModItems.STEEL_SHEET::get)
+                    .unlockedBy(PetrochemItems.STEEL_SHEET::get)
                     .viaShaped(b -> b
-                            .define('S', ModItems.STEEL_SHEET.get())
+                            .define('S', CommonMetal.STEEL.plates)
                             .define('P', PetrochemBlocks.STEEL_FLUID_PIPE.get())
                             .pattern("SPS")
                             .pattern("PPS")
@@ -174,9 +189,9 @@ public class PetrochemStandardRecipeGen extends BaseRecipeProvider {
 
     GeneratedRecipe PUMPJACK_CRANK =
             create(PetrochemBlocks.PUMPJACK_CRANK)
-                    .unlockedBy(ModItems.STEEL_SHEET::get)
+                    .unlockedBy(PetrochemItems.STEEL_SHEET::get)
                     .viaShaped(b -> b
-                            .define('S', ModItems.STEEL_SHEET.get())
+                            .define('S', CommonMetal.STEEL.plates)
                             .define('G', AllBlocks.ROTATION_SPEED_CONTROLLER.get())
                             .pattern("SSS")
                             .pattern("SGS")
@@ -187,10 +202,10 @@ public class PetrochemStandardRecipeGen extends BaseRecipeProvider {
             create(PetrochemBlocks.SMALL_ENGINE)
                     .unlockedBy(PetrochemFluids.LUBRICANT.getBucket()::get)
                     .viaShaped(b -> b
-                            .define('S', ModItems.STEEL_SHEET.get())
-                            .define('B', ModItems.BRONZE_SHEET.get())
+                            .define('S', CommonMetal.STEEL.plates)
+                            .define('B', PetrochemTags.Metals.BRONZE.plates)
                             .define('A', AllBlocks.SHAFT.get())
-                            .define('O', ModBlocks.STEEL_BLOCK.get())
+                            .define('O', CommonMetal.STEEL.storageBlocks.items())
                             .define('L', PetrochemFluids.LUBRICANT.getBucket().get())
                             .pattern("BLB")
                             .pattern("AOA")
@@ -202,8 +217,8 @@ public class PetrochemStandardRecipeGen extends BaseRecipeProvider {
             create(PetrochemBlocks.MEDIUM_ENGINE)
                     .unlockedBy(PetrochemFluids.LUBRICANT.getBucket()::get)
                     .viaShaped(b -> b
-                            .define('B', ModItems.BRONZE_SHEET.get())
-                            .define('O', ModBlocks.STEEL_BLOCK.get())
+                            .define('B', PetrochemTags.Metals.BRONZE.plates)
+                            .define('O', CommonMetal.STEEL.storageBlocks.items())
                             .define('L', PetrochemFluids.LUBRICANT.getBucket().get())
                             .pattern(" O ")
                             .pattern("BLB")
@@ -213,10 +228,10 @@ public class PetrochemStandardRecipeGen extends BaseRecipeProvider {
 
     GeneratedRecipe TURBINE =
             create(PetrochemBlocks.TURBINE)
-                    .unlockedBy(ModItems.BRONZE_SHEET::get)
+                    .unlockedBy(PetrochemItems.BRONZE_SHEET::get)
                     .viaShaped(b -> b
-                            .define('S', ModItems.STEEL_SHEET.get())
-                            .define('B', ModItems.BRONZE_SHEET.get())
+                            .define('S', CommonMetal.STEEL.plates)
+                            .define('B', PetrochemTags.Metals.BRONZE.plates)
                             .define('P', AllItems.PROPELLER.get())
                             .pattern("SPS")
                             .pattern("BPB")

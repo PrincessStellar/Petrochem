@@ -6,7 +6,7 @@
       "item": "petrochem:steel_fluid_pipe"
     },
     "S": {
-      "item": "alloyed:steel_sheet"
+      "tag": "c:plates/steel"
     }
   },
   "pattern": [

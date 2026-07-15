@@ -6,16 +6,16 @@
       "item": "create:shaft"
     },
     "B": {
-      "item": "alloyed:bronze_sheet"
+      "tag": "c:plates/bronze"
     },
     "L": {
       "item": "petrochem:lubricant_bucket"
     },
     "O": {
-      "item": "alloyed:steel_block"
+      "tag": "c:storage_blocks/steel"
     },
     "S": {
-      "item": "alloyed:steel_sheet"
+      "tag": "c:plates/steel"
     }
   },
   "pattern": [

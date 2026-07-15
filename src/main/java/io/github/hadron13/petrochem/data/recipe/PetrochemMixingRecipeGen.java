@@ -1,7 +1,6 @@
 package io.github.hadron13.petrochem.data.recipe;
 
 import com.simibubi.create.AllItems;
-import com.simibubi.create.Create;
 import com.simibubi.create.api.data.recipe.MixingRecipeGen;
 import com.simibubi.create.content.fluids.potion.PotionFluidHandler;
 import com.simibubi.create.content.processing.recipe.HeatCondition;
@@ -30,6 +29,26 @@ public class PetrochemMixingRecipeGen extends MixingRecipeGen {
             .output(PetrochemFluids.SULFURIC_ACID.get(), 1000)
             .whenModLoaded(Petrochem.REALISTIC_MODID)
     ),
+    BRONZE_ALLOYING = create("bronze_alloy", b -> b
+            .require(Items.COPPER_INGOT)
+            .require(PetrochemItems.TIN_NUGGET)
+            .output(PetrochemItems.BRONZE_INGOT)
+            .requiresHeat(HeatCondition.HEATED)
+    ),
+
+    STEEL_ALLOYING_COAL = create("steel_alloy_coal", b -> b
+            .require(Items.IRON_INGOT)
+            .require(Items.COAL)
+            .output(PetrochemItems.STEEL_INGOT)
+            .requiresHeat(HeatCondition.HEATED)
+    ),
+    STEEL_ALLOYING_COKE = create("steel_alloy_coke", b -> b
+            .require(Items.IRON_INGOT)
+            .require(PetrochemItems.PET_COKE)
+            .output(PetrochemItems.STEEL_INGOT)
+            .requiresHeat(HeatCondition.HEATED)
+    ),
+
     STEAM = create("steam", b -> b
             .require(Fluids.WATER, 100)
             .requiresHeat(HeatCondition.HEATED)
@@ -47,7 +66,7 @@ public class PetrochemMixingRecipeGen extends MixingRecipeGen {
             .output(PotionFluidHandler.getFluidFromPotionItem(PotionContents.createItemStack(Items.LINGERING_POTION, Potions.POISON)))
     ),
     CANDY = create("candy", b -> b
-            .require(PetrochemFluids.FUEL_OIL.get(), 500)
+            .require(PetrochemFluids.FUEL_OIL.get(), 400)
             .require(PetrochemItems.PET_COKE)
             .output(PetrochemItems.BLAZE_CANDY)
     ),
@@ -75,6 +94,6 @@ public class PetrochemMixingRecipeGen extends MixingRecipeGen {
     ;
 
     public PetrochemMixingRecipeGen(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-        super(output, registries, Create.ID);
+        super(output, registries, Petrochem.MODID);
     }
 }

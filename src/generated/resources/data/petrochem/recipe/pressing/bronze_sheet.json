@@ -1,0 +1,13 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "item": "petrochem:bronze_ingot"
+    }
+  ],
+  "results": [
+    {
+      "id": "petrochem:bronze_sheet"
+    }
+  ]
+}

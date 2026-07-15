@@ -8,6 +8,7 @@ import com.simibubi.create.content.fluids.pipes.valve.FluidValveBlock;
 import com.simibubi.create.content.fluids.tank.*;
 import com.simibubi.create.content.processing.AssemblyOperatorBlockItem;
 import com.simibubi.create.foundation.data.*;
+import com.simibubi.create.foundation.data.recipe.CommonMetal;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import io.github.hadron13.petrochem.Petrochem;
 import io.github.hadron13.petrochem.blocks.distillation_tower.DistillationControllerBlock;
@@ -33,16 +34,19 @@ import io.github.hadron13.petrochem.blocks.pumpjack.*;
 import io.github.hadron13.petrochem.config.PetrochemStress;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
+import net.neoforged.neoforge.common.Tags;
 
 import static com.simibubi.create.api.behaviour.movement.MovementBehaviour.movementBehaviour;
+import static com.simibubi.create.foundation.data.BlockStateGen.simpleCubeAll;
 import static com.simibubi.create.foundation.data.ModelGen.customItemModel;
-import static com.simibubi.create.foundation.data.TagGen.axeOrPickaxe;
-import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
+import static com.simibubi.create.foundation.data.TagGen.*;
 
 public class PetrochemBlocks {
 
@@ -286,6 +290,20 @@ public class PetrochemBlocks {
             .lang("Gas Turbine")
             .item()
             .transform(customItemModel())
+            .register();
+
+
+    public static final BlockEntry<Block> STEEL_BlOCK = REGISTRATE.block("steel_block", Block::new)
+            .initialProperties(() -> Blocks.IRON_BLOCK)
+            .transform(pickaxeOnly())
+            .blockstate(simpleCubeAll("steel_block"))
+            .tag(BlockTags.NEEDS_IRON_TOOL)
+            .tag(Tags.Blocks.STORAGE_BLOCKS)
+            .tag(BlockTags.BEACON_BASE_BLOCKS)
+            .transform(tagBlockAndItem(CommonMetal.STEEL.storageBlocks))
+            .tag(Tags.Items.STORAGE_BLOCKS)
+            .build()
+            .lang("Block of Steel")
             .register();
 
 }

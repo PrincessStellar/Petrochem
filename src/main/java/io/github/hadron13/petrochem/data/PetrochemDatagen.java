@@ -50,6 +50,8 @@ public class PetrochemDatagen {
         generator.addProvider(event.includeServer(), new PetrochemElectrolyzingRecipeGen(output, lookupProvider));
         generator.addProvider(event.includeServer(), new PetrochemMixingRecipeGen(output, lookupProvider));
         generator.addProvider(event.includeServer(), new PetrochemDistillingRecipeGen(output, lookupProvider));
+        generator.addProvider(event.includeServer(), new PetrochemSpoutingRecipeGen(output, lookupProvider));
+        generator.addProvider(event.includeServer(), new PetrochemPressingRecipeGen(output, lookupProvider));
 
         generator.addProvider(event.includeServer(), new PetrochemCompactingRecipeGen(output, lookupProvider));
 

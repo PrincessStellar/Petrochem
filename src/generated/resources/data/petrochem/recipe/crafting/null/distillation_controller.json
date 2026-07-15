@@ -3,16 +3,16 @@
   "category": "misc",
   "key": {
     "B": {
-      "item": "alloyed:bronze_sheet"
+      "tag": "c:plates/bronze"
     },
     "C": {
-      "item": "alloyed:steel_casing"
+      "item": "petrochem:steel_block"
     },
     "P": {
       "item": "petrochem:steel_fluid_pipe"
     },
     "S": {
-      "item": "alloyed:steel_sheet"
+      "tag": "c:plates/steel"
     }
   },
   "pattern": [

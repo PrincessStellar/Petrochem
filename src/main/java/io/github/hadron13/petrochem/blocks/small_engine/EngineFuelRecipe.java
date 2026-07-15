@@ -6,13 +6,22 @@ import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import io.github.hadron13.petrochem.register.PetrochemRecipeTypes;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.fluids.FluidStack;
+
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class EngineFuelRecipe extends StandardProcessingRecipe<RecipeInput> {
 
+    public static HashMap<IRecipeTypeInfo, HashSet<Fluid>> validFuels = new HashMap<>();
 
     public EngineFuelRecipe(IRecipeTypeInfo typeInfo, ProcessingRecipeParams params) {
         super(typeInfo, params);
+        if(!validFuels.containsKey(typeInfo)){
+            validFuels.put(typeInfo, new HashSet<>());
+        }
+        validFuels.get(typeInfo).add(getFluidIngredients().getFirst().getFluids()[0].getFluid());
     }
 
     public static EngineFuelRecipe gasoline(ProcessingRecipeParams params) {
@@ -33,10 +42,10 @@ public class EngineFuelRecipe extends StandardProcessingRecipe<RecipeInput> {
     }
 
     public boolean match(FluidStack fuel){
-        return getFluidIngredients().get(0).test(fuel);
+        return getFluidIngredients().getFirst().test(fuel);
     }
     public float getConsumptionRate(){
-        return (float)getFluidIngredients().get(0).amount() / (float)getProcessingDuration();
+        return (float)getFluidIngredients().getFirst().amount() / (float)getProcessingDuration();
     }
 
     @Override

@@ -68,6 +68,7 @@ public class MediumEngineBlockEntity extends SteamEngineBlockEntity implements I
     public float consumptionCounter = 0;
     public float load = 0;
     public float consumption = 0;
+    public boolean redstoneDisabled = false;
 
     float prevAngle = 0;
 
@@ -147,8 +148,7 @@ public class MediumEngineBlockEntity extends SteamEngineBlockEntity implements I
             facing = blockState.getValue(MediumEngineBlock.FACING);
 
 
-        float efficiency = currentFuel != null? 1.0f : 0.0f;
-//        float efficiency = 1.0f;
+        float efficiency = currentFuel != null && !redstoneDisabled? 1.0f : 0.0f;
 
         int rotationSpeed =
                 efficiency == 0 ? 1 : verticalTarget ? 1 : (int) GeneratingKineticBlockEntity.convertToDirection(1, facing);

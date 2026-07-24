@@ -10,6 +10,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.AttachFace;
@@ -47,6 +48,22 @@ public class MediumEngineBlock extends SteamEngineBlock{
         return face == AttachFace.CEILING ? PetrochemShapes.MEDIUM_ENGINE_CEILING.get(direction.getAxis())
                 : face == AttachFace.FLOOR ? PetrochemShapes.MEDIUM_ENGINE.get(direction.getAxis())
                 : PetrochemShapes.MEDIUM_ENGINE_WALL.get(direction);
+    }
+
+    @Override
+    public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos,
+                                boolean isMoving) {
+        if (worldIn.isClientSide)
+            return;
+
+        boolean has_signal = worldIn.hasNeighborSignal(pos);
+        withBlockEntityDo(worldIn, pos, (be) -> {
+                    if(be instanceof MediumEngineBlockEntity engineBE){
+                        engineBE.redstoneDisabled = has_signal;
+                        engineBE.updateRotation();
+                    }
+                }
+        );
     }
 
 }

@@ -12,27 +12,22 @@ public class PetrochemPumpjackRecipeGen extends PumpjackRecipeGen {
 
     GeneratedRecipe DESERT = create("desert", b -> b
             .biome("minecraft:desert")
-            .output(PetrochemFluids.PETROLEUM.get(), 50)
+            .output(PetrochemFluids.PETROLEUM.get(), 80)
     );
 
     GeneratedRecipe DEEP_OCEAN = create("deep_ocean", b -> b
-            .biome("minecraft:deep_ocean")
-            .output(PetrochemFluids.PETROLEUM.get(), 20)
-    );
-
-    GeneratedRecipe COLD_DEEP_OCEAN = create("cold_deep_ocean", b -> b
-            .biome("minecraft:deep_cold_ocean")
-            .output(PetrochemFluids.PETROLEUM.get(), 50)
+            .biome("#minecraft:is_deep_ocean")
+            .output(PetrochemFluids.PETROLEUM.get(), 80)
     );
 
     GeneratedRecipe JUNGLE = create("jungle", b -> b
-            .biome("minecraft:jungle")
-            .output(PetrochemFluids.DESALTED_OIL.get(), 50)
+            .biome("#minecraft:is_jungle")
+            .output(PetrochemFluids.DESALTED_OIL.get(), 60)
     );
 
     GeneratedRecipe SWAMP = create("swamp", b -> b
             .biome("minecraft:swamp")
-            .output(PetrochemFluids.DESALTED_OIL.get(), 60)
+            .output(PetrochemFluids.DESALTED_OIL.get(), 80)
     );
 
 

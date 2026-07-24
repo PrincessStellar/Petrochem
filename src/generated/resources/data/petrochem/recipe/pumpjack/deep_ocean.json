@@ -1,9 +1,9 @@
 {
   "type": "petrochem:pumpjack",
-  "biome": "minecraft:deep_ocean",
+  "biome": "#minecraft:is_deep_ocean",
   "results": [
     {
-      "amount": 20,
+      "amount": 80,
       "id": "petrochem:petroleum"
     }
   ]

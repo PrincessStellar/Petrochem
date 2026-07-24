@@ -3,7 +3,7 @@
   "ingredients": [
     {
       "type": "neoforge:single",
-      "amount": 1000,
+      "amount": 500,
       "fluid": "petrochem:steam"
     }
   ],

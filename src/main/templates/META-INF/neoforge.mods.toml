@@ -88,13 +88,12 @@ config="${mod_id}.mixins.json"
     ordering="NONE"
     side="BOTH"
 
-
 [[dependencies.${mod_id}]]
-modId="alloyed"
-type="required"
-versionRange="[2.1.0,)"
-ordering="NONE"
-side="BOTH"
+    modId="create"
+    type="required"
+    versionRange="[6.0.10,)"
+    ordering="NONE"
+    side="BOTH"
 
 
 # Features are specific properties of the game environment, that you may want to declare you require. This example declares

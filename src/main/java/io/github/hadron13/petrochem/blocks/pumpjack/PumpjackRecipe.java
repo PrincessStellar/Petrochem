@@ -5,12 +5,15 @@ import com.simibubi.create.content.kinetics.deployer.ItemApplicationRecipe;
 import com.simibubi.create.content.kinetics.deployer.ItemApplicationRecipeParams;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
+import dev.latvian.mods.kubejs.util.Tags;
 import io.github.hadron13.petrochem.register.PetrochemRecipeTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.crafting.RecipeInput;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
@@ -20,16 +23,24 @@ import net.neoforged.neoforge.fluids.FluidStack;
 public class PumpjackRecipe extends ProcessingRecipe<RecipeInput, PumpjackRecipeParams> {
 
     public ResourceKey<Biome> biome;
+    public TagKey<Biome> biome_tag;
     public float density;
 
     public PumpjackRecipe(PumpjackRecipeParams params) {
         super(PetrochemRecipeTypes.PUMPJACK, params);
-        biome = ResourceKey.create(Registries.BIOME, ResourceLocation.parse(params.biome));
+
+        if(params.biome.contains("#")){
+            biome_tag = Tags.biome(ResourceLocation.parse(params.biome.substring(1)));
+        }else{
+            biome = ResourceKey.create(Registries.BIOME, ResourceLocation.parse(params.biome));
+        }
     }
 
     public static boolean match(PumpjackWellBlockEntity be, PumpjackRecipe recipe){
+        if(recipe.biome_tag != null){
+            return be.getLevel().getBiome(be.getBlockPos()).is(recipe.biome_tag);
+        }
         return be.getLevel().getBiome(be.getBlockPos()).is(recipe.biome);
-
     }
 
     public FluidStack getFluidResult(){

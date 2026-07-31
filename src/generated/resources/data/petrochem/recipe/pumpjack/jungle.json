@@ -3,7 +3,7 @@
   "biome": "#minecraft:is_jungle",
   "results": [
     {
-      "amount": 60,
+      "amount": 100,
       "id": "petrochem:desalted_oil"
     }
   ]

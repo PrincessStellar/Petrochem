@@ -2,9 +2,9 @@
   "type": "petrochem:gasoline_engine_fuel",
   "ingredients": [
     {
-      "type": "neoforge:single",
+      "type": "neoforge:tag",
       "amount": 1,
-      "fluid": "petrochem:gasoline"
+      "tag": "c:gasoline"
     }
   ],
   "processing_time": 12,

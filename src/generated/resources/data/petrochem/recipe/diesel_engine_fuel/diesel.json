@@ -2,9 +2,9 @@
   "type": "petrochem:diesel_engine_fuel",
   "ingredients": [
     {
-      "type": "neoforge:single",
+      "type": "neoforge:tag",
       "amount": 1,
-      "fluid": "petrochem:diesel"
+      "tag": "c:diesel"
     }
   ],
   "processing_time": 5,

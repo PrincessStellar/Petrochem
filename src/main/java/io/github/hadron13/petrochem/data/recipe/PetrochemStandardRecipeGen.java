@@ -73,8 +73,6 @@ public class PetrochemStandardRecipeGen extends BaseRecipeProvider {
 		.viaShapeless(b -> b.requires(PetrochemBlocks.STEEL_BlOCK.get()));
 
 
-
-
     GeneratedRecipe STEEL_PIPE =
             create(PetrochemBlocks.STEEL_FLUID_PIPE).returns(6)
                     .unlockedBy(PetrochemItems.STEEL_SHEET::get)

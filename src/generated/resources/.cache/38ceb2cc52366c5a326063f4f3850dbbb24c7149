@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-15T10:42:00.936414277	Registrate Provider for petrochem [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (blocks), Tags (enchantments), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
+// 1.21.1	2026-07-31T19:01:56.624823883	Registrate Provider for petrochem [Registries, Data Maps, Recipes, Advancements, Loot Tables, Tags (blocks), Tags (enchantments), Tags (items), Tags (fluids), Tags (entity_types), generic_server_provider, Blockstates, Item models, Lang (en_us/en_ud), generic_client_provider]
 998bcd26022966bc3d97fe2502eac2b9a9bb1c29 assets/petrochem/blockstates/asphalt.json
 850e2a21ec92b0cd645bf1479e4db56abc58a863 assets/petrochem/blockstates/butane.json
 e133679180ad569f4c8e2839dd0af4cebb8c4967 assets/petrochem/blockstates/chlorine.json
@@ -192,6 +192,8 @@ e20d747d8b855457012fdfcc115e96d1816fb23f data/c/tags/block/storage_blocks/steel.
 4ba6863e071a9682a53fdb51ab8135fddfb1beee data/c/tags/fluid/crude_oil.json
 452cdffa36f611a0da3d0261205d110c4a88f6ab data/c/tags/fluid/diesel.json
 0daaf520b838ea3ba4feebe60fab6cb9484e0218 data/c/tags/fluid/gasoline.json
+efbd1af69374999e0bca046d4d7b160a9ef1440e data/c/tags/fluid/kerosene.json
+1d740cd87e5d8156d86d671e5aab010b82d73521 data/c/tags/fluid/lpg.json
 76bd29997f8d8d0c6ebcd8fb16c5ab2dedcad4a7 data/c/tags/item/ingots/bronze.json
 f9bc6980fefda9bc62785d62966a0b846afe0f74 data/c/tags/item/ingots/steel.json
 2d754ef59a42dfe8c5b2b2de329e36bf385fe921 data/c/tags/item/nuggets/tin.json

@@ -11,6 +11,7 @@ import net.neoforged.neoforge.fluids.FluidStack;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 public class EngineFuelRecipe extends StandardProcessingRecipe<RecipeInput> {
 
@@ -21,7 +22,10 @@ public class EngineFuelRecipe extends StandardProcessingRecipe<RecipeInput> {
         if(!validFuels.containsKey(typeInfo)){
             validFuels.put(typeInfo, new HashSet<>());
         }
-        validFuels.get(typeInfo).add(getFluidIngredients().getFirst().getFluids()[0].getFluid());
+        FluidStack[]fuels = getFluidIngredients().getFirst().getFluids();
+        for(FluidStack fluid : fuels){
+            validFuels.get(typeInfo).add(fluid.getFluid());
+        }
     }
 
     public static EngineFuelRecipe gasoline(ProcessingRecipeParams params) {

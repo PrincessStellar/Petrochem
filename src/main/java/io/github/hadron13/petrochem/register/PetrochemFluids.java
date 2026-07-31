@@ -90,7 +90,7 @@ public class PetrochemFluids {
     public static final FluidEntry<BaseFlowingFluid.Flowing> VOLATILE_GAS = gas("Volatile Gas", "volatile_gas", true);
     public static final FluidEntry<BaseFlowingFluid.Flowing> BUTANE = gas("Butane", true);
     public static final FluidEntry<BaseFlowingFluid.Flowing> PROPANE = gas("Propane", true);
-    public static final FluidEntry<BaseFlowingFluid.Flowing> LPG = gas("Lpg", false);
+    public static final FluidEntry<BaseFlowingFluid.Flowing> LPG = gas("Lpg", "lpg", false, PetrochemTags.FluidTags.LPG.tag);
     public static final FluidEntry<BaseFlowingFluid.Flowing> ETHYLENE = gas("Ethylene", true);
 
 
@@ -105,7 +105,7 @@ public class PetrochemFluids {
             HYDROCRACKED_GASOLINE = oillike("hydrocracked_gasoline", "Raw Gasoline", 0xa68d3f, true),
             UNTREATED_GASOLINE = oillike("untreated_gasoline", "Untreated Gasoline", 0xc49b21, true),
             GASOLINE = oillike("gasoline", "Refined Gasoline", 0xcfc254, false, PetrochemTags.FluidTags.GASOLINE.tag),
-            KEROSENE = oillike("kerosene", "Kerosene", 0x26a69a, false),
+            KEROSENE = oillike("kerosene", "Kerosene", 0x26a69a, false, PetrochemTags.FluidTags.KEROSENE.tag),
             DESULFURIZED_KEROSENE = oillike("desulfurized_kerosene", "Desulfurized Kerosene", 0x26a69a,true),
             LIGHT_DIESEL = oillike("light_diesel", "Light Diesel", 0xb58c4f, true),
             HEAVY_DIESEL = oillike("heavy_diesel", "Heavy Diesel", 0x856638, true),
@@ -125,14 +125,22 @@ public class PetrochemFluids {
         return gas(name, name.toLowerCase(), expert);
     }
 
-    public static FluidEntry<BaseFlowingFluid.Flowing> gas(String name, String id, boolean expert){
+    public static FluidEntry<BaseFlowingFluid.Flowing> gas(String name, String id, boolean expert) {
+        return gas(name, id, expert, null);
+    }
+    public static FluidEntry<BaseFlowingFluid.Flowing> gas(String name, String id, boolean expert, TagKey<Fluid> tag){
         if(expert) {
             PetrochemCreativeModeTabs.expert_fluid_ids.add(id);
             PetrochemCreativeModeTabs.expert_item_ids.add(id + "_bucket");
         }
-        return REGISTRATE
+        var builder = REGISTRATE
             .fluid(id, Petrochem.asResource("fluid/" + id + "_still"), Petrochem.asResource("fluid/" + id + "_flow"), TransparentFluidType::new)
-            .lang(name)
+            .lang(name);;;;
+
+        if(tag != null)
+            builder.tag(tag);
+
+        return    builder
             .properties(p -> p.viscosity(0).density(-100))
             .fluidProperties(p -> p.levelDecreasePerBlock(7)
                     .tickRate(1)
@@ -153,7 +161,7 @@ public class PetrochemFluids {
             PetrochemCreativeModeTabs.expert_fluid_ids.add(name.toLowerCase());
             PetrochemCreativeModeTabs.expert_item_ids.add(name.toLowerCase() + "_bucket");
         }
-        FluidBuilder<BaseFlowingFluid.Flowing, CreateRegistrate> builder = REGISTRATE.standardFluid(name,
+        var builder = REGISTRATE.standardFluid(name,
                         SolidRenderedPlaceableFluidType.create(fogColor,
                                 () -> 1f / 32f ))
                 .lang(lang);

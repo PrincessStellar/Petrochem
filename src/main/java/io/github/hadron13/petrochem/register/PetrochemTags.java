@@ -45,6 +45,8 @@ public class PetrochemTags {
     public enum FluidTags {
         CRUDE_OIL(COMMON),
         GASOLINE(COMMON),
+        LPG(COMMON),
+        KEROSENE(COMMON),
         DIESEL(COMMON);
 
         public final TagKey<Fluid> tag;

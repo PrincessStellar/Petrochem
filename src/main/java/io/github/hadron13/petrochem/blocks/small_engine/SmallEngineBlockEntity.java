@@ -239,6 +239,7 @@ public class SmallEngineBlockEntity extends GeneratingKineticBlockEntity {
         super.write(tag, registries, clientPacket);
         tag.putFloat("load", load);
         tag.putFloat("consumption", getConsumption());
+        tag.putFloat("modulator", speed_modulator);
     }
 
     @Override
@@ -246,6 +247,7 @@ public class SmallEngineBlockEntity extends GeneratingKineticBlockEntity {
         super.read(tag, registries, clientPacket);
         load = tag.getFloat("load");
         consumption = tag.getFloat("consumption");
+        speed_modulator = tag.getFloat("modulator");
     }
 
 }

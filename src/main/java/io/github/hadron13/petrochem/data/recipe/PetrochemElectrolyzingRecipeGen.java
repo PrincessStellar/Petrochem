@@ -4,6 +4,7 @@ import io.github.hadron13.petrochem.Petrochem;
 import io.github.hadron13.petrochem.data.recipe.base.ElectrolyzingRecipeGen;
 import io.github.hadron13.petrochem.register.PetrochemFluids;
 import io.github.hadron13.petrochem.register.PetrochemItems;
+import io.github.hadron13.petrochem.register.PetrochemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.material.Fluids;
@@ -14,7 +15,7 @@ public class PetrochemElectrolyzingRecipeGen extends ElectrolyzingRecipeGen {
 
     GeneratedRecipe BASIC_DESALTED_OIL = create("basic_desalting", b -> b
             .energy(100)
-            .require(PetrochemFluids.PETROLEUM.get(), 500)
+            .require(PetrochemTags.FluidTags.CRUDE_OIL.tag, 500)
             .output(PetrochemFluids.DESALTED_OIL.get(), 500)
             .output(0.5f, PetrochemItems.SALT_DUST)
             .whenModMissing(Petrochem.REALISTIC_MODID)

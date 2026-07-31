@@ -7,6 +7,7 @@ import io.github.hadron13.petrochem.Petrochem;
 import io.github.hadron13.petrochem.blocks.small_engine.EngineFuelRecipe;
 import io.github.hadron13.petrochem.register.PetrochemFluids;
 import io.github.hadron13.petrochem.register.PetrochemRecipeTypes;
+import io.github.hadron13.petrochem.register.PetrochemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 
@@ -15,12 +16,12 @@ import java.util.concurrent.CompletableFuture;
 public class PetrochemGasolineEngineRecipeGen extends StandardProcessingRecipeGen<EngineFuelRecipe> {
 
     GeneratedRecipe STANDARD_GASOLINE = create("gasoline", b -> b
-            .require(PetrochemFluids.GASOLINE.get(), 1)
+            .require(PetrochemTags.FluidTags.GASOLINE.tag, 1)
             .duration(12)
     );
 
     GeneratedRecipe STANDARD_KEROSENE = create("kerosene", b -> b
-            .require(PetrochemFluids.KEROSENE.get(), 1)
+            .require(PetrochemTags.FluidTags.KEROSENE.tag, 1)
             .duration(15)
     );
 

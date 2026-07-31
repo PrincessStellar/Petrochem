@@ -7,6 +7,7 @@ import io.github.hadron13.petrochem.Petrochem;
 import io.github.hadron13.petrochem.blocks.small_engine.EngineFuelRecipe;
 import io.github.hadron13.petrochem.register.PetrochemFluids;
 import io.github.hadron13.petrochem.register.PetrochemRecipeTypes;
+import io.github.hadron13.petrochem.register.PetrochemTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 
@@ -16,7 +17,7 @@ public class PetrochemDieselEngineRecipeGen extends StandardProcessingRecipeGen<
 
 
     GeneratedRecipe standard_diesel = create("diesel", b -> b
-            .require(PetrochemFluids.REFINED_DIESEL.get(), 1)
+            .require(PetrochemTags.FluidTags.DIESEL.tag, 1)
             .duration(5)
     );
 

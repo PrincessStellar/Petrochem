@@ -74,7 +74,7 @@ public class MediumEngineBlockEntity extends SteamEngineBlockEntity implements I
 
     public MediumEngineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
-        setLazyTickRate(5);
+        setLazyTickRate(10);
     }
 
     @Override
@@ -148,10 +148,12 @@ public class MediumEngineBlockEntity extends SteamEngineBlockEntity implements I
             facing = blockState.getValue(MediumEngineBlock.FACING);
 
 
-        float efficiency = currentFuel != null && !redstoneDisabled? 1.0f : 0.0f;
+        if(currentFuel == null || redstoneDisabled){
+            shaft.update(worldPosition, 0, 0);
+            return;
+        }
 
-        int rotationSpeed =
-                efficiency == 0 ? 1 : verticalTarget ? 1 : (int) GeneratingKineticBlockEntity.convertToDirection(1, facing);
+        int rotationSpeed = verticalTarget ? 1 : (int) GeneratingKineticBlockEntity.convertToDirection(1, facing);
         if (targetAxis == Direction.Axis.Z)
             rotationSpeed *= -1;
 
@@ -161,7 +163,7 @@ public class MediumEngineBlockEntity extends SteamEngineBlockEntity implements I
             rotationSpeed *= -1;
         }
 
-        shaft.update(worldPosition, rotationSpeed * targetSpeed.getValue(), efficiency / Mth.abs(targetSpeed.getValue()));
+        shaft.update(worldPosition, rotationSpeed * targetSpeed.getValue(), 1.0f);
     }
 
 
@@ -377,6 +379,7 @@ public class MediumEngineBlockEntity extends SteamEngineBlockEntity implements I
         super.write(tag, registries, clientPacket);
         tag.putFloat("load", load);
         tag.putFloat("consumption", getConsumption());
+        tag.putBoolean("disabled", redstoneDisabled);
     }
 
     @Override
@@ -384,6 +387,7 @@ public class MediumEngineBlockEntity extends SteamEngineBlockEntity implements I
         super.read(tag, registries, clientPacket);
         load = tag.getFloat("load");
         consumption = tag.getFloat("consumption");
+        redstoneDisabled = tag.getBoolean("disabled");
     }
 
     @Override

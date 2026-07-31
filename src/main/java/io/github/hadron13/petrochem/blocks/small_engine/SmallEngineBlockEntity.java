@@ -170,7 +170,6 @@ public class SmallEngineBlockEntity extends GeneratingKineticBlockEntity {
 
     @Override
     public float calculateAddedStressCapacity() {
-//        return super.calculateAddedStressCapacity();
         float speed = getGeneratedSpeed();
         if(speed == 0.0)
             return 0;
